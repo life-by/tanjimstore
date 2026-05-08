@@ -1,0 +1,153 @@
+{
+  "store": {
+    "name": "আমার দোকান",
+    "tagline": "সেরা পণ্য, সেরা দাম",
+    "whatsapp": "8801401615822",
+    "currency": "৳",
+    "hero_image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg"
+  },
+  "offers": [
+    {
+      "id": 1,
+      "text": "  ১হাজার এর ক্রয় করলে ২০টাকা ছাড়",
+      "color": "#ff6b6b"
+    }
+  ],
+  "categories": [
+    {
+      "id": "চাল, ডাল ও আটা",
+      "name": "চাল, ডাল ও আটা",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    },
+    {
+      "id": "তেল ও মশলা",
+      "name": "তেল ও মশলা",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    },
+    {
+      "id": "সবজি",
+      "name": "সবজি",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    },
+    {
+      "id": "বেকারি",
+      "name": "বেকারি",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    },
+    {
+      "id": "স্ন্যাকস",
+      "name": "স্ন্যাকস",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    },
+    {
+      "id": "cat_1501",
+      "name": "পানীয়",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    },
+    {
+      "id": "cat_5987",
+      "name": "দুগ্ধজাত পণ্য",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    },
+    {
+      "id": "cat_3004",
+      "name": "পার্সোনাল কেয়ার",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    },
+    {
+      "id": "cat_8784",
+      "name": "ঘর পরিষ্কার ও লন্ড্রি",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    },
+    {
+      "id": "cat_7999",
+      "name": "শিশু খাদ্য ও যত্ন",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    },
+    {
+      "id": "cat_4459",
+      "name": "কম্বো ও স্পেশাল অফার",
+      "icon": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "subcategories": []
+    }
+  ],
+  "products": [
+    {
+      "id": 1777824776617,
+      "name": "মিনিকেট চাল",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "description": "",
+      "tags": [
+        "চাল",
+        "চাউল"
+      ],
+      "variants": [
+        {
+          "unit": "1-কেজি",
+          "price": 75,
+          "offer_price": 70
+        },
+        {
+          "unit": "2-কেজি",
+          "price": 150,
+          "offer_price": 140
+        },
+        {
+          "unit": "5-কেজি",
+          "price": 450,
+          "offer_price": 430
+        },
+        {
+          "unit": "25-কেজি",
+          "price": 2000,
+          "offer_price": 1900
+        }
+      ],
+      "price": 75,
+      "offer_price": 70
+    },
+    {
+      "id": 1777826410930,
+      "name": "ডাল",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-12.jpeg",
+      "description": "",
+      "tags": [
+        "ডাল",
+        "ডাইল"
+      ],
+      "variants": [
+        {
+          "unit": "250-গ্রাম",
+          "price": 30,
+          "offer_price": 28
+        },
+        {
+          "unit": "500-গ্রাম",
+          "price": 60,
+          "offer_price": 54
+        },
+        {
+          "unit": "1-কেজি",
+          "price": 120,
+          "offer_price": 112
+        }
+      ],
+      "price": 30,
+      "offer_price": 28
+    }
+  ]
+}
