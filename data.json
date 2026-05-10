@@ -9,7 +9,7 @@
   "offers": [
     {
       "id": 1,
-      "text": "আমার দোকানে সাগতম",
+      "text": "১হাজার এর ক্রয় করলে ২০টাকা ছাড়",
       "color": "#ff6b6b"
     }
   ],
@@ -82,6 +82,38 @@
     }
   ],
   "products": [
+    {
+      "id": 1778429541577,
+      "name": "তেল",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-2.png",
+      "description": "সোয়াবিন তেল",
+      "tags": [
+        "তেল",
+        "তৈল",
+        "সোয়াবিন তেল"
+      ],
+      "variants": [
+        {
+          "unit": "1 কেজি",
+          "price": 200,
+          "offer_price": 195
+        },
+        {
+          "unit": "3কেজি",
+          "price": 600,
+          "offer_price": 175
+        },
+        {
+          "unit": "5কেজি",
+          "price": 1000,
+          "offer_price": 960
+        }
+      ],
+      "price": 200,
+      "offer_price": 195
+    },
     {
       "id": 1777824776617,
       "name": "মিনিকেট চাল",
