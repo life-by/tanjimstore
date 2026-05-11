@@ -37,17 +37,15 @@
     .search-input::placeholder { color: rgba(255,255,255,0.65); }
     .search-input:focus { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.7); }
 
-    /* Category Grid Layout (UPDATED) */
+    /* Category Grid Layout */
     .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
     @media (max-width: 480px) { .category-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; } }
-    .category-card { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; background: white; border: 2px solid transparent; border-radius: 12px; padding: 8px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.25s; }
+    .category-card { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; background: white; border: 2px solid transparent; border-radius: 12px; padding: 10px 4px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.25s; }
     .category-card:hover { background: #f8f9ff; border-color: var(--primary); box-shadow: 0 4px 12px rgba(108,99,255,0.15); transform: translateY(-2px); }
-    
-    /* ছবি এখন বক্সের ১০০% জায়গা নেবে */
-    .category-card-img { width: 100%; aspect-ratio: 1 / 1; border-radius: 10px; flex-shrink: 0; background: #f0f4ff; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; overflow: hidden; }
+    .category-card-img { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; background: #f0f4ff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; overflow: hidden; }
     .category-card-img img { width: 100%; height: 100%; object-fit: cover; }
     .category-card-text { font-size: 0.75rem; font-weight: 700; color: var(--text); line-height: 1.2; }
-    @media (max-width: 480px) { .category-card-text { font-size: 0.65rem; } }
+    @media (max-width: 480px) { .category-card-img { width: 70px; height: 70px; } .category-card-text { font-size: 0.65rem; } }
 
     /* Sub-category Tabs */
     .cat-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; border: 2px solid #e5e7eb; background: white; color: var(--muted); font-weight: 500; font-size: 0.8rem; cursor: pointer; transition: all 0.25s; white-space: nowrap; }
@@ -169,7 +167,7 @@
 <!-- Main Content -->
 <main class="max-w-6xl mx-auto px-4 py-6">
   <div id="homeContentWrapper">
-    <!-- Hero Banner -->
+    <!-- Hero Banner (Updated text color & image constraint) -->
     <div class="hero-banner mb-6 flex flex-col sm:flex-row items-center justify-between">
       <div class="relative z-10 flex-1 w-full text-center sm:text-left mb-4 sm:mb-0">
         <p class="text-gray-800 font-semibold text-sm mb-1">স্বাগতম!</p>
@@ -177,6 +175,7 @@
         <p class="text-gray-700 font-medium text-sm mb-4" id="heroBannerSub">সেরা মানের পণ্য, সাশ্রয়ী মূল্যে। আজই অর্ডার করুন!</p>
         <button onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})" class="bg-white text-purple-700 font-bold px-5 py-2 rounded-full text-sm hover:shadow-lg transition inline-block">🛍️ কেনাকাটা শুরু করুন</button>
       </div>
+      <!-- Fixed Size Image (16:9 YouTube Banner Style) -->
       <div id="heroImageContainer" class="relative z-10 hidden sm:block w-full sm:w-1/2 flex justify-center sm:justify-end">
         <img id="heroImage" src="" alt="Offer" class="w-full aspect-video object-cover rounded-xl drop-shadow-md">
       </div>
@@ -237,7 +236,7 @@
   </div>
 </div>
 
-<!-- Customer Info Modal -->
+<!-- Customer Info Modal (Checkout Form) -->
 <div class="info-modal-overlay" id="infoModalOverlay">
   <div class="info-modal" id="infoModal">
     <h2 class="text-xl font-bold mb-2 text-gray-800">অর্ডারের তথ্য</h2>
@@ -330,6 +329,7 @@
   let waNumber = '';
   let searchHistory = JSON.parse(localStorage.getItem('myShopSearchHistory')) || [];
 
+  // Quick View State
   let qvCurrentProduct = null;
   let qvCurrentQty = 1;
   let qvSelectedVariantIndex = 0;
@@ -360,6 +360,7 @@
     buildOfferBar(); buildCategoryTabs(); loadCart(); renderProducts();
   }
 
+  // --- Search ---
   function processSearch(val) {
     searchQuery = val.toLowerCase();
     const dInput = document.getElementById('searchInput'); const mInput = document.getElementById('mobileSearchInput');
@@ -394,13 +395,14 @@
   document.addEventListener('click', (e) => { const dCont = document.getElementById('searchContainerDesktop'); const mCont = document.getElementById('searchContainerMobile'); if (dCont && !dCont.contains(e.target) && mCont && !mCont.contains(e.target)) closeSearchDropdowns(); });
   function handleSearchKeydown(e) { if (e.key === 'Enter') { saveToHistory(e.target.value); closeSearchDropdowns(); } }
 
+  // --- Cart System ---
   function saveCart() { localStorage.setItem('myShopCart', JSON.stringify(cart)); }
   function loadCart() { const saved = localStorage.getItem('myShopCart'); if (saved) { try { cart = JSON.parse(saved); updateCartUI(); } catch(e){} } }
   function buildOfferBar() { const track = document.getElementById('marqueeTrack'); const offers = storeData.offers || []; track.innerHTML = [...offers, ...offers].map(o => `<span class="offer-item" style="border-left:3px solid ${o.color}">${o.text}</span>`).join(''); }
 
   function buildCategoryTabs() {
     const tabs = document.getElementById('categoryTabs'); const cats = storeData.categories || [];
-    let html = `<div class="category-card active" data-cat="all" onclick="filterCategory('all')"><div class="category-card-img">🏪</div><div class="category-card-text">সব পণ্য</div></div>`;
+    let html = `<div class="category-card active" data-cat="all" onclick="filterCategory('all')"><div class="category-card-img text-2xl">🏪</div><div class="category-card-text">সব পণ্য</div></div>`;
     cats.forEach(c => {
       let iconDisplay = c.icon || '📁'; if (c.icon && c.icon.startsWith('http')) iconDisplay = `<img src="${c.icon}" alt="${c.name}" loading="lazy">`;
       html += `<div class="category-card" data-cat="${c.id}" onclick="filterCategory('${c.id}')"><div class="category-card-img">${iconDisplay}</div><div class="category-card-text">${c.name}</div></div>`;
@@ -493,6 +495,7 @@
       </div>`;
   }
 
+  // === Quick View Logic ===
   function openQuickView(productId) {
     const p = storeData.products.find(x => x.id === productId);
     if (!p) return;
@@ -519,12 +522,13 @@
   function closeQuickView(e) { if (e && e.target !== document.getElementById('quickViewOverlay')) return; document.getElementById('quickViewOverlay').classList.remove('open'); document.body.style.overflow = ''; }
   function changeQvVariant(index) { qvSelectedVariantIndex = parseInt(index); updateQvPriceDisplay(); }
 
+  // --- UPDATED: Price also updates with quantity change ---
   function updateQvPriceDisplay() {
     const p = qvCurrentProduct;
     const v = (p.variants && p.variants.length > 0) ? p.variants[qvSelectedVariantIndex] : p;
     const hasOffer = v.offer_price && v.offer_price < v.price;
     const dp = hasOffer ? v.offer_price : v.price;
-    const total = dp * qvCurrentQty; 
+    const total = dp * qvCurrentQty; // Calculate total based on quantity
     
     let html = '';
     if (hasOffer) html += `<span class="text-gray-400 text-lg line-through mr-2">${currency}${(v.price * qvCurrentQty).toLocaleString('bn-BD')}</span>`;
@@ -536,7 +540,7 @@
     else badgeContainer.innerHTML = '';
     document.getElementById('qvAddToCartBtn').onclick = () => { addQvToCart(); closeQuickView(); };
   }
-  function changeQvQty(delta) { qvCurrentQty = Math.max(1, qvCurrentQty + delta); document.getElementById('qvQtyDisplay').textContent = qvCurrentQty; updateQvPriceDisplay(); } 
+  function changeQvQty(delta) { qvCurrentQty = Math.max(1, qvCurrentQty + delta); document.getElementById('qvQtyDisplay').textContent = qvCurrentQty; updateQvPriceDisplay(); } // Update price on qty change
 
   function addQvToCart() {
     const p = qvCurrentProduct; const v = (p.variants && p.variants.length > 0) ? p.variants[qvSelectedVariantIndex] : null;
@@ -558,6 +562,7 @@
     document.getElementById('cartFooter').style.display = cart.length > 0 ? 'block' : 'none';
   }
 
+  // --- UPDATED: Item-specific total price in cart ---
   function renderCartItems() {
     const list = document.getElementById('cartItemsList');
     if (cart.length === 0) { list.innerHTML = `<div class="empty-cart"><div style="font-size:4rem">🛒</div><p class="font-semibold text-lg">কার্ট খালি আছে</p></div>`; return; }
@@ -584,6 +589,7 @@
   function changeQty(cartId, delta) { const item = cart.find(c => c.cartId === cartId); if (!item) return; item.qty = Math.max(1, item.qty + delta); updateCartUI(); renderCartItems(); saveCart(); }
   function clearCart() { cart = []; updateCartUI(); renderCartItems(); showToast('🗑️ কার্ট পরিষ্কার করা হয়েছে'); saveCart(); }
 
+  // ===== Telegram Orders & Invoice =====
   function openInfoModal() { if (cart.length === 0) return showToast('কার্টে কোনো পণ্য নেই!'); document.getElementById('infoModalOverlay').classList.add('open'); if(document.getElementById('cartPanel').classList.contains('open')) toggleCart(); }
   function closeInfoModal() { document.getElementById('infoModalOverlay').classList.remove('open'); }
   
@@ -643,6 +649,7 @@
   }
   function closeInvoiceModal() { document.getElementById('invoiceModalOverlay').classList.remove('open'); }
 
+  // --- My Orders History Logic ---
   function saveOrderToHistory(orderObject) { let orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; orders.unshift(orderObject); localStorage.setItem('myShopOrders', JSON.stringify(orders)); }
   function openMyOrdersModal() { renderMyOrdersList(); document.getElementById('myOrdersOverlay').classList.add('open'); }
   function closeMyOrdersModal(e) { if (!e || e.target.id === 'myOrdersOverlay') document.getElementById('myOrdersOverlay').classList.remove('open'); }
@@ -678,6 +685,7 @@
     }
   }
 
+  // --- Fixed Toast Auto-hide Logic ---
   let toastTimer;
   function showToast(msg) { 
     const t = document.getElementById('toast'); 
