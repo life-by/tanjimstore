@@ -1,9 +1,8 @@
-
 {
   "name": "আমার দোকান",
   "short_name": "দোকান",
   "description": "সেরা মানের পণ্য, সাশ্রয়ী মূল্যে",
-  "start_url": "index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F0F4FF",
   "theme_color": "#6C63FF",
