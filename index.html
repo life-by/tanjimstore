@@ -121,12 +121,15 @@
     
     @media (max-width: 640px) { body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); } }
 
-    /* PWA Install Button Visibility */
-    #installAppBtnDesktop { display: none; }
-    #installAppBtnMobile { display: none; }
-    body.pwa-ready #installAppBtnDesktop { display: flex; }
-    body.pwa-ready #installAppBtnMobile { display: flex; }
-    @media (max-width: 639px) { body.pwa-ready #installAppBtnDesktop { display: none !important; } }
+    /* PWA Install Button Visibility (Always visible on web, hidden in App) */
+    #installAppBtnDesktop { display: flex; }
+    #installAppBtnMobile { display: flex; }
+    @media (max-width: 639px) { #installAppBtnDesktop { display: none !important; } }
+    
+    /* Hide buttons completely if the app is already installed and running as standalone */
+    @media all and (display-mode: standalone) {
+      #installAppBtnDesktop, #installAppBtnMobile { display: none !important; }
+    }
 
     /* Quick View Modal */
     .quick-view-box { background: white; border-radius: 20px; width: 90%; max-width: 800px; display: flex; overflow: hidden; transform: scale(0.95); transition: transform 0.3s; max-height: 90vh; margin: auto;}
