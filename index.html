@@ -2,8 +2,8 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8" />
-  <!-- UI Perfect for all devices (iPhone notch support) -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <!-- UI Perfect for all devices (iPhone notch support & no horizontal scroll) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   
   <!-- PWA Meta Tags (App Support) -->
   <link rel="manifest" href="manifest.json">
@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg">
   
-  <!-- Speed Optimization (Preconnect) -->
+  <!-- Speed Optimization -->
   <link rel="preconnect" href="https://raw.githubusercontent.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +22,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   
   <style>
+    /* Fixed Horizontal Scroll Issue */
+    html, body { max-width: 100vw; overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+    
     * { font-family: 'Hind Siliguri', sans-serif; -webkit-tap-highlight-color: transparent; }
 
     :root {
@@ -39,7 +43,7 @@
     body { background: var(--bg); color: var(--text); }
 
     /* Marquee Offer Bar */
-    .offer-bar { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); overflow: hidden; padding: 0; position: relative; }
+    .offer-bar { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); overflow: hidden; padding: 0; position: relative; width: 100%; }
     .marquee-wrapper { display: flex; width: 100%; overflow: hidden; }
     .marquee-track { display: flex; gap: 60px; animation: marquee 30s linear infinite; white-space: nowrap; padding: 10px 0; }
     .marquee-track:hover { animation-play-state: paused; }
@@ -47,8 +51,8 @@
     .offer-item { display: inline-flex; align-items: center; gap: 8px; color: white; font-size: 0.88rem; font-weight: 500; padding: 2px 18px; border-radius: 20px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
 
     /* Header */
-    .site-header { background: linear-gradient(135deg, #6C63FF 0%, #5A52D5 100%); box-shadow: 0 4px 20px rgba(108,99,255,0.35); position: sticky; top: 0; z-index: 100; }
-    .search-input { background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.35); color: white; border-radius: 12px; padding: 8px 16px; outline: none; transition: all 0.3s; }
+    .site-header { background: linear-gradient(135deg, #6C63FF 0%, #5A52D5 100%); box-shadow: 0 4px 20px rgba(108,99,255,0.35); position: sticky; top: 0; z-index: 100; width: 100%; }
+    .search-input { background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.35); color: white; border-radius: 12px; padding: 8px 16px; outline: none; transition: all 0.3s; width: 100%; }
     .search-input::placeholder { color: rgba(255,255,255,0.65); }
     .search-input:focus { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.7); }
 
@@ -60,18 +64,19 @@
     .category-card-img { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; background: #f0f4ff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; overflow: hidden; }
     .category-card-img img { width: 100%; height: 100%; object-fit: cover; }
     .category-card-text { font-size: 0.75rem; font-weight: 700; color: var(--text); line-height: 1.2; }
-    @media (max-width: 480px) { .category-card-img { width: 70px; height: 70px; } .category-card-text { font-size: 0.65rem; } }
+    @media (max-width: 480px) { .category-card-img { width: 60px; height: 60px; } .category-card-text { font-size: 0.65rem; } }
 
     /* Sub-category Tabs */
     .cat-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; border: 2px solid #e5e7eb; background: white; color: var(--muted); font-weight: 500; font-size: 0.8rem; cursor: pointer; transition: all 0.25s; white-space: nowrap; }
     .cat-btn:hover, .cat-btn.active { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 4px 14px rgba(108,99,255,0.35); }
-    .cat-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .cat-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; width: 100%; }
     .cat-scroll::-webkit-scrollbar { display: none; }
 
     /* Product Card */
-    .product-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); transition: transform 0.28s, box-shadow 0.28s; display: flex; flex-direction: column; cursor: pointer; }
+    .product-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); transition: transform 0.28s, box-shadow 0.28s; display: flex; flex-direction: column; cursor: pointer; width: 100%; }
     .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(108,99,255,0.15); }
-    .product-img-wrap { position: relative; overflow: hidden; height: 180px; }
+    .product-img-wrap { position: relative; overflow: hidden; height: 160px; }
+    @media (min-width: 640px) { .product-img-wrap { height: 180px; } }
     .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .product-card:hover .product-img-wrap img { transform: scale(1.06); }
     .badge-offer { position: absolute; top: 10px; right: 10px; background: var(--accent); color: white; font-size: 0.75rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; z-index: 10;}
@@ -81,10 +86,6 @@
     .variant-select { width: 100%; padding: 6px 8px; margin-bottom: 10px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 0.85rem; font-weight: 600; color: var(--text); background: #f9fafb; outline: none; cursor: pointer; }
     .variant-select:focus { border-color: var(--primary); }
 
-    /* Buttons */
-    .btn-cart { flex: 1; background: linear-gradient(135deg, #6C63FF, #5A52D5); color: white; border: none; border-radius: 10px; padding: 9px 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.25s; display: flex; align-items: center; justify-content: center; gap: 4px; }
-    .btn-cart:hover { background: linear-gradient(135deg, #5A52D5, #4840c0); box-shadow: 0 4px 14px rgba(108,99,255,0.4); }
-    
     /* Cart Panel & Badges */
     .cart-overlay, .info-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .cart-overlay.open, .info-modal-overlay.open { opacity: 1; pointer-events: all; }
@@ -99,7 +100,7 @@
     .cart-badge { background: var(--accent); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; position: absolute; top: -6px; right: -6px; }
 
     /* Modals & Layout Tweaks */
-    .info-modal { background: white; padding: 24px; border-radius: 16px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: scale(0.95); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; }
+    .info-modal { background: white; padding: 24px; border-radius: 16px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: scale(0.95); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; margin: auto; }
     .info-modal-overlay.open .info-modal { transform: scale(1); }
     .modal-input { width: 100%; border: 1.5px solid #d1d5db; border-radius: 8px; padding: 10px; margin-top: 4px; font-size: 0.9rem; }
     .modal-input:focus { border-color: var(--primary); outline: none; }
@@ -113,15 +114,22 @@
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
     /* Mobile Bottom App Bar */
-    .bottom-app-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-around; padding: 8px 0; z-index: 90; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
+    .bottom-app-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-around; padding: 8px 0; z-index: 90; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); padding-bottom: calc(8px + env(safe-area-inset-bottom)); width: 100vw; }
     .app-bar-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #6b7280; font-size: 0.7rem; font-weight: 600; cursor: pointer; position: relative; width: 60px;}
     .app-bar-item.active { color: var(--primary); }
     .app-bar-item svg { width: 22px; height: 22px; }
     
     @media (max-width: 640px) { body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); } }
 
+    /* PWA Install Button Visibility */
+    #installAppBtnDesktop { display: none; }
+    #installAppBtnMobile { display: none; }
+    body.pwa-ready #installAppBtnDesktop { display: flex; }
+    body.pwa-ready #installAppBtnMobile { display: flex; }
+    @media (max-width: 639px) { body.pwa-ready #installAppBtnDesktop { display: none !important; } }
+
     /* Quick View Modal */
-    .quick-view-box { background: white; border-radius: 20px; width: 90%; max-width: 800px; display: flex; overflow: hidden; transform: scale(0.95); transition: transform 0.3s; max-height: 90vh;}
+    .quick-view-box { background: white; border-radius: 20px; width: 90%; max-width: 800px; display: flex; overflow: hidden; transform: scale(0.95); transition: transform 0.3s; max-height: 90vh; margin: auto;}
     .info-modal-overlay.open .quick-view-box { transform: scale(1); }
     .qv-img-sec { flex: 1; background: #f8f9ff; display: flex; align-items: center; justify-content: center; overflow: hidden;}
     .qv-img-sec img { width: 100%; height: 100%; object-fit: cover; }
@@ -129,7 +137,7 @@
     @media (max-width: 768px) { .quick-view-box { flex-direction: column; overflow-y: auto;} .qv-img-sec { height: 250px; flex: none; } .qv-info-sec { padding: 20px; } }
     
     /* Invoice & My Orders Modal */
-    .invoice-box { background: #fff; padding: 25px; border-radius: 12px; width: 95%; max-width: 400px; font-family: 'Courier New', Courier, monospace; position: relative; transform: scale(0.95); transition: transform 0.3s; background-image: radial-gradient(circle at 10px 0, transparent 10px, white 11px); background-size: 20px 10px; background-repeat: repeat-x; background-position: top; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15)); max-height: 90vh; overflow-y: auto;}
+    .invoice-box { background: #fff; padding: 25px; border-radius: 12px; width: 95%; max-width: 400px; font-family: 'Courier New', Courier, monospace; position: relative; transform: scale(0.95); transition: transform 0.3s; background-image: radial-gradient(circle at 10px 0, transparent 10px, white 11px); background-size: 20px 10px; background-repeat: repeat-x; background-position: top; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15)); max-height: 90vh; overflow-y: auto; margin: auto;}
     .info-modal-overlay.open .invoice-box { transform: scale(1); }
     .inv-header { text-align: center; border-bottom: 2px dashed #d1d5db; padding-bottom: 15px; margin-bottom: 15px; }
     .inv-item { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px; color: #374151;}
@@ -140,7 +148,7 @@
     .inv-item-img { width: 32px; height: 32px; border-radius: 4px; object-fit: cover;}
 
     /* Misc Grids */
-    .grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; }
+    .grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; width: 100%; }
     @media (max-width: 480px) { .grid-products { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
   </style>
 </head>
@@ -154,14 +162,19 @@
 <!-- Header -->
 <header class="site-header">
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
-    <div class="flex-1">
-      <h1 class="text-white text-xl font-bold leading-tight" id="storeName">আমার দোকান</h1>
-      <p class="text-purple-200 text-xs" id="storeTagline">সেরা পণ্য, সেরা দাম</p>
+    <div class="flex-1 min-w-0">
+      <h1 class="text-white text-xl font-bold leading-tight truncate" id="storeName">আমার দোকান</h1>
+      <p class="text-purple-200 text-xs truncate" id="storeTagline">সেরা পণ্য, সেরা দাম</p>
     </div>
     
+    <!-- PWA Desktop Install Button -->
+    <button id="installAppBtnDesktop" onclick="installPWA()" class="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-3 py-2 rounded-lg text-xs font-bold shadow-md transition items-center gap-1 cursor-pointer">
+      📱 অ্যাপ ইনস্টল
+    </button>
+
     <!-- Desktop Search -->
     <div class="flex-1 max-w-xs hidden sm:block relative" id="searchContainerDesktop">
-      <input type="text" class="search-input w-full text-sm" placeholder="🔍 পণ্য খুঁজুন..." id="searchInput" autocomplete="off" onfocus="renderSearchDropdown(this.value)" oninput="processSearch(this.value)" onkeydown="handleSearchKeydown(event)" />
+      <input type="text" class="search-input text-sm" placeholder="🔍 পণ্য খুঁজুন..." id="searchInput" autocomplete="off" onfocus="renderSearchDropdown(this.value)" oninput="processSearch(this.value)" onkeydown="handleSearchKeydown(event)" />
       <div id="searchDropdownDesktop" class="absolute top-full mt-2 left-0 right-0 bg-white rounded-xl shadow-2xl border border-gray-100 hidden z-50 max-h-80 overflow-y-auto text-left text-gray-800"></div>
     </div>
 
@@ -174,13 +187,13 @@
   
   <!-- Mobile Search -->
   <div class="px-4 pb-3 sm:hidden relative" id="searchContainerMobile">
-    <input type="text" class="search-input w-full text-sm" placeholder="🔍 পণ্য খুঁজুন..." id="mobileSearchInput" autocomplete="off" onfocus="renderSearchDropdown(this.value)" oninput="processSearch(this.value)" onkeydown="handleSearchKeydown(event)" />
+    <input type="text" class="search-input text-sm" placeholder="🔍 পণ্য খুঁজুন..." id="mobileSearchInput" autocomplete="off" onfocus="renderSearchDropdown(this.value)" oninput="processSearch(this.value)" onkeydown="handleSearchKeydown(event)" />
     <div id="searchDropdownMobile" class="absolute top-full mt-1 left-4 right-4 bg-white rounded-xl shadow-2xl border border-gray-100 hidden z-50 max-h-64 overflow-y-auto text-left text-gray-800"></div>
   </div>
 </header>
 
 <!-- Main Content -->
-<main class="max-w-6xl mx-auto px-4 py-6">
+<main class="max-w-6xl mx-auto px-4 py-6 w-full">
   <div id="homeContentWrapper">
     <!-- Hero Banner -->
     <div class="hero-banner mb-6 flex flex-col sm:flex-row items-center justify-between">
@@ -229,7 +242,13 @@
   </div>
   <div class="app-bar-item" onclick="openMyOrdersModal()">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
-    <span>আমার অর্ডার</span>
+    <span>অর্ডার</span>
+  </div>
+  
+  <!-- PWA Mobile Install Button -->
+  <div class="app-bar-item" id="installAppBtnMobile" onclick="installPWA()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#e11d48"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+    <span class="text-rose-600 font-bold">ইনস্টল</span>
   </div>
 </div>
 
@@ -250,7 +269,7 @@
   </div>
 </div>
 
-<!-- Customer Info Modal (Checkout Form UPDATED) -->
+<!-- Customer Info Modal (Checkout Form) -->
 <div class="info-modal-overlay" id="infoModalOverlay">
   <div class="info-modal" id="infoModal">
     <h2 class="text-xl font-bold mb-2 text-gray-800">অর্ডারের তথ্য</h2>
@@ -309,7 +328,7 @@
   </div>
 </div>
 
-<!-- Smart Invoice Modal (UPDATED WITH CONTACT INFO) -->
+<!-- Smart Invoice Modal -->
 <div class="info-modal-overlay" id="invoiceModalOverlay">
   <div class="invoice-box" id="invoiceBox">
     <div class="inv-header">
@@ -326,7 +345,6 @@
     <div id="invItemsList" class="mb-2 max-h-48 overflow-y-auto pr-2"></div>
     <div class="inv-total"><span>সর্বমোট বিল:</span><span id="invTotalAmt"></span></div>
     
-    <!-- Contact Info Section Added -->
     <div class="mt-4 p-3 bg-indigo-50 rounded-lg text-center border border-indigo-100">
        <p class="text-xs text-gray-700 mb-2 font-bold">অর্ডার সম্পর্কে বিস্তারিত জানতে কল বা মেসেজ করুন:</p>
        <div class="flex gap-2 justify-center">
@@ -366,10 +384,36 @@
   let waNumber = '';
   let searchHistory = JSON.parse(localStorage.getItem('myShopSearchHistory')) || [];
 
-  // Quick View State
   let qvCurrentProduct = null;
   let qvCurrentQty = 1;
   let qvSelectedVariantIndex = 0;
+
+  // --- PWA Install App Logic ---
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.body.classList.add('pwa-ready'); // Shows the install buttons via CSS
+  });
+
+  async function installPWA() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('App Installed Successfully');
+        document.body.classList.remove('pwa-ready'); // Hide buttons after install
+      }
+      deferredPrompt = null;
+    }
+  }
+
+  // PWA Service Worker Registration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').then(reg => console.log('App ready for offline/installation')).catch(err => console.log('SW registration failed', err));
+    });
+  }
 
   function getIconHtml(iconStr) {
     if (!iconStr) return '';
@@ -397,13 +441,13 @@
     buildOfferBar(); buildCategoryTabs(); loadCart(); renderProducts();
   }
 
-  // --- Search ---
   function processSearch(val) {
     searchQuery = val.toLowerCase();
     const dInput = document.getElementById('searchInput'); const mInput = document.getElementById('mobileSearchInput');
     if(dInput && dInput.value !== val) dInput.value = val; if(mInput && mInput.value !== val) mInput.value = val;
     renderProducts(); renderSearchDropdown(val);
   }
+  
   function renderSearchDropdown(val) {
     const q = val.toLowerCase().trim(); let html = '';
     if (q === '') {
@@ -425,6 +469,7 @@
     document.getElementById('searchDropdownDesktop').innerHTML = html; document.getElementById('searchDropdownMobile').innerHTML = html;
     if (html) { if(window.innerWidth >= 640) document.getElementById('searchDropdownDesktop').classList.remove('hidden'); else document.getElementById('searchDropdownMobile').classList.remove('hidden'); } else closeSearchDropdowns();
   }
+  
   function selectSearch(val) { saveToHistory(val); processSearch(val); closeSearchDropdowns(); }
   function saveToHistory(val) { const q = val.trim(); if(!q) return; searchHistory = searchHistory.filter(h => h !== q); searchHistory.unshift(q); if(searchHistory.length > 6) searchHistory.pop(); localStorage.setItem('myShopSearchHistory', JSON.stringify(searchHistory)); }
   function clearHistory(e) { e.stopPropagation(); searchHistory = []; localStorage.removeItem('myShopSearchHistory'); renderSearchDropdown(''); }
@@ -432,7 +477,6 @@
   document.addEventListener('click', (e) => { const dCont = document.getElementById('searchContainerDesktop'); const mCont = document.getElementById('searchContainerMobile'); if (dCont && !dCont.contains(e.target) && mCont && !mCont.contains(e.target)) closeSearchDropdowns(); });
   function handleSearchKeydown(e) { if (e.key === 'Enter') { saveToHistory(e.target.value); closeSearchDropdowns(); } }
 
-  // --- Cart System ---
   function saveCart() { localStorage.setItem('myShopCart', JSON.stringify(cart)); }
   function loadCart() { const saved = localStorage.getItem('myShopCart'); if (saved) { try { cart = JSON.parse(saved); updateCartUI(); } catch(e){} } }
   function buildOfferBar() { const track = document.getElementById('marqueeTrack'); const offers = storeData.offers || []; track.innerHTML = [...offers, ...offers].map(o => `<span class="offer-item" style="border-left:3px solid ${o.color}">${o.text}</span>`).join(''); }
@@ -532,7 +576,6 @@
       </div>`;
   }
 
-  // === Quick View Logic ===
   function openQuickView(productId) {
     const p = storeData.products.find(x => x.id === productId);
     if (!p) return;
@@ -556,6 +599,7 @@
     document.getElementById('quickViewOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
+  
   function closeQuickView(e) { if (e && e.target !== document.getElementById('quickViewOverlay')) return; document.getElementById('quickViewOverlay').classList.remove('open'); document.body.style.overflow = ''; }
   function changeQvVariant(index) { qvSelectedVariantIndex = parseInt(index); updateQvPriceDisplay(); }
 
@@ -576,6 +620,7 @@
     else badgeContainer.innerHTML = '';
     document.getElementById('qvAddToCartBtn').onclick = () => { addQvToCart(); closeQuickView(); };
   }
+  
   function changeQvQty(delta) { qvCurrentQty = Math.max(1, qvCurrentQty + delta); document.getElementById('qvQtyDisplay').textContent = qvCurrentQty; updateQvPriceDisplay(); } 
 
   function addQvToCart() {
@@ -589,6 +634,7 @@
   }
   
   function buyNowFromQvTelegram() { addQvToCart(); closeQuickView(); openInfoModal(); }
+  
   function updateCartUI() {
     const total = cart.reduce((s, c) => s + (c.offer_price || c.price) * c.qty, 0);
     const count = cart.reduce((s, c) => s + c.qty, 0);
@@ -619,19 +665,19 @@
         </div>`;
     }).join('');
   }
+  
   function toggleCart() { const p = document.getElementById('cartPanel'), o = document.getElementById('cartOverlay'), open = p.classList.contains('open'); if(!open) renderCartItems(); p.classList.toggle('open', !open); o.classList.toggle('open', !open); document.body.style.overflow = open ? '' : 'hidden'; }
   function removeFromCart(cartId) { cart = cart.filter(c => c.cartId !== cartId); updateCartUI(); renderCartItems(); saveCart(); }
   function changeQty(cartId, delta) { const item = cart.find(c => c.cartId === cartId); if (!item) return; item.qty = Math.max(1, item.qty + delta); updateCartUI(); renderCartItems(); saveCart(); }
   function clearCart() { cart = []; updateCartUI(); renderCartItems(); showToast('🗑️ কার্ট পরিষ্কার করা হয়েছে'); saveCart(); }
 
-  // ===== Telegram Orders & Invoice (UPDATED: Address Added) =====
   function openInfoModal() { if (cart.length === 0) return showToast('কার্টে কোনো পণ্য নেই!'); document.getElementById('infoModalOverlay').classList.add('open'); if(document.getElementById('cartPanel').classList.contains('open')) toggleCart(); }
   function closeInfoModal() { document.getElementById('infoModalOverlay').classList.remove('open'); }
   
   async function processTelegramOrder() {
     const name = document.getElementById('customerName').value.trim(); 
     const phone = document.getElementById('customerPhone').value.trim();
-    const address = document.getElementById('customerAddress').value.trim(); // New Address Field
+    const address = document.getElementById('customerAddress').value.trim(); 
     
     if (!name || !phone || !address) return alert('অনুগ্রহ করে আপনার নাম, ফোন নম্বর এবং ঠিকানা দিন।');
     
@@ -663,7 +709,6 @@
     } catch (error) { alert("ইন্টারনেট কানেকশন চেক করুন!"); } finally { btn.innerHTML = originalText; btn.disabled = false; }
   }
 
-  // UPDATED: Invoice with Address and Buttons
   function generateInvoice(name, phone, address, total, cartItems, orderId, date) {
     document.getElementById('invStoreName').textContent = storeData.store.name || 'আমার দোকান';
     document.getElementById('invOrderId').textContent = '#' + orderId;
@@ -672,8 +717,7 @@
     document.getElementById('invAddress').textContent = address;
     document.getElementById('invDate').textContent = date.toLocaleDateString('bn-BD') + ' ' + date.toLocaleTimeString('bn-BD');
 
-    // Update Contact Buttons
-    const cleanWaNumber = waNumber.replace(/[^0-9]/g, ''); // Removes +, spaces etc.
+    const cleanWaNumber = waNumber.replace(/[^0-9]/g, ''); 
     const waLink = `https://wa.me/${cleanWaNumber}?text=হ্যালো, আমার অর্ডার নাম্বার: ${orderId}। আমি অর্ডারটি সম্পর্কে জানতে চাই।`;
     const callLink = `tel:${cleanWaNumber}`;
     document.getElementById('invWaBtn').href = waLink;
@@ -694,12 +738,13 @@
     document.getElementById('invTotalAmt').textContent = `${currency}${total.toLocaleString('bn-BD')}`;
     document.getElementById('invoiceModalOverlay').classList.add('open');
   }
+  
   function closeInvoiceModal() { document.getElementById('invoiceModalOverlay').classList.remove('open'); }
 
-  // --- My Orders History Logic ---
   function saveOrderToHistory(orderObject) { let orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; orders.unshift(orderObject); localStorage.setItem('myShopOrders', JSON.stringify(orders)); }
   function openMyOrdersModal() { renderMyOrdersList(); document.getElementById('myOrdersOverlay').classList.add('open'); }
   function closeMyOrdersModal(e) { if (!e || e.target.id === 'myOrdersOverlay') document.getElementById('myOrdersOverlay').classList.remove('open'); }
+  
   function renderMyOrdersList() {
     const orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; const container = document.getElementById('myOrdersList');
     if (orders.length === 0) { container.innerHTML = `<p class="text-center text-gray-500 py-10">আপনি এখনো কোনো অর্ডার করেননি।</p>`; return; }
@@ -718,11 +763,12 @@
     });
     container.innerHTML = html;
   }
+  
   function showInvoiceForOrder(index) {
     const orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; const order = orders[index];
-    // Notice: order.address was added here
     if (order) { closeMyOrdersModal(); generateInvoice(order.name, order.phone, order.address || 'দেওয়া হয়নি', order.total, order.items, order.orderId, new Date(order.date)); }
   }
+  
   function deleteOrder(index) {
     if (confirm("আপনি কি নিশ্চিত যে এই অর্ডারটি মুছে ফেলতে চান?")) {
       let orders = JSON.parse(localStorage.getItem('myShopOrders')) || [];
@@ -733,7 +779,6 @@
     }
   }
 
-  // --- Fixed Toast Auto-hide Logic ---
   let toastTimer;
   function showToast(msg) { 
     const t = document.getElementById('toast'); 
@@ -741,13 +786,6 @@
     t.classList.add('show'); 
     clearTimeout(toastTimer); 
     toastTimer = setTimeout(() => { t.classList.remove('show'); }, 2500); 
-  }
-
-  // --- PWA Service Worker Registration ---
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').then(reg => console.log('App ready for offline/installation')).catch(err => console.log('SW registration failed', err));
-    });
   }
 
   loadData();
