@@ -391,30 +391,32 @@
   let qvCurrentQty = 1;
   let qvSelectedVariantIndex = 0;
 
-  // --- PWA Install App Logic ---
+ // --- PWA Install App Logic (Updated) ---
   let deferredPrompt;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    document.body.classList.add('pwa-ready'); // Shows the install buttons via CSS
   });
 
   async function installPWA() {
     if (deferredPrompt) {
+      // Android / Chrome - অটোমেটিক ইনস্টল পপ-আপ আসবে
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') {
         console.log('App Installed Successfully');
-        document.body.classList.remove('pwa-ready'); // Hide buttons after install
       }
       deferredPrompt = null;
+    } else {
+      // iPhone / Safari বা যদি অটোমেটিক সাপোর্ট না করে
+      alert("অ্যাপটি ইনস্টল করতে আপনার ব্রাউজারের মেনু (⋮ বা Share আইকন) থেকে 'Add to Home Screen' অথবা 'Install App' এ ক্লিক করুন।");
     }
   }
 
   // PWA Service Worker Registration
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').then(reg => console.log('App ready for offline/installation')).catch(err => console.log('SW registration failed', err));
+      navigator.serviceWorker.register('sw.js').then(reg => console.log('SW Registered')).catch(err => console.log('SW Failed', err));
     });
   }
 
