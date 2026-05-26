@@ -8,12 +8,12 @@
   "theme_color": "#6C63FF",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "src": "https://raw.githubusercontent.com/life-by/tanjimstore/refs/heads/main/Logo/StorLogo.png",
       "sizes": "192x192",
       "type": "image/jpeg"
     },
     {
-      "src": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "src": "https://raw.githubusercontent.com/life-by/tanjimstore/refs/heads/main/Logo/StorLogo.png",
       "sizes": "512x512",
       "type": "image/jpeg"
     }
