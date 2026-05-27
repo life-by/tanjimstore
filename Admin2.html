@@ -12,12 +12,11 @@
     .modal { display: none; background: rgba(0,0,0,0.5); }
     .modal.active { display: flex; }
     .variant-row { border-left: 3px solid #6366f1; padding-left: 10px; margin-bottom: 10px; }
-    .sortable-ghost { opacity: 0.4; background-color: #e0e7ff; } /* ড্র্যাগ করার সময় ব্যাকগ্রাউন্ড কালার */
+    .sortable-ghost { opacity: 0.4; background-color: #e0e7ff; } 
   </style>
 </head>
 <body class="h-screen flex flex-col">
 
-  <!-- Header -->
   <header class="bg-indigo-600 text-white p-4 shadow-md flex justify-between items-center shrink-0">
     <div>
       <h1 class="text-xl font-bold">🛒 দোকান অ্যাডমিন প্যানেল</h1>
@@ -33,7 +32,6 @@
   </header>
 
   <div class="flex flex-1 overflow-hidden">
-    <!-- Sidebar -->
     <aside class="w-64 bg-white border-r shadow-sm flex flex-col">
       <nav class="flex-1 p-4">
         <ul class="space-y-2">
@@ -50,48 +48,29 @@
       </nav>
     </aside>
 
-    <!-- Main Content -->
     <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
-      
-      <!-- Dashboard Statistics -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between transition hover:shadow-md">
-          <div>
-            <p class="text-sm text-gray-500 font-bold mb-1">মোট প্রোডাক্ট</p>
-            <h3 class="text-3xl font-extrabold text-indigo-600" id="stat-products">0</h3>
-          </div>
-          <div class="text-4xl bg-indigo-50 p-3 rounded-lg">📦</div>
+          <div><p class="text-sm text-gray-500 font-bold mb-1">মোট প্রোডাক্ট</p><h3 class="text-3xl font-extrabold text-indigo-600" id="stat-products">0</h3></div><div class="text-4xl bg-indigo-50 p-3 rounded-lg">📦</div>
         </div>
-        
         <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between transition hover:shadow-md">
-          <div>
-            <p class="text-sm text-gray-500 font-bold mb-1">মোট ক্যাটাগরি</p>
-            <h3 class="text-3xl font-extrabold text-green-600" id="stat-categories">0</h3>
-          </div>
-          <div class="text-4xl bg-green-50 p-3 rounded-lg">📂</div>
+          <div><p class="text-sm text-gray-500 font-bold mb-1">মোট ক্যাটাগরি</p><h3 class="text-3xl font-extrabold text-green-600" id="stat-categories">0</h3></div><div class="text-4xl bg-green-50 p-3 rounded-lg">📂</div>
         </div>
-
         <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between transition hover:shadow-md">
-          <div>
-            <p class="text-sm text-gray-500 font-bold mb-1">চলমান অফার</p>
-            <h3 class="text-3xl font-extrabold text-rose-600" id="stat-offers">0</h3>
-          </div>
-          <div class="text-4xl bg-rose-50 p-3 rounded-lg">🏷️</div>
+          <div><p class="text-sm text-gray-500 font-bold mb-1">চলমান অফার</p><h3 class="text-3xl font-extrabold text-rose-600" id="stat-offers">0</h3></div><div class="text-4xl bg-rose-50 p-3 rounded-lg">🏷️</div>
         </div>
       </div>
 
-      <!-- Products View -->
       <div id="view-products" class="block">
         <div class="flex justify-between items-center mb-6">
           <h2 class="text-2xl font-bold text-gray-800">প্রোডাক্ট লিস্ট</h2>
           <button onclick="openProductModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow font-semibold">+ নতুন প্রোডাক্ট</button>
         </div>
-        
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <table class="w-full text-left border-collapse">
             <thead>
               <tr class="bg-gray-100 text-gray-600 text-sm uppercase">
-                <th class="p-4 border-b w-10 text-center">ক্রম</th> <!-- ড্র্যাগ হ্যান্ডেল কলাম -->
+                <th class="p-4 border-b w-10 text-center">ক্রম</th> 
                 <th class="p-4 border-b">ছবি</th>
                 <th class="p-4 border-b">নাম ও ট্যাগ</th>
                 <th class="p-4 border-b">ক্যাটাগরি</th>
@@ -99,21 +78,17 @@
                 <th class="p-4 border-b text-right">অ্যাকশন</th>
               </tr>
             </thead>
-            <tbody id="productTableBody" class="divide-y text-sm bg-white">
-              <!-- Products load here -->
-            </tbody>
+            <tbody id="productTableBody" class="divide-y text-sm bg-white"></tbody>
           </table>
           <p class="text-xs text-gray-400 p-3 text-center bg-gray-50 border-t">💡 প্রোডাক্টের বাম পাশের '☰' আইকনটি ধরে টেনে উপরে-নিচে সাজাতে পারবেন।</p>
         </div>
       </div>
 
-      <!-- Categories View -->
       <div id="view-categories" class="hidden">
         <div class="flex justify-between items-center mb-6">
           <h2 class="text-2xl font-bold text-gray-800">ক্যাটাগরি লিস্ট</h2>
           <button onclick="openCategoryModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow font-semibold">+ নতুন ক্যাটাগরি</button>
         </div>
-        
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <table class="w-full text-left border-collapse">
             <thead>
@@ -125,34 +100,34 @@
                 <th class="p-4 border-b text-right">অ্যাকশন</th>
               </tr>
             </thead>
-            <tbody id="categoryTableBody" class="divide-y text-sm">
-              <!-- Categories load here -->
-            </tbody>
+            <tbody id="categoryTableBody" class="divide-y text-sm"></tbody>
           </table>
         </div>
       </div>
 
-      <!-- Store Settings View -->
       <div id="view-store" class="hidden max-w-2xl bg-white p-6 rounded-xl shadow-sm border border-gray-200">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">স্টোর সেটিংস</h2>
-        
         <div class="space-y-4">
           <div class="grid grid-cols-2 gap-4">
-            <div class="col-span-2 sm:col-span-1">
-              <label class="block text-sm font-semibold text-gray-700 mb-1">দোকানের নাম</label>
-              <input type="text" id="storeName" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500">
+            <div class="col-span-2 sm:col-span-1"><label class="block text-sm font-semibold text-gray-700 mb-1">দোকানের নাম</label><input type="text" id="storeName" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500"></div>
+            <div class="col-span-2 sm:col-span-1"><label class="block text-sm font-semibold text-gray-700 mb-1">ট্যাগলাইন</label><input type="text" id="storeTagline" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500"></div>
+            <div class="col-span-2 sm:col-span-1"><label class="block text-sm font-semibold text-gray-700 mb-1">WhatsApp নম্বর</label><input type="text" id="storeWhatsapp" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500"></div>
+            <div class="col-span-2 sm:col-span-1"><label class="block text-sm font-semibold text-gray-700 mb-1">কারেন্সি (মুদ্রা)</label><input type="text" id="storeCurrency" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500"></div>
+          </div>
+          
+          <div class="mt-4 pt-4 border-t grid grid-cols-3 gap-4">
+            <div class="col-span-3 sm:col-span-1">
+              <label class="block text-sm font-semibold text-gray-700 mb-1">ওয়েবসাইট থিম কালার</label>
+              <input type="color" id="storeThemeColor" class="w-full h-10 border rounded p-1 cursor-pointer">
             </div>
-            <div class="col-span-2 sm:col-span-1">
-              <label class="block text-sm font-semibold text-gray-700 mb-1">ট্যাগলাইন</label>
-              <input type="text" id="storeTagline" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500">
+            <div class="col-span-3 sm:col-span-1">
+              <label class="block text-sm font-semibold text-gray-700 mb-1">ডেলিভারি চার্জ (৳)</label>
+              <input type="number" id="storeDelCharge" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500" placeholder="যেমন: 50">
             </div>
-            <div class="col-span-2 sm:col-span-1">
-              <label class="block text-sm font-semibold text-gray-700 mb-1">WhatsApp নম্বর</label>
-              <input type="text" id="storeWhatsapp" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500">
-            </div>
-            <div class="col-span-2 sm:col-span-1">
-              <label class="block text-sm font-semibold text-gray-700 mb-1">কারেন্সি (মুদ্রা)</label>
-              <input type="text" id="storeCurrency" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500">
+            <div class="col-span-3 sm:col-span-1">
+              <label class="block text-sm font-semibold text-gray-700 mb-1">ফ্রি ডেলিভারি টার্গেট (৳)</label>
+              <input type="number" id="storeFreeDelMin" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500" placeholder="যেমন: 1000">
+              <p class="text-xs text-gray-400 mt-1">০ দিলে অফারটি বন্ধ থাকবে।</p>
             </div>
           </div>
 
@@ -167,9 +142,7 @@
               <label class="block text-sm font-bold text-gray-800">চলমান অফার (Marquee Offers)</label>
               <button onclick="addOfferRow()" class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded text-xs font-bold">+ অফার যোগ করুন</button>
             </div>
-            <div id="offersContainer" class="space-y-2">
-              <!-- Offers will load here -->
-            </div>
+            <div id="offersContainer" class="space-y-2"></div>
           </div>
 
           <div class="pt-4 mt-4 border-t">
@@ -177,65 +150,34 @@
           </div>
         </div>
       </div>
-
     </main>
   </div>
 
-  <!-- Product Edit Modal -->
+  <!-- Product Modal -->
   <div id="productModal" class="modal fixed inset-0 z-50 items-center justify-center">
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden">
       <div class="p-5 border-b bg-gray-50 flex justify-between items-center">
         <h3 class="text-xl font-bold text-gray-800" id="modalTitle">প্রোডাক্ট যোগ করুন</h3>
         <button onclick="closeProductModal()" class="text-gray-500 hover:text-red-500 font-bold text-xl">&times;</button>
       </div>
-      
       <div class="p-6 overflow-y-auto flex-1 bg-white">
         <input type="hidden" id="p_id">
-        
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <div class="col-span-2">
-            <label class="block text-sm font-semibold mb-1">পণ্যের নাম *</label>
-            <input type="text" id="p_name" class="w-full border rounded p-2" required>
-          </div>
-          
-          <div>
-            <label class="block text-sm font-semibold mb-1">ক্যাটাগরি *</label>
-            <select id="p_category" class="w-full border rounded p-2" onchange="updateSubCategoryOptions()"></select>
-          </div>
-          
-          <div>
-            <label class="block text-sm font-semibold mb-1">সাব-ক্যাটাগরি</label>
-            <select id="p_subcategory" class="w-full border rounded p-2">
-              <option value="">-- নির্বাচন করুন --</option>
-            </select>
-          </div>
-
-          <div class="col-span-2">
-            <label class="block text-sm font-semibold mb-1">ছবির URL *</label>
-            <input type="text" id="p_image" class="w-full border rounded p-2">
-          </div>
-
-          <div class="col-span-2">
-            <label class="block text-sm font-semibold mb-1">বিবরণ (Description)</label>
-            <textarea id="p_desc" class="w-full border rounded p-2" rows="2"></textarea>
-          </div>
-
-          <div class="col-span-2">
-            <label class="block text-sm font-semibold mb-1">ট্যাগ (কমা দিয়ে আলাদা করুন)</label>
-            <input type="text" id="p_tags" class="w-full border rounded p-2" placeholder="e.g. চাল, প্যাকেট, new">
-          </div>
+          <div class="col-span-2"><label class="block text-sm font-semibold mb-1">পণ্যের নাম *</label><input type="text" id="p_name" class="w-full border rounded p-2" required></div>
+          <div><label class="block text-sm font-semibold mb-1">ক্যাটাগরি *</label><select id="p_category" class="w-full border rounded p-2" onchange="updateSubCategoryOptions()"></select></div>
+          <div><label class="block text-sm font-semibold mb-1">সাব-ক্যাটাগরি</label><select id="p_subcategory" class="w-full border rounded p-2"><option value="">-- নির্বাচন করুন --</option></select></div>
+          <div class="col-span-2"><label class="block text-sm font-semibold mb-1">ছবির URL *</label><input type="text" id="p_image" class="w-full border rounded p-2"></div>
+          <div class="col-span-2"><label class="block text-sm font-semibold mb-1">বিবরণ (Description)</label><textarea id="p_desc" class="w-full border rounded p-2" rows="2"></textarea></div>
+          <div class="col-span-2"><label class="block text-sm font-semibold mb-1">ট্যাগ (কমা দিয়ে আলাদা করুন)</label><input type="text" id="p_tags" class="w-full border rounded p-2" placeholder="e.g. চাল, প্যাকেট, new"></div>
         </div>
-
         <div class="border-t pt-4 mt-2">
           <div class="flex justify-between items-center mb-3">
             <h4 class="font-bold text-indigo-700">ভ্যারিয়েন্ট / দাম নির্ধারণ</h4>
             <button type="button" onclick="addVariantRow()" class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded text-sm font-semibold">+ ভ্যারিয়েন্ট যোগ করুন</button>
           </div>
-          <p class="text-xs text-gray-500 mb-4">ওজন/পিস অনুযায়ী দাম আলাদা করতে ভ্যারিয়েন্ট যোগ করুন। ভ্যারিয়েন্ট না থাকলে বেস দাম দিন।</p>
           <div id="variantsContainer"></div>
         </div>
       </div>
-      
       <div class="p-5 border-t bg-gray-50 flex justify-end gap-3">
         <button onclick="closeProductModal()" class="px-4 py-2 bg-gray-200 rounded font-semibold text-gray-700">বাতিল</button>
         <button onclick="saveProduct()" class="px-4 py-2 bg-blue-600 rounded font-semibold text-white">সেভ করুন</button>
@@ -243,33 +185,20 @@
     </div>
   </div>
 
-  <!-- Category Edit Modal -->
+  <!-- Category Modal -->
   <div id="categoryModal" class="modal fixed inset-0 z-50 items-center justify-center">
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
       <div class="p-5 border-b bg-gray-50 flex justify-between items-center">
         <h3 class="text-xl font-bold text-gray-800" id="catModalTitle">ক্যাটাগরি যোগ করুন</h3>
         <button onclick="closeCategoryModal()" class="text-gray-500 hover:text-red-500 font-bold text-xl">&times;</button>
       </div>
-      
       <div class="p-6 overflow-y-auto flex-1 bg-white">
         <input type="hidden" id="c_original_id">
-        
         <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-semibold mb-1">ক্যাটাগরি ID (ইংরেজিতে, স্পেস ছাড়া) *</label>
-            <input type="text" id="c_id" class="w-full border rounded p-2" placeholder="e.g. grocery, cosmetics" required>
-            <p class="text-xs text-gray-400 mt-1">এটি পরিবর্তন করলে আগের প্রোডাক্টগুলোর ক্যাটাগরি লিংক নষ্ট হতে পারে।</p>
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">ক্যাটাগরির নাম (বাংলায়) *</label>
-            <input type="text" id="c_name" class="w-full border rounded p-2" placeholder="e.g. মুদি সামগ্রী" required>
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">ক্যাটাগরি ছবি (Image URL) *</label>
-            <input type="text" id="c_icon" class="w-full border rounded p-2" placeholder="e.g. https://..." required>
-          </div>
+          <div><label class="block text-sm font-semibold mb-1">ক্যাটাগরি ID *</label><input type="text" id="c_id" class="w-full border rounded p-2" required></div>
+          <div><label class="block text-sm font-semibold mb-1">ক্যাটাগরির নাম *</label><input type="text" id="c_name" class="w-full border rounded p-2" required></div>
+          <div><label class="block text-sm font-semibold mb-1">ক্যাটাগরি ছবি (Image URL) *</label><input type="text" id="c_icon" class="w-full border rounded p-2" required></div>
         </div>
-
         <div class="border-t pt-4 mt-6">
           <div class="flex justify-between items-center mb-3">
             <h4 class="font-bold text-indigo-700">সাব-ক্যাটাগরি</h4>
@@ -278,7 +207,6 @@
           <div id="subCategoryContainer"></div>
         </div>
       </div>
-      
       <div class="p-5 border-t bg-gray-50 flex justify-end gap-3">
         <button onclick="closeCategoryModal()" class="px-4 py-2 bg-gray-200 rounded font-semibold text-gray-700">বাতিল</button>
         <button onclick="saveCategory()" class="px-4 py-2 bg-blue-600 rounded font-semibold text-white">সেভ করুন</button>
@@ -286,19 +214,16 @@
     </div>
   </div>
 
-  <!-- Generated JSON output Modal -->
+  <!-- JSON Modal -->
   <div id="jsonModal" class="modal fixed inset-0 z-50 items-center justify-center p-4">
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl flex flex-col h-[85vh] overflow-hidden">
       <div class="p-5 border-b bg-gray-800 text-white flex justify-between items-center">
         <h3 class="text-lg font-bold">📄 আপনার JSON কোড</h3>
         <button onclick="closeJsonModal()" class="text-gray-300 hover:text-white font-bold text-2xl">&times;</button>
       </div>
-      
       <div class="p-4 bg-gray-100 flex-1 relative">
-        <p class="text-sm text-gray-700 mb-2 font-semibold">নিচের সম্পূর্ণ কোডটি কপি করে আপনার GitHub-এর <span class="bg-gray-200 px-1 rounded text-red-500">data.json</span> ফাইলে পেস্ট করে দিন:</p>
-        <textarea id="jsonOutputArea" class="w-full h-[calc(100%-2rem)] p-4 font-mono text-sm border border-gray-300 rounded shadow-inner resize-none focus:outline-none" readonly></textarea>
+        <textarea id="jsonOutputArea" class="w-full h-full p-4 font-mono text-sm border border-gray-300 rounded shadow-inner resize-none focus:outline-none" readonly></textarea>
       </div>
-      
       <div class="p-4 border-t bg-white flex justify-center">
         <button onclick="copyJSONCode()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-bold shadow-lg flex items-center gap-2 text-lg transition">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
@@ -311,83 +236,60 @@
 <script>
   const DATA_URL = 'https://raw.githubusercontent.com/life-by/tanjimstore/refs/heads/main/data.json';
   let db = null;
-  let productSortableInstance = null; // SortableJS এর ভেরিয়েবল
+  let productSortableInstance = null; 
 
-  // Initialize
   async function fetchData() {
     try {
       const response = await fetch(DATA_URL + '?t=' + new Date().getTime());
       if(!response.ok) throw new Error("Network Error");
       db = await response.json();
-      
       alert("ডেটা সফলভাবে লোড হয়েছে!");
       initUI();
     } catch (error) {
       alert("ডেটা লোড করতে সমস্যা হচ্ছে। লিঙ্কে ফাইলটি আছে কিনা চেক করুন।");
-      console.error(error);
     }
   }
 
-  function initUI() {
-    renderProductsList();
-    renderCategoriesList();
-    loadStoreSettings();
-    updateDashboardStats(); // Update dashboard stats on load
-  }
+  function initUI() { renderProductsList(); renderCategoriesList(); loadStoreSettings(); updateDashboardStats(); }
 
-  // --- Dashboard Statistics Update Function ---
   function updateDashboardStats() {
     if (!db) return;
-    
-    const totalProducts = db.products ? db.products.length : 0;
-    const totalCategories = db.categories ? db.categories.length : 0;
-    const totalOffers = db.offers ? db.offers.length : 0;
-
-    document.getElementById('stat-products').innerText = totalProducts;
-    document.getElementById('stat-categories').innerText = totalCategories;
-    document.getElementById('stat-offers').innerText = totalOffers;
+    document.getElementById('stat-products').innerText = db.products ? db.products.length : 0;
+    document.getElementById('stat-categories').innerText = db.categories ? db.categories.length : 0;
+    document.getElementById('stat-offers').innerText = db.offers ? db.offers.length : 0;
   }
 
-  // --- Tab Switching ---
   function switchTab(tabId) {
     document.getElementById('view-products').style.display = tabId === 'products' ? 'block' : 'none';
     document.getElementById('view-categories').style.display = tabId === 'categories' ? 'block' : 'none';
     document.getElementById('view-store').style.display = tabId === 'store' ? 'block' : 'none';
-    
     const activeClass = "w-full text-left px-4 py-3 rounded-lg bg-indigo-50 text-indigo-700 font-semibold transition";
     const inactiveClass = "w-full text-left px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50 font-semibold transition";
-
     document.getElementById('tab-products').className = tabId === 'products' ? activeClass : inactiveClass;
     document.getElementById('tab-categories').className = tabId === 'categories' ? activeClass : inactiveClass;
     document.getElementById('tab-store').className = tabId === 'store' ? activeClass : inactiveClass;
   }
 
-  // --- Store Settings & Offers ---
   function loadStoreSettings() {
     if(!db.store) db.store = {};
     document.getElementById('storeName').value = db.store.name || '';
     document.getElementById('storeTagline').value = db.store.tagline || '';
     document.getElementById('storeWhatsapp').value = db.store.whatsapp || '';
     document.getElementById('storeCurrency').value = db.store.currency || '৳';
+    document.getElementById('storeThemeColor').value = db.store.theme_color || '#6C63FF';
+    document.getElementById('storeDelCharge').value = db.store.delivery_charge || 0;
+    document.getElementById('storeFreeDelMin').value = db.store.free_delivery_min || 0;
     document.getElementById('storeHeroImage').value = db.store.hero_image || '';
 
     const offersContainer = document.getElementById('offersContainer');
     offersContainer.innerHTML = '';
-    if(db.offers && db.offers.length > 0) {
-      db.offers.forEach(offer => addOfferRow(offer.text, offer.color));
-    }
+    if(db.offers && db.offers.length > 0) db.offers.forEach(offer => addOfferRow(offer.text, offer.color));
   }
 
   function addOfferRow(text = '', color = '#FF6B6B') {
     const container = document.getElementById('offersContainer');
     const rowId = 'off_' + Date.now() + Math.floor(Math.random() * 1000);
-    const html = `
-      <div id="${rowId}" class="offer-row flex items-center gap-2 bg-gray-50 p-2 rounded border">
-        <input type="color" class="o_color w-10 h-10 rounded cursor-pointer border-none" value="${color}" title="অফারের রঙ নির্বাচন করুন">
-        <input type="text" class="o_text flex-1 border rounded p-2 text-sm focus:ring-2 focus:ring-indigo-500" value="${text}" placeholder="অফারের লেখা (যেমন: 🚚 ফ্রি ডেলিভারি)">
-        <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-red-500 font-bold px-2 hover:bg-red-100 rounded">X</button>
-      </div>
-    `;
+    const html = `<div id="${rowId}" class="offer-row flex items-center gap-2 bg-gray-50 p-2 rounded border"><input type="color" class="o_color w-10 h-10 rounded cursor-pointer border-none" value="${color}"><input type="text" class="o_text flex-1 border rounded p-2 text-sm focus:ring-2 focus:ring-indigo-500" value="${text}" placeholder="অফারের লেখা"><button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-red-500 font-bold px-2 hover:bg-red-100 rounded">X</button></div>`;
     container.insertAdjacentHTML('beforeend', html);
   }
 
@@ -397,415 +299,146 @@
     db.store.tagline = document.getElementById('storeTagline').value.trim();
     db.store.whatsapp = document.getElementById('storeWhatsapp').value.trim();
     db.store.currency = document.getElementById('storeCurrency').value.trim();
+    db.store.theme_color = document.getElementById('storeThemeColor').value;
+    db.store.delivery_charge = parseInt(document.getElementById('storeDelCharge').value) || 0;
+    db.store.free_delivery_min = parseInt(document.getElementById('storeFreeDelMin').value) || 0;
     
     const heroImage = document.getElementById('storeHeroImage').value.trim();
-    if(heroImage) {
-      db.store.hero_image = heroImage;
-    } else {
-      delete db.store.hero_image;
-    }
+    if(heroImage) db.store.hero_image = heroImage; else delete db.store.hero_image;
 
     const offerRows = document.querySelectorAll('.offer-row');
     db.offers = [];
     offerRows.forEach((row, index) => {
-      const text = row.querySelector('.o_text').value.trim();
-      const color = row.querySelector('.o_color').value;
-      if(text) {
-        db.offers.push({ id: index + 1, text: text, color: color });
-      }
+      const text = row.querySelector('.o_text').value.trim(); const color = row.querySelector('.o_color').value;
+      if(text) db.offers.push({ id: index + 1, text: text, color: color });
     });
-
-    updateDashboardStats(); // Update stats in case offers were modified
-
+    updateDashboardStats();
     if(!silent) alert("স্টোর সেটিংস সফলভাবে সেভ হয়েছে!");
   }
 
-  // --- Category Management ---
   function renderCategoriesList() {
-    const tbody = document.getElementById('categoryTableBody');
-    tbody.innerHTML = '';
-    
+    const tbody = document.getElementById('categoryTableBody'); tbody.innerHTML = '';
     if(!db.categories) db.categories = [];
-
     db.categories.forEach(c => {
       const subCount = c.subcategories ? c.subcategories.length : 0;
-      // ছবি নাকি ইমোজি তা চেক করার লজিক
-      const iconDisplay = (c.icon && c.icon.startsWith('http')) 
-        ? `<img src="${c.icon}" class="w-8 h-8 rounded-full object-cover shadow-sm inline-block">` 
-        : (c.icon || '📁');
-
+      const iconDisplay = (c.icon && c.icon.startsWith('http')) ? `<img src="${c.icon}" class="w-8 h-8 rounded-full object-cover shadow-sm inline-block">` : (c.icon || '📁');
       const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="p-4 text-2xl">${iconDisplay}</td>
-        <td class="p-4 font-bold text-gray-800">${c.name}</td>
-        <td class="p-4 text-gray-500 font-mono text-sm">${c.id}</td>
-        <td class="p-4 font-semibold text-indigo-600">${subCount} টি</td>
-        <td class="p-4 text-right">
-          <button onclick="openCategoryModal('${c.id}')" class="text-blue-500 hover:text-blue-700 font-semibold mr-3">Edit</button>
-          <button onclick="deleteCategory('${c.id}')" class="text-red-500 hover:text-red-700 font-semibold">Delete</button>
-        </td>
-      `;
+      tr.innerHTML = `<td class="p-4 text-2xl">${iconDisplay}</td><td class="p-4 font-bold text-gray-800">${c.name}</td><td class="p-4 text-gray-500 font-mono text-sm">${c.id}</td><td class="p-4 font-semibold text-indigo-600">${subCount} টি</td><td class="p-4 text-right"><button onclick="openCategoryModal('${c.id}')" class="text-blue-500 hover:text-blue-700 font-semibold mr-3">Edit</button><button onclick="deleteCategory('${c.id}')" class="text-red-500 hover:text-red-700 font-semibold">Delete</button></td>`;
       tbody.appendChild(tr);
     });
   }
 
-  function deleteCategory(id) {
-    if(confirm("আপনি কি নিশ্চিত যে এই ক্যাটাগরি ডিলিট করতে চান? এর ভিতরের প্রোডাক্টগুলো ক্যাটাগরি হারাবে!")) {
-      db.categories = db.categories.filter(c => c.id !== id);
-      renderCategoriesList();
-      updateDashboardStats(); // Update stats
-    }
-  }
+  function deleteCategory(id) { if(confirm("আপনি কি নিশ্চিত যে এই ক্যাটাগরি ডিলিট করতে চান?")) { db.categories = db.categories.filter(c => c.id !== id); renderCategoriesList(); updateDashboardStats(); } }
 
   function openCategoryModal(id = null) {
-    const modal = document.getElementById('categoryModal');
-    const container = document.getElementById('subCategoryContainer');
-    container.innerHTML = '';
-
+    const modal = document.getElementById('categoryModal'); const container = document.getElementById('subCategoryContainer'); container.innerHTML = '';
     if (id) {
       document.getElementById('catModalTitle').textContent = "ক্যাটাগরি আপডেট করুন";
       const c = db.categories.find(x => x.id === id);
-      
-      document.getElementById('c_original_id').value = c.id;
-      document.getElementById('c_id').value = c.id;
-      document.getElementById('c_name').value = c.name;
-      document.getElementById('c_icon').value = c.icon || '';
-
-      if(c.subcategories) {
-        c.subcategories.forEach(sub => addSubCatRow(sub.id, sub.name));
-      }
+      document.getElementById('c_original_id').value = c.id; document.getElementById('c_id').value = c.id;
+      document.getElementById('c_name').value = c.name; document.getElementById('c_icon').value = c.icon || '';
+      if(c.subcategories) c.subcategories.forEach(sub => addSubCatRow(sub.id, sub.name));
     } else {
       document.getElementById('catModalTitle').textContent = "নতুন ক্যাটাগরি যোগ করুন";
-      document.getElementById('c_original_id').value = '';
-      document.getElementById('c_id').value = 'cat_' + Math.floor(Math.random()*10000); 
-      document.getElementById('c_name').value = '';
-      document.getElementById('c_icon').value = '';
+      document.getElementById('c_original_id').value = ''; document.getElementById('c_id').value = 'cat_' + Math.floor(Math.random()*10000); 
+      document.getElementById('c_name').value = ''; document.getElementById('c_icon').value = '';
     }
-
     modal.classList.add('active');
   }
 
-  function closeCategoryModal() {
-    document.getElementById('categoryModal').classList.remove('active');
-  }
+  function closeCategoryModal() { document.getElementById('categoryModal').classList.remove('active'); }
 
   function addSubCatRow(id = '', name = '') {
     const container = document.getElementById('subCategoryContainer');
-    const rowId = 'sub_' + Date.now() + Math.random();
-    const autoId = id ? id : 'sub_' + Math.floor(Math.random()*10000);
-    
-    const html = `
-      <div id="${rowId}" class="subcat-row bg-gray-50 rounded border flex items-end gap-3 p-3 mb-2 relative">
-        <button type="button" onclick="document.getElementById('${rowId}').remove()" class="absolute top-2 right-2 text-red-500 font-bold text-sm">X</button>
-        <div class="flex-1">
-          <label class="block text-xs font-semibold text-gray-500">ID (ইংরেজিতে)</label>
-          <input type="text" class="sc_id w-full border rounded p-1 text-sm" value="${autoId}" required>
-        </div>
-        <div class="flex-[2]">
-          <label class="block text-xs font-semibold text-gray-500">সাব-ক্যাটাগরির নাম</label>
-          <input type="text" class="sc_name w-full border rounded p-1 text-sm" value="${name}" placeholder="e.g. চাল ও ডাল" required>
-        </div>
-      </div>
-    `;
+    const rowId = 'sub_' + Date.now() + Math.random(); const autoId = id ? id : 'sub_' + Math.floor(Math.random()*10000);
+    const html = `<div id="${rowId}" class="subcat-row bg-gray-50 rounded border flex items-end gap-3 p-3 mb-2 relative"><button type="button" onclick="document.getElementById('${rowId}').remove()" class="absolute top-2 right-2 text-red-500 font-bold text-sm">X</button><div class="flex-1"><label class="block text-xs font-semibold text-gray-500">ID (ইংরেজিতে)</label><input type="text" class="sc_id w-full border rounded p-1 text-sm" value="${autoId}" required></div><div class="flex-[2]"><label class="block text-xs font-semibold text-gray-500">সাব-ক্যাটাগরির নাম</label><input type="text" class="sc_name w-full border rounded p-1 text-sm" value="${name}" required></div></div>`;
     container.insertAdjacentHTML('beforeend', html);
   }
 
   function saveCategory() {
-    const origId = document.getElementById('c_original_id').value;
-    const id = document.getElementById('c_id').value.trim();
-    const name = document.getElementById('c_name').value.trim();
-    const icon = document.getElementById('c_icon').value.trim();
-
+    const origId = document.getElementById('c_original_id').value; const id = document.getElementById('c_id').value.trim();
+    const name = document.getElementById('c_name').value.trim(); const icon = document.getElementById('c_icon').value.trim();
     if(!id || !name) return alert("ID এবং নাম দেওয়া বাধ্যতামূলক!");
-
-    const subRows = document.querySelectorAll('.subcat-row');
-    let subcategories = [];
+    const subRows = document.querySelectorAll('.subcat-row'); let subcategories = [];
     subRows.forEach(row => {
-      const sId = row.querySelector('.sc_id').value.trim();
-      const sName = row.querySelector('.sc_name').value.trim();
+      const sId = row.querySelector('.sc_id').value.trim(); const sName = row.querySelector('.sc_name').value.trim();
       if(sId && sName) subcategories.push({ id: sId, name: sName });
     });
-
     const newCat = { id, name, icon, subcategories };
-
     if (origId) {
-      const index = db.categories.findIndex(c => c.id === origId);
-      if(index !== -1) db.categories[index] = newCat;
-      
-      if(origId !== id) {
-        db.products.forEach(p => {
-          if(p.category === origId) p.category = id;
-        });
-        renderProductsList();
-      }
-    } else {
-      db.categories.push(newCat);
-    }
-
-    renderCategoriesList();
-    updateDashboardStats(); // Update stats
-    closeCategoryModal();
+      const index = db.categories.findIndex(c => c.id === origId); if(index !== -1) db.categories[index] = newCat;
+      if(origId !== id) { db.products.forEach(p => { if(p.category === origId) p.category = id; }); renderProductsList(); }
+    } else db.categories.push(newCat);
+    renderCategoriesList(); updateDashboardStats(); closeCategoryModal();
   }
 
-  // --- Products Management & DRAG-AND-DROP ---
   function renderProductsList() {
-    const tbody = document.getElementById('productTableBody');
-    tbody.innerHTML = '';
-    
+    const tbody = document.getElementById('productTableBody'); tbody.innerHTML = '';
     if(!db.products) return;
-
-    // আমরা অ্যারের আসল সিরিয়াল অনুযায়ী লুপ চালাবো, যাতে ড্র্যাগ অ্যান্ড ড্রপের রেজাল্ট বোঝা যায়।
     db.products.forEach((p, index) => {
-      let priceText = '';
-      if(p.variants && p.variants.length > 0) {
-        priceText = `${p.variants.length}টি ভ্যারিয়েন্ট (শুরু: ${p.variants[0].price})`;
-      } else {
-        priceText = p.price ? p.price : 'সেট করা নেই';
-      }
-
+      let priceText = (p.variants && p.variants.length > 0) ? `${p.variants.length}টি ভ্যারিয়েন্ট (শুরু: ${p.variants[0].price})` : (p.price ? p.price : 'সেট করা নেই');
       let tagsHtml = p.tags ? p.tags.map(t => `<span class="bg-gray-200 text-xs px-1 rounded mr-1">${t}</span>`).join('') : '';
-
       const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="p-4 text-center cursor-move drag-handle text-gray-400 hover:text-indigo-600 text-xl" title="টেনে উপরে-নিচে করুন">☰</td>
-        <td class="p-4"><img src="${p.image}" class="w-12 h-12 rounded object-cover border" onerror="this.src='https://via.placeholder.com/50'"></td>
-        <td class="p-4">
-          <p class="font-bold text-gray-800">${p.name}</p>
-          <div class="mt-1">${tagsHtml}</div>
-        </td>
-        <td class="p-4 text-gray-600">${getCategoryName(p.category)} <br><span class="text-xs text-gray-400">${p.subcategory || ''}</span></td>
-        <td class="p-4 font-semibold text-indigo-600">${priceText}</td>
-        <td class="p-4 text-right">
-          <button onclick="openProductModal(${p.id})" class="text-blue-500 hover:text-blue-700 font-semibold mr-3">Edit</button>
-          <button onclick="deleteProduct(${p.id})" class="text-red-500 hover:text-red-700 font-semibold">Delete</button>
-        </td>
-      `;
+      tr.innerHTML = `<td class="p-4 text-center cursor-move drag-handle text-gray-400 hover:text-indigo-600 text-xl" title="টেনে উপরে-নিচে করুন">☰</td><td class="p-4"><img src="${p.image}" class="w-12 h-12 rounded object-cover border" onerror="this.src='https://via.placeholder.com/50'"></td><td class="p-4"><p class="font-bold text-gray-800">${p.name}</p><div class="mt-1">${tagsHtml}</div></td><td class="p-4 text-gray-600">${getCategoryName(p.category)} <br><span class="text-xs text-gray-400">${p.subcategory || ''}</span></td><td class="p-4 font-semibold text-indigo-600">${priceText}</td><td class="p-4 text-right"><button onclick="openProductModal(${p.id})" class="text-blue-500 hover:text-blue-700 font-semibold mr-3">Edit</button><button onclick="deleteProduct(${p.id})" class="text-red-500 hover:text-red-700 font-semibold">Delete</button></td>`;
       tbody.appendChild(tr);
     });
-
-    // SortableJS ইনিশিয়ালাইজ করা (ড্র্যাগ অ্যান্ড ড্রপের জন্য)
-    if (productSortableInstance) {
-      productSortableInstance.destroy(); // পুরনো ইনস্ট্যান্স ডিলিট করে নতুন করে তৈরি করা
-    }
-    
-    productSortableInstance = Sortable.create(tbody, {
-      handle: '.drag-handle', // শুধু ☰ আইকন ধরে টানা যাবে
-      animation: 150,
-      ghostClass: 'sortable-ghost',
-      onEnd: function (evt) {
-        const oldIndex = evt.oldIndex;
-        const newIndex = evt.newIndex;
-        
-        if (oldIndex !== newIndex) {
-          // অ্যারের ইনডেক্স পরিবর্তন করা (যেটি ড্র্যাগ করা হলো সেটি নতুন জায়গায় বসানো)
-          const movedItem = db.products.splice(oldIndex, 1)[0];
-          db.products.splice(newIndex, 0, movedItem);
-        }
-      }
-    });
+    if (productSortableInstance) productSortableInstance.destroy(); 
+    productSortableInstance = Sortable.create(tbody, { handle: '.drag-handle', animation: 150, ghostClass: 'sortable-ghost', onEnd: function (evt) { if (evt.oldIndex !== evt.newIndex) { const movedItem = db.products.splice(evt.oldIndex, 1)[0]; db.products.splice(evt.newIndex, 0, movedItem); } } });
   }
 
-  function getCategoryName(catId) {
-    if(!db.categories) return catId;
-    const cat = db.categories.find(c => c.id === catId);
-    return cat ? cat.name : catId;
-  }
-
-  function deleteProduct(id) {
-    if(confirm("আপনি কি নিশ্চিত যে এই প্রোডাক্টটি ডিলিট করতে চান?")) {
-      db.products = db.products.filter(p => p.id !== id);
-      renderProductsList();
-      updateDashboardStats(); // Update stats
-    }
-  }
+  function getCategoryName(catId) { if(!db.categories) return catId; const cat = db.categories.find(c => c.id === catId); return cat ? cat.name : catId; }
+  function deleteProduct(id) { if(confirm("আপনি কি নিশ্চিত যে এই প্রোডাক্টটি ডিলিট করতে চান?")) { db.products = db.products.filter(p => p.id !== id); renderProductsList(); updateDashboardStats(); } }
 
   function openProductModal(id = null) {
-    populateCategoryDropdown();
-    const modal = document.getElementById('productModal');
-    const container = document.getElementById('variantsContainer');
-    container.innerHTML = '';
-
+    populateCategoryDropdown(); const modal = document.getElementById('productModal'); const container = document.getElementById('variantsContainer'); container.innerHTML = '';
     if (id) {
       document.getElementById('modalTitle').textContent = "প্রোডাক্ট আপডেট করুন";
       const p = db.products.find(x => x.id === id);
-      
-      document.getElementById('p_id').value = p.id;
-      document.getElementById('p_name').value = p.name || '';
-      document.getElementById('p_category').value = p.category || '';
-      updateSubCategoryOptions();
-      document.getElementById('p_subcategory').value = p.subcategory || '';
-      document.getElementById('p_image').value = p.image || '';
-      document.getElementById('p_desc').value = p.description || '';
-      document.getElementById('p_tags').value = p.tags ? p.tags.join(', ') : '';
-
-      if(p.variants && p.variants.length > 0) {
-        p.variants.forEach(v => addVariantRow(v.unit, v.price, v.offer_price));
-      } else {
-        addVariantRow('বেস প্রাইস', p.price, p.offer_price);
-      }
+      document.getElementById('p_id').value = p.id; document.getElementById('p_name').value = p.name || ''; document.getElementById('p_category').value = p.category || ''; updateSubCategoryOptions();
+      document.getElementById('p_subcategory').value = p.subcategory || ''; document.getElementById('p_image').value = p.image || ''; document.getElementById('p_desc').value = p.description || ''; document.getElementById('p_tags').value = p.tags ? p.tags.join(', ') : '';
+      if(p.variants && p.variants.length > 0) p.variants.forEach(v => addVariantRow(v.unit, v.price, v.offer_price)); else addVariantRow('বেস প্রাইস', p.price, p.offer_price);
     } else {
       document.getElementById('modalTitle').textContent = "নতুন প্রোডাক্ট যোগ করুন";
-      document.getElementById('p_id').value = '';
-      document.getElementById('p_name').value = '';
-      document.getElementById('p_category').value = '';
-      document.getElementById('p_subcategory').innerHTML = '<option value="">-- নির্বাচন করুন --</option>';
-      document.getElementById('p_image').value = '';
-      document.getElementById('p_desc').value = '';
-      document.getElementById('p_tags').value = '';
-      addVariantRow();
+      document.getElementById('p_id').value = ''; document.getElementById('p_name').value = ''; document.getElementById('p_category').value = ''; document.getElementById('p_subcategory').innerHTML = '<option value="">-- নির্বাচন করুন --</option>'; document.getElementById('p_image').value = ''; document.getElementById('p_desc').value = ''; document.getElementById('p_tags').value = ''; addVariantRow();
     }
-
     modal.classList.add('active');
   }
 
-  function closeProductModal() {
-    document.getElementById('productModal').classList.remove('active');
-  }
-
-  function populateCategoryDropdown() {
-    const catSelect = document.getElementById('p_category');
-    catSelect.innerHTML = '<option value="">-- ক্যাটাগরি সিলেক্ট করুন --</option>';
-    if(db.categories) {
-      db.categories.forEach(c => {
-        catSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
-      });
-    }
-  }
-
-  function updateSubCategoryOptions() {
-    const catId = document.getElementById('p_category').value;
-    const subSelect = document.getElementById('p_subcategory');
-    subSelect.innerHTML = '<option value="">-- নির্বাচন করুন --</option>';
-    
-    if(!catId || !db.categories) return;
-    
-    const cat = db.categories.find(c => c.id === catId);
-    if(cat && cat.subcategories) {
-      cat.subcategories.forEach(sub => {
-        subSelect.innerHTML += `<option value="${sub.id}">${sub.name}</option>`;
-      });
-    }
-  }
+  function closeProductModal() { document.getElementById('productModal').classList.remove('active'); }
+  function populateCategoryDropdown() { const catSelect = document.getElementById('p_category'); catSelect.innerHTML = '<option value="">-- ক্যাটাগরি সিলেক্ট করুন --</option>'; if(db.categories) db.categories.forEach(c => { catSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`; }); }
+  function updateSubCategoryOptions() { const catId = document.getElementById('p_category').value; const subSelect = document.getElementById('p_subcategory'); subSelect.innerHTML = '<option value="">-- নির্বাচন করুন --</option>'; if(!catId || !db.categories) return; const cat = db.categories.find(c => c.id === catId); if(cat && cat.subcategories) cat.subcategories.forEach(sub => { subSelect.innerHTML += `<option value="${sub.id}">${sub.name}</option>`; }); }
 
   function addVariantRow(unit = '', price = '', offer_price = '') {
-    const container = document.getElementById('variantsContainer');
-    const rowId = 'var_' + Date.now() + Math.random();
-    
-    const html = `
-      <div id="${rowId}" class="variant-row bg-gray-50 rounded border flex items-end gap-3 p-3 relative">
-        <button type="button" onclick="document.getElementById('${rowId}').remove()" class="absolute top-2 right-2 text-red-500 font-bold text-sm">X</button>
-        <div class="flex-1">
-          <label class="block text-xs font-semibold text-gray-500">পরিমাণ/ওজন (e.g. ১ কেজি)</label>
-          <input type="text" class="v_unit w-full border rounded p-1 text-sm" value="${unit}" required>
-        </div>
-        <div class="flex-1">
-          <label class="block text-xs font-semibold text-gray-500">রেগুলার দাম (৳)</label>
-          <input type="number" class="v_price w-full border rounded p-1 text-sm" value="${price}" required>
-        </div>
-        <div class="flex-1">
-          <label class="block text-xs font-semibold text-gray-500">অফার দাম (ঐচ্ছিক)</label>
-          <input type="number" class="v_offer w-full border rounded p-1 text-sm" value="${offer_price || ''}">
-        </div>
-      </div>
-    `;
+    const container = document.getElementById('variantsContainer'); const rowId = 'var_' + Date.now() + Math.random();
+    const html = `<div id="${rowId}" class="variant-row bg-gray-50 rounded border flex items-end gap-3 p-3 relative"><button type="button" onclick="document.getElementById('${rowId}').remove()" class="absolute top-2 right-2 text-red-500 font-bold text-sm">X</button><div class="flex-1"><label class="block text-xs font-semibold text-gray-500">পরিমাণ/ওজন</label><input type="text" class="v_unit w-full border rounded p-1 text-sm" value="${unit}" required></div><div class="flex-1"><label class="block text-xs font-semibold text-gray-500">রেগুলার দাম (৳)</label><input type="number" class="v_price w-full border rounded p-1 text-sm" value="${price}" required></div><div class="flex-1"><label class="block text-xs font-semibold text-gray-500">অফার দাম (ঐচ্ছিক)</label><input type="number" class="v_offer w-full border rounded p-1 text-sm" value="${offer_price || ''}"></div></div>`;
     container.insertAdjacentHTML('beforeend', html);
   }
 
   function saveProduct() {
     if(!db) return alert("ডেটা লোড হয়নি!");
-
-    const idVal = document.getElementById('p_id').value;
-    const name = document.getElementById('p_name').value.trim();
-    const category = document.getElementById('p_category').value;
-    const subcategory = document.getElementById('p_subcategory').value;
-    const image = document.getElementById('p_image').value.trim();
-    const desc = document.getElementById('p_desc').value.trim();
+    const idVal = document.getElementById('p_id').value; const name = document.getElementById('p_name').value.trim();
+    const category = document.getElementById('p_category').value; const subcategory = document.getElementById('p_subcategory').value;
+    const image = document.getElementById('p_image').value.trim(); const desc = document.getElementById('p_desc').value.trim();
     const tagsStr = document.getElementById('p_tags').value.trim();
-
-    if(!name || !category || !image) {
-      return alert("নাম, ক্যাটাগরি এবং ছবি দেওয়া বাধ্যতামূলক!");
-    }
-
-    let tags = [];
-    if(tagsStr) tags = tagsStr.split(',').map(t => t.trim()).filter(t => t !== '');
-
-    const variantRows = document.querySelectorAll('.variant-row');
-    if(variantRows.length === 0) return alert("অন্তত একটি দাম/ভ্যারিয়েন্ট যোগ করতে হবে!");
-
+    if(!name || !category || !image) return alert("নাম, ক্যাটাগরি এবং ছবি দেওয়া বাধ্যতামূলক!");
+    let tags = []; if(tagsStr) tags = tagsStr.split(',').map(t => t.trim()).filter(t => t !== '');
+    const variantRows = document.querySelectorAll('.variant-row'); if(variantRows.length === 0) return alert("অন্তত একটি দাম/ভ্যারিয়েন্ট যোগ করতে হবে!");
     let variants = [];
     variantRows.forEach(row => {
-      const u = row.querySelector('.v_unit').value.trim();
-      const p = parseFloat(row.querySelector('.v_price').value);
-      const op = parseFloat(row.querySelector('.v_offer').value);
-      
-      if(u && !isNaN(p)) {
-        let vObj = { unit: u, price: p };
-        if(!isNaN(op) && op < p) vObj.offer_price = op;
-        variants.push(vObj);
-      }
+      const u = row.querySelector('.v_unit').value.trim(); const p = parseFloat(row.querySelector('.v_price').value); const op = parseFloat(row.querySelector('.v_offer').value);
+      if(u && !isNaN(p)) { let vObj = { unit: u, price: p }; if(!isNaN(op) && op < p) vObj.offer_price = op; variants.push(vObj); }
     });
-
     if(variants.length === 0) return alert("ভ্যারিয়েন্টের তথ্য সঠিক নয়।");
-
-    const newProduct = {
-      id: idVal ? parseInt(idVal) : Date.now(),
-      name: name,
-      category: category,
-      subcategory: subcategory,
-      image: image,
-      description: desc,
-      tags: tags,
-      variants: variants,
-      price: variants[0].price,
-      offer_price: variants[0].offer_price
-    };
-
-    if (idVal) {
-      const index = db.products.findIndex(p => p.id == idVal);
-      if(index !== -1) db.products[index] = newProduct;
-    } else {
-      // নতুন প্রোডাক্ট হলে লিস্টের সবার উপরে যোগ হবে
-      db.products.unshift(newProduct);
-    }
-
-    renderProductsList();
-    updateDashboardStats(); // Update stats
-    closeProductModal();
+    const newProduct = { id: idVal ? parseInt(idVal) : Date.now(), name: name, category: category, subcategory: subcategory, image: image, description: desc, tags: tags, variants: variants, price: variants[0].price, offer_price: variants[0].offer_price };
+    if (idVal) { const index = db.products.findIndex(p => p.id == idVal); if(index !== -1) db.products[index] = newProduct; } else db.products.unshift(newProduct);
+    renderProductsList(); updateDashboardStats(); closeProductModal();
   }
 
-  // --- JSON GENERATOR & COPY ---
-  function openJsonModal() {
-    if(!db) return alert("প্রথমে ডেটা লোড করুন!");
-    
-    // Auto-save Store Settings before generating JSON
-    saveStoreSettings(true); 
-    
-    const jsonString = JSON.stringify(db, null, 2);
-    
-    document.getElementById('jsonOutputArea').value = jsonString;
-    document.getElementById('jsonModal').classList.add('active');
-  }
+  function openJsonModal() { if(!db) return alert("প্রথমে ডেটা লোড করুন!"); saveStoreSettings(true); const jsonString = JSON.stringify(db, null, 2); document.getElementById('jsonOutputArea').value = jsonString; document.getElementById('jsonModal').classList.add('active'); }
+  function closeJsonModal() { document.getElementById('jsonModal').classList.remove('active'); }
+  function copyJSONCode() { const textArea = document.getElementById('jsonOutputArea'); textArea.select(); textArea.setSelectionRange(0, 9999999); navigator.clipboard.writeText(textArea.value).then(() => { alert("✅ JSON কোড সফলভাবে কপি হয়েছে! এবার এটি আপনার GitHub-এর ফাইলে পেস্ট করুন।"); }).catch(err => { alert("কোড কপি করা যায়নি। দয়া করে ম্যানুয়ালি সিলেক্ট করে কপি করুন।"); }); }
 
-  function closeJsonModal() {
-    document.getElementById('jsonModal').classList.remove('active');
-  }
-
-  function copyJSONCode() {
-    const textArea = document.getElementById('jsonOutputArea');
-    textArea.select();
-    textArea.setSelectionRange(0, 9999999); 
-
-    navigator.clipboard.writeText(textArea.value).then(() => {
-      alert("✅ JSON কোড সফলভাবে কপি হয়েছে! এবার এটি আপনার GitHub-এর ফাইলে পেস্ট করুন।");
-    }).catch(err => {
-      alert("কোড কপি করা যায়নি। দয়া করে ম্যানুয়ালি সিলেক্ট করে কপি করুন।");
-      console.error(err);
-    });
-  }
-
-  // Fetch initial data on load
   window.onload = fetchData;
 </script>
-
 </body>
 </html>
