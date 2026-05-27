@@ -1,10 +1,14 @@
+
 {
   "store": {
     "name": "আমার দোকান",
     "tagline": "সেরা পণ্য, সেরা দাম",
     "whatsapp": "8801401615822",
     "currency": "৳",
-    "hero_image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg"
+    "hero_image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+    "theme_color": "#6C63FF",
+    "delivery_charge": 50,
+    "free_delivery_min": 1000
   },
   "offers": [
     {
