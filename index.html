@@ -37,12 +37,14 @@
 
     body { background: var(--bg); color: var(--text); }
 
-    .offer-bar { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); overflow: hidden; padding: 0; position: relative; width: 100%; }
+   /* Premium Marquee Offer Bar */
+    .offer-bar { background: #111827; color: #ffffff; overflow: hidden; padding: 7px 0; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .marquee-wrapper { display: flex; width: 100%; overflow: hidden; }
-    .marquee-track { display: flex; gap: 60px; animation: marquee 30s linear infinite; white-space: nowrap; padding: 10px 0; }
+    .marquee-track { display: flex; gap: 40px; animation: marquee 25s linear infinite; white-space: nowrap; align-items: center; }
     .marquee-track:hover { animation-play-state: paused; }
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .offer-item { display: inline-flex; align-items: center; gap: 8px; color: white; font-size: 0.88rem; font-weight: 500; padding: 2px 18px; border-radius: 20px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
+    .offer-item { display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .offer-item::before { content: '✨'; font-size: 1rem; opacity: 0.9; } /* অফারের আগে তারার আইকন */
 
     .site-header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; width: 100%; }
     .search-input { background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.35); color: white; border-radius: 12px; padding: 8px 16px; outline: none; transition: all 0.3s; width: 100%; }
@@ -476,7 +478,12 @@
 
   function saveCart() { localStorage.setItem('myShopCart', JSON.stringify(cart)); }
   function loadCart() { const saved = localStorage.getItem('myShopCart'); if (saved) { try { cart = JSON.parse(saved); updateCartUI(); } catch(e){} } }
-  function buildOfferBar() { const track = document.getElementById('marqueeTrack'); const offers = storeData.offers || []; track.innerHTML = [...offers, ...offers].map(o => `<span class="offer-item" style="border-left:3px solid ${o.color}">${o.text}</span>`).join(''); }
+  function buildOfferBar() { 
+    const track = document.getElementById('marqueeTrack'); 
+    const offers = storeData.offers || []; 
+    // স্টাইল মুছে শুধু টেক্সট রাখা হয়েছে
+    track.innerHTML = [...offers, ...offers, ...offers].map(o => `<span class="offer-item" style="color: ${o.color}">${o.text}</span>`).join(''); 
+  }
 
   function buildCategoryTabs() {
     const tabs = document.getElementById('categoryTabs'); const cats = storeData.categories || [];
