@@ -7,7 +7,7 @@
     "theme_color": "#6c63ff",
     "delivery_charge": 50,
     "free_delivery_min": 1000,
-    "is_open": true,
+    "is_open": false,
     "close_time": "রাত ১০টা",
     "open_time": "সকাল ৮টা",
     "hero_image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
@@ -115,7 +115,7 @@
         "তৈল",
         "সোয়াবিন তেল"
       ],
-      "in_stock": true,
+      "in_stock": false,
       "variants": [
         {
           "unit": "1 কেজি",
