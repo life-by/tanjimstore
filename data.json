@@ -4,10 +4,16 @@
     "tagline": "সেরা পণ্য, সেরা দাম",
     "whatsapp": "8801401615822",
     "currency": "৳",
+    "theme_color": "#6C63FF",
+    "delivery_charge": 50,
+    "free_delivery_min": 1000,
+    "is_open": true,
+    "close_time": "রাত ১০টা",
+    "open_time": "সকাল ৮টা",
     "hero_image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
-    "theme_color": "#f09800",
-    "delivery_charge": 20,
-    "free_delivery_min": 1000
+    "hero_images": [
+      "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg"
+    ]
   },
   "offers": [
     {
@@ -109,6 +115,7 @@
         "তৈল",
         "সোয়াবিন তেল"
       ],
+      "in_stock": true,
       "variants": [
         {
           "unit": "1 কেজি",
@@ -140,6 +147,7 @@
         "চাল",
         "চাউল"
       ],
+      "in_stock": true,
       "variants": [
         {
           "unit": "1-কেজি",
@@ -176,6 +184,7 @@
         "ডাল",
         "ডাইল"
       ],
+      "in_stock": true,
       "variants": [
         {
           "unit": "250-গ্রাম",
