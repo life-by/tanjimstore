@@ -38,8 +38,41 @@
     body { background: var(--bg); color: var(--text); }
 
    /* Premium Marquee Offer Bar */
-    .offer-bar { background: #111827; color: #ffffff; overflow: hidden; padding: 7px 0; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    /* Premium & Highlighted Marquee */
+    .offer-bar { 
+      background: linear-gradient(90deg, #1e1b4b, #312e81, #1e1b4b); /* প্রিমিয়াম ডিপ ব্লু/পার্পল গ্র্যাডিয়েন্ট */
+      background-size: 200% 100%;
+      animation: gradientMove 4s ease infinite; /* ব্যাকগ্রাউন্ড হালকা নড়াচড়া করবে */
+      color: #ffffff; 
+      overflow: hidden; 
+      padding: 8px 0; 
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     .marquee-wrapper { display: flex; width: 100%; overflow: hidden; }
+    .marquee-track { display: flex; gap: 50px; animation: marquee 20s linear infinite; align-items: center; white-space: nowrap; }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    
+    .offer-item { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 12px; 
+      font-size: 0.95rem; /* ফন্ট সাইজ একটু বড় করা হয়েছে */
+      font-weight: 700; /* ফন্ট একদম বোল্ড */
+      letter-spacing: 0.5px;
+      text-shadow: 0px 2px 4px rgba(0,0,0,0.6); /* লেখার নিচে হালকা ছায়া, যাতে লেখা ভেসে ওঠে */
+    }
+    
+    .offer-badge {
+      background: #fbbf24; /* উজ্জ্বল হলুদ/গোল্ডেন কালার */
+      color: #78350f; /* গাঢ় খয়েরি টেক্সট */
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); /* ব্যাজের চারপাশে গ্লোয়িং এফেক্ট */
+    }
     .marquee-track { display: flex; gap: 40px; animation: marquee 25s linear infinite; white-space: nowrap; align-items: center; }
     .marquee-track:hover { animation-play-state: paused; }
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -478,11 +511,24 @@
 
   function saveCart() { localStorage.setItem('myShopCart', JSON.stringify(cart)); }
   function loadCart() { const saved = localStorage.getItem('myShopCart'); if (saved) { try { cart = JSON.parse(saved); updateCartUI(); } catch(e){} } }
-  function buildOfferBar() { 
+ function buildOfferBar() { 
     const track = document.getElementById('marqueeTrack'); 
     const offers = storeData.offers || []; 
-    // স্টাইল মুছে শুধু টেক্সট রাখা হয়েছে
-    track.innerHTML = [...offers, ...offers, ...offers].map(o => `<span class="offer-item" style="color: ${o.color}">${o.text}</span>`).join(''); 
+    
+    // যদি কোনো অফার না থাকে, তবে অফার বারটি হাইড হয়ে যাবে
+    if(offers.length === 0) {
+      document.getElementById('offerBar').style.display = 'none';
+      return;
+    }
+    document.getElementById('offerBar').style.display = 'block';
+
+    // নতুন হাইলাইটেড স্টাইল
+    track.innerHTML = [...offers, ...offers, ...offers].map(o => 
+      `<span class="offer-item">
+         <span class="offer-badge">🔥 স্পেশাল অফার</span>
+         <span style="color: ${o.color || '#ffffff'}">${o.text}</span>
+       </span>`
+    ).join(''); 
   }
 
   function buildCategoryTabs() {
