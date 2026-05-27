@@ -1,4 +1,3 @@
-
 {
   "store": {
     "name": "আমার দোকান",
@@ -6,8 +5,8 @@
     "whatsapp": "8801401615822",
     "currency": "৳",
     "hero_image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
-    "theme_color": "#6C63FF",
-    "delivery_charge": 50,
+    "theme_color": "#0ee174",
+    "delivery_charge": 20,
     "free_delivery_min": 1000
   },
   "offers": [
