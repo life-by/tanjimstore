@@ -37,47 +37,15 @@
 
     body { background: var(--bg); color: var(--text); }
 
-   /* Premium Marquee Offer Bar */
     /* Premium & Highlighted Marquee */
-    .offer-bar { 
-      background: linear-gradient(90deg, #1e1b4b, #312e81, #1e1b4b); /* প্রিমিয়াম ডিপ ব্লু/পার্পল গ্র্যাডিয়েন্ট */
-      background-size: 200% 100%;
-      animation: gradientMove 4s ease infinite; /* ব্যাকগ্রাউন্ড হালকা নড়াচড়া করবে */
-      color: #ffffff; 
-      overflow: hidden; 
-      padding: 8px 0; 
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
+    .offer-bar { background: linear-gradient(90deg, #1e1b4b, #312e81, #1e1b4b); background-size: 200% 100%; animation: gradientMove 4s ease infinite; color: #ffffff; overflow: hidden; padding: 8px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
     @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     .marquee-wrapper { display: flex; width: 100%; overflow: hidden; }
     .marquee-track { display: flex; gap: 50px; animation: marquee 20s linear infinite; align-items: center; white-space: nowrap; }
     .marquee-track:hover { animation-play-state: paused; }
     @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    
-    .offer-item { 
-      display: inline-flex; 
-      align-items: center; 
-      gap: 12px; 
-      font-size: 0.95rem; /* ফন্ট সাইজ একটু বড় করা হয়েছে */
-      font-weight: 700; /* ফন্ট একদম বোল্ড */
-      letter-spacing: 0.5px;
-      text-shadow: 0px 2px 4px rgba(0,0,0,0.6); /* লেখার নিচে হালকা ছায়া, যাতে লেখা ভেসে ওঠে */
-    }
-    
-    .offer-badge {
-      background: #fbbf24; /* উজ্জ্বল হলুদ/গোল্ডেন কালার */
-      color: #78350f; /* গাঢ় খয়েরি টেক্সট */
-      padding: 2px 10px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); /* ব্যাজের চারপাশে গ্লোয়িং এফেক্ট */
-    }
-    .marquee-track { display: flex; gap: 40px; animation: marquee 25s linear infinite; white-space: nowrap; align-items: center; }
-    .marquee-track:hover { animation-play-state: paused; }
-    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .offer-item { display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; }
-    .offer-item::before { content: '✨'; font-size: 1rem; opacity: 0.9; } /* অফারের আগে তারার আইকন */
+    .offer-item { display: inline-flex; align-items: center; gap: 12px; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.5px; text-shadow: 0px 2px 4px rgba(0,0,0,0.6); }
+    .offer-badge { background: #fbbf24; color: #78350f; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
 
     .site-header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; width: 100%; }
     .search-input { background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.35); color: white; border-radius: 12px; padding: 8px 16px; outline: none; transition: all 0.3s; width: 100%; }
@@ -91,7 +59,6 @@
     .category-card-img { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; background: #f0f4ff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; overflow: hidden; }
     .category-card-img img { width: 100%; height: 100%; object-fit: cover; }
     .category-card-text { font-size: 0.75rem; font-weight: 700; color: var(--text); line-height: 1.2; }
-    @media (max-width: 480px) { .category-card-img { width: 60px; height: 60px; } .category-card-text { font-size: 0.65rem; } }
 
     .cat-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; border: 2px solid #e5e7eb; background: white; color: var(--muted); font-weight: 500; font-size: 0.8rem; cursor: pointer; transition: all 0.25s; white-space: nowrap; }
     .cat-btn:hover, .cat-btn.active { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
@@ -105,6 +72,7 @@
     .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .product-card:hover .product-img-wrap img { transform: scale(1.06); }
     .badge-offer { position: absolute; top: 10px; right: 10px; background: var(--accent); color: white; font-size: 0.75rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; z-index: 10;}
+    .badge-stockout { position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; font-size: 0.75rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; z-index: 10;}
     .price-original { text-decoration: line-through; color: #9ca3af; font-size: 0.82rem; }
     .price-offer { color: var(--accent); font-size: 1.15rem; font-weight: 700; }
     
@@ -139,17 +107,15 @@
     .app-bar-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #6b7280; font-size: 0.7rem; font-weight: 600; cursor: pointer; position: relative; width: 60px;}
     .app-bar-item.active { color: var(--primary); }
     .app-bar-item svg { width: 22px; height: 22px; }
-    
     @media (max-width: 640px) { body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); } }
 
-    #installAppBtnDesktop { display: flex; }
-    #installAppBtnMobile { display: flex; }
+    #installAppBtnDesktop, #installAppBtnMobile { display: flex; }
     @media (max-width: 639px) { #installAppBtnDesktop { display: none !important; } }
     @media all and (display-mode: standalone) { #installAppBtnDesktop, #installAppBtnMobile { display: none !important; } }
 
     .quick-view-box { background: white; border-radius: 20px; width: 90%; max-width: 800px; display: flex; overflow: hidden; transform: scale(0.95); transition: transform 0.3s; max-height: 90vh; margin: auto;}
     .info-modal-overlay.open .quick-view-box { transform: scale(1); }
-    .qv-img-sec { flex: 1; background: #f8f9ff; display: flex; align-items: center; justify-content: center; overflow: hidden;}
+    .qv-img-sec { flex: 1; background: #f8f9ff; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;}
     .qv-img-sec img { width: 100%; height: 100%; object-fit: cover; }
     .qv-info-sec { flex: 1; padding: 30px; display: flex; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch;}
     @media (max-width: 768px) { .quick-view-box { flex-direction: column; overflow-y: auto;} .qv-img-sec { height: 250px; flex: none; } .qv-info-sec { padding: 20px; } }
@@ -167,6 +133,10 @@
     .grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; width: 100%; }
     @media (max-width: 480px) { .grid-products { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
 
+    /* Slider Image Transition */
+    .slider-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.8s ease-in-out; }
+    .slider-img.active { opacity: 1; z-index: 5; }
+    
     /* POS Print Styling */
     @media print {
       body * { visibility: hidden; }
@@ -179,7 +149,7 @@
 </head>
 <body>
 
-<div class="offer-bar" id="offerBar">
+<div class="offer-bar" id="offerBar" style="display: none;">
   <div class="marquee-wrapper"><div class="marquee-track" id="marqueeTrack"></div></div>
 </div>
 
@@ -220,8 +190,9 @@
         <p class="text-gray-700 font-medium text-sm mb-4" id="heroBannerSub">সেরা মানের পণ্য, সাশ্রয়ী মূল্যে। আজই অর্ডার করুন!</p>
         <button onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})" class="bg-white text-indigo-700 font-bold px-5 py-2 rounded-full text-sm hover:shadow-lg transition inline-block">🛍️ কেনাকাটা শুরু করুন</button>
       </div>
-      <div id="heroImageContainer" class="relative z-10 hidden sm:block w-full sm:w-1/2 flex justify-center sm:justify-end">
-        <img id="heroImage" src="" alt="Offer" class="w-full aspect-video object-cover rounded-xl drop-shadow-md">
+      <!-- Slider Container -->
+      <div id="heroImageContainer" class="relative z-10 hidden sm:block w-full sm:w-1/2 aspect-video overflow-hidden rounded-xl drop-shadow-md">
+        <!-- Slider Images will be injected here -->
       </div>
     </div>
     
@@ -242,28 +213,22 @@
 
 <div class="bottom-app-bar sm:hidden">
   <div class="app-bar-item active" onclick="filterCategory('all'); window.scrollTo({top:0, behavior:'smooth'})">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-    <span>হোম</span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg><span>হোম</span>
   </div>
   <div class="app-bar-item" onclick="document.getElementById('categoryTabs').scrollIntoView({behavior:'smooth'})">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-    <span>ক্যাটাগরি</span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg><span>ক্যাটাগরি</span>
   </div>
   <div class="app-bar-item" onclick="toggleCart()">
     <div class="relative">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h13M7 13L5.4 5M10 21a1 1 0 100-2 1 1 0 000 2zm7 0a1 1 0 100-2 1 1 0 000 2z"/></svg>
       <span class="cart-badge mobile-cart-badge" style="display:none; top:-8px; right:-10px">0</span>
-    </div>
-    <span>কার্ট</span>
+    </div><span>কার্ট</span>
   </div>
   <div class="app-bar-item" onclick="openMyOrdersModal()">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
-    <span>অর্ডার</span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg><span>অর্ডার</span>
   </div>
-  
   <div class="app-bar-item" id="installAppBtnMobile" onclick="installPWA()">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#e11d48"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-    <span class="text-rose-600 font-bold">ইনস্টল</span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#e11d48"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg><span class="text-rose-600 font-bold">ইনস্টল</span>
   </div>
 </div>
 
@@ -335,14 +300,14 @@
       <div class="flex items-center gap-4 mb-6">
         <span class="font-bold text-gray-700 text-sm">পরিমাণ:</span>
         <div class="flex items-center gap-3 bg-gray-100 p-1 rounded-xl">
-          <button onclick="changeQvQty(-1)" class="w-8 h-8 rounded-lg bg-white text-gray-800 font-bold shadow-sm flex items-center justify-center hover:bg-gray-50">−</button>
+          <button id="qvMinusBtn" onclick="changeQvQty(-1)" class="w-8 h-8 rounded-lg bg-white text-gray-800 font-bold shadow-sm flex items-center justify-center hover:bg-gray-50">−</button>
           <span id="qvQtyDisplay" class="font-bold w-6 text-center">1</span>
-          <button onclick="changeQvQty(1)" class="w-8 h-8 rounded-lg bg-white text-gray-800 font-bold shadow-sm flex items-center justify-center hover:bg-gray-50">+</button>
+          <button id="qvPlusBtn" onclick="changeQvQty(1)" class="w-8 h-8 rounded-lg bg-white text-gray-800 font-bold shadow-sm flex items-center justify-center hover:bg-gray-50">+</button>
         </div>
       </div>
       <div class="mt-auto flex gap-3">
         <button id="qvAddToCartBtn" class="flex-1 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white rounded-xl py-3 font-bold text-sm shadow-md transition flex flex-col items-center justify-center"><span class="text-sm">🛒 কার্টে রাখুন</span></button>
-        <button onclick="buyNowFromQvTelegram()" class="flex-1 bg-[var(--accent)] hover:opacity-90 text-white rounded-xl py-3 font-bold text-sm shadow-md transition flex flex-col items-center justify-center"><span class="text-sm">⚡ সরাসরি কিনুন</span></button>
+        <button id="qvBuyNowBtn" onclick="buyNowFromQvTelegram()" class="flex-1 bg-[var(--accent)] hover:opacity-90 text-white rounded-xl py-3 font-bold text-sm shadow-md transition flex flex-col items-center justify-center"><span class="text-sm">⚡ সরাসরি কিনুন</span></button>
       </div>
     </div>
   </div>
@@ -397,6 +362,20 @@
   </div>
 </div>
 
+<!-- Store Closed Warning Popup -->
+<div class="info-modal-overlay" id="storeClosedPopupOverlay">
+  <div class="info-modal bg-white text-center p-6 border-t-4 border-red-500">
+    <div class="text-5xl mb-3">🌙</div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2">দোকান এখন বন্ধ আছে!</h3>
+    <p class="text-sm text-gray-600 mb-4">বন্ধ হওয়ার সময়: <span id="scCloseTime" class="font-bold"></span><br>খোলার সময়: <span id="scOpenTime" class="font-bold"></span></p>
+    <p class="text-xs text-rose-500 font-bold mb-5">আপনি চাইলে এখনই অর্ডার প্লেস করে রাখতে পারেন, খোলার পর ডেলিভারি দেওয়া হবে।</p>
+    <div class="flex gap-2">
+      <button onclick="cancelStoreClosedPopup()" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold">বাতিল করুন</button>
+      <button onclick="proceedStoreClosedPopup()" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-bold">অর্ডার চালিয়ে যান</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -416,6 +395,9 @@
   let themeColor = '#6C63FF';
   let deliveryCharge = 0;
   let freeDeliveryThreshold = 0;
+  
+  let storeIsOpen = true;
+  let proceedCheckoutCallback = null;
 
   let deferredPrompt;
   window.addEventListener('beforeinstallprompt', (e) => {
@@ -430,19 +412,17 @@
       if (outcome === 'accepted') { console.log('App Installed Successfully'); }
       deferredPrompt = null;
     } else {
-      alert("অ্যাপটি ইনস্টল করতে আপনার ব্রাউজারের মেনু (⋮ বা Share আইকন) থেকে 'Add to Home Screen' অথবা 'Install App' এ ক্লিক করুন।");
+      alert("অ্যাপটি ইনস্টল করতে আপনার ব্রাউজারের মেনু থেকে 'Add to Home Screen' এ ক্লিক করুন।");
     }
   }
 
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').then(reg => console.log('SW Registered')).catch(err => console.log('SW Failed', err));
-    });
+    window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(err => console.log('SW Failed', err)); });
   }
 
   function getIconHtml(iconStr) {
     if (!iconStr) return '';
-    if (iconStr.startsWith('http')) return `<img src="${iconStr}" class="w-6 h-6 rounded object-cover inline-block" alt="icon">`;
+    if (iconStr.startsWith('http')) return `<img src="${iconStr}" class="w-6 h-6 rounded object-cover inline-block">`;
     return iconStr;
   }
 
@@ -453,24 +433,58 @@
     } catch {
       storeData = { store: {}, offers: [], categories: [], products: [] };
     }
-    currency = storeData.store.currency || '৳';
-    waNumber = storeData.store.whatsapp || '';
     
-    themeColor = storeData.store.theme_color || '#6C63FF';
-    deliveryCharge = parseInt(storeData.store.delivery_charge) || 0;
-    freeDeliveryThreshold = parseInt(storeData.store.free_delivery_min) || 0;
+    const sd = storeData.store || {};
+    currency = sd.currency || '৳';
+    waNumber = sd.whatsapp || '';
+    themeColor = sd.theme_color || '#6C63FF';
+    deliveryCharge = parseInt(sd.delivery_charge) || 0;
+    freeDeliveryThreshold = parseInt(sd.free_delivery_min) || 0;
+    storeIsOpen = sd.is_open !== false; // default true
+    
     document.documentElement.style.setProperty('--primary', themeColor);
     document.documentElement.style.setProperty('--primary-dark', themeColor);
 
-    document.getElementById('storeName').textContent = storeData.store.name || 'আমার দোকান';
-    document.getElementById('storeTagline').textContent = storeData.store.tagline || '';
-    document.getElementById('heroBannerTitle').textContent = (storeData.store.name || 'আমার দোকান') + '-এ';
-    document.title = storeData.store.name || 'দোকান';
-    if (storeData.store.hero_image) {
-      document.getElementById('heroImage').src = storeData.store.hero_image;
-      document.getElementById('heroImageContainer').style.display = 'block';
+    document.getElementById('storeName').textContent = sd.name || 'আমার দোকান';
+    document.getElementById('storeTagline').textContent = sd.tagline || '';
+    document.getElementById('heroBannerTitle').textContent = (sd.name || 'আমার দোকান') + '-এ';
+    document.title = sd.name || 'দোকান';
+    
+    // Slider Logic
+    const heroContainer = document.getElementById('heroImageContainer');
+    let heroImages = sd.hero_images;
+    if(!heroImages || heroImages.length === 0) {
+      if(sd.hero_image) heroImages = [sd.hero_image];
+      else heroImages = [];
     }
+    
+    if (heroImages.length > 0) {
+      heroContainer.style.display = 'block';
+      heroContainer.innerHTML = heroImages.map((img, idx) => `<img id="slide_${idx}" src="${img}" class="slider-img ${idx===0 ? 'active' : ''}">`).join('');
+      if(heroImages.length > 1) {
+        let curSlide = 0;
+        setInterval(() => {
+          document.querySelectorAll('.slider-img').forEach(el => el.classList.remove('active'));
+          curSlide = (curSlide + 1) % heroImages.length;
+          document.getElementById('slide_' + curSlide).classList.add('active');
+        }, 4000);
+      }
+    }
+
     buildOfferBar(); buildCategoryTabs(); loadCart(); renderProducts();
+  }
+
+  function buildOfferBar() { 
+    const track = document.getElementById('marqueeTrack'); 
+    const offers = storeData.offers || []; 
+    if(offers.length === 0) {
+      document.getElementById('offerBar').style.display = 'none';
+      return;
+    }
+    document.getElementById('offerBar').style.display = 'block';
+    track.innerHTML = [...offers, ...offers, ...offers].map(o => 
+      `<span class="offer-item"><span class="offer-badge">🔥 স্পেশাল অফার</span><span style="color: ${o.color || '#ffffff'}">${o.text}</span></span>`
+    ).join(''); 
   }
 
   function processSearch(val) {
@@ -484,7 +498,7 @@
     const q = val.toLowerCase().trim(); let html = '';
     if (q === '') {
       if (searchHistory.length > 0) {
-        html += `<div class="px-3 py-2 text-xs font-bold text-gray-400 flex justify-between bg-gray-50 border-b border-gray-100 sticky top-0"><span>সাম্প্রতিক অনুসন্ধান</span><button onclick="clearHistory(event)" class="text-red-400 hover:text-red-600">মুছুন</button></div>`;
+        html += `<div class="px-3 py-2 text-xs font-bold text-gray-400 flex justify-between bg-gray-50 border-b border-gray-100 sticky top-0"><span>সাম্প্রতিক অনুসন্ধান</span><button onclick="clearHistory(event)" class="text-red-400">মুছুন</button></div>`;
         searchHistory.forEach(h => html += `<div class="px-3 py-2.5 hover:bg-gray-50 cursor-pointer flex items-center gap-2 text-sm text-gray-600 border-b border-gray-50 last:border-0" onclick="selectSearch('${h}')"><span class="text-gray-300">🕒</span> ${h}</div>`);
       }
     } else {
@@ -494,7 +508,7 @@
         html += `<div class="px-3 py-2 text-xs font-bold text-gray-400 bg-gray-50 border-b border-gray-100 sticky top-0">সাজেশন সমূহ</div>`;
         matches.forEach(m => {
           const dp = (m.variants && m.variants.length > 0) ? (m.variants[0].offer_price || m.variants[0].price) : (m.offer_price || m.price);
-          html += `<div class="px-3 py-2.5 hover:bg-gray-100 cursor-pointer flex items-center gap-3 border-b border-gray-50 last:border-0 transition" onclick="selectSearch('${m.name}')"><img src="${m.image}" class="w-10 h-10 rounded-lg object-cover border border-gray-200" onerror="this.src='https://via.placeholder.com/40'"><div class="flex-1 min-w-0"><div class="text-sm font-semibold text-gray-800 truncate">${m.name}</div><div class="text-xs font-bold" style="color:var(--primary)">${currency}${dp.toLocaleString('bn-BD')}</div></div></div>`;
+          html += `<div class="px-3 py-2.5 hover:bg-gray-100 cursor-pointer flex items-center gap-3 border-b border-gray-50 last:border-0 transition" onclick="selectSearch('${m.name}')"><img src="${m.image}" class="w-10 h-10 rounded-lg object-cover border border-gray-200"><div class="flex-1 min-w-0"><div class="text-sm font-semibold text-gray-800 truncate">${m.name}</div><div class="text-xs font-bold" style="color:var(--primary)">${currency}${dp.toLocaleString('bn-BD')}</div></div></div>`;
         });
       } else { html += `<div class="px-4 py-6 text-center text-sm text-gray-500">কোনো পণ্য পাওয়া যায়নি</div>`; }
     }
@@ -511,25 +525,6 @@
 
   function saveCart() { localStorage.setItem('myShopCart', JSON.stringify(cart)); }
   function loadCart() { const saved = localStorage.getItem('myShopCart'); if (saved) { try { cart = JSON.parse(saved); updateCartUI(); } catch(e){} } }
- function buildOfferBar() { 
-    const track = document.getElementById('marqueeTrack'); 
-    const offers = storeData.offers || []; 
-    
-    // যদি কোনো অফার না থাকে, তবে অফার বারটি হাইড হয়ে যাবে
-    if(offers.length === 0) {
-      document.getElementById('offerBar').style.display = 'none';
-      return;
-    }
-    document.getElementById('offerBar').style.display = 'block';
-
-    // নতুন হাইলাইটেড স্টাইল
-    track.innerHTML = [...offers, ...offers, ...offers].map(o => 
-      `<span class="offer-item">
-         <span class="offer-badge">🔥 স্পেশাল অফার</span>
-         <span style="color: ${o.color || '#ffffff'}">${o.text}</span>
-       </span>`
-    ).join(''); 
-  }
 
   function buildCategoryTabs() {
     const tabs = document.getElementById('categoryTabs'); const cats = storeData.categories || [];
@@ -604,23 +599,27 @@
     const hasOffer = baseOfferPrice && baseOfferPrice < basePrice;
     const displayPrice = hasOffer ? baseOfferPrice : basePrice;
     const discount = hasOffer ? getDiscount(basePrice, baseOfferPrice) : 0;
+    
+    // Out of Stock Logic
+    const isOut = p.in_stock === false;
+    let imageClass = isOut ? "opacity-50 grayscale" : "";
 
     return `
       <div class="product-card" onclick="openQuickView(${p.id})">
         <div class="product-img-wrap">
-          <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'" />
-          ${hasOffer ? `<div class="badge-offer">${discount}% ছাড়</div>` : ''}
+          <img src="${p.image}" class="${imageClass}" loading="lazy" />
+          ${isOut ? `<div class="badge-stockout">স্টক আউট</div>` : (hasOffer ? `<div class="badge-offer">${discount}% ছাড়</div>` : '')}
         </div>
         <div class="p-3 flex flex-col flex-1">
-          <h3 class="font-bold text-sm mb-1 leading-snug">${p.name}</h3>
+          <h3 class="font-bold text-sm mb-1 leading-snug ${isOut ? 'text-gray-400' : ''}">${p.name}</h3>
           ${p.description ? `<p class="text-xs text-gray-400 mb-2 line-clamp-1">${p.description}</p>` : ''}
-          ${hasVariants ? `<div class="text-xs font-bold mb-2 inline-block px-2 py-0.5 rounded" style="color:var(--primary); background:#f0f4ff">${p.variants.length} টি ভ্যারিয়েন্ট আছে</div>` : ''}
-          <div class="mb-3 flex-1">
+          ${hasVariants && !isOut ? `<div class="text-xs font-bold mb-2 inline-block px-2 py-0.5 rounded" style="color:var(--primary); background:#f0f4ff">${p.variants.length} টি ভ্যারিয়েন্ট আছে</div>` : ''}
+          <div class="mb-3 flex-1 ${isOut ? 'opacity-50' : ''}">
             ${hasOffer ? `<div class="price-original">${currency}${basePrice.toLocaleString('bn-BD')}</div>` : ''}
             <div class="price-offer">${currency}${displayPrice.toLocaleString('bn-BD')}</div>
           </div>
           <div class="flex gap-2">
-            <button class="w-full font-bold py-2 rounded-xl text-sm transition" style="background:#f0f4ff; color:var(--primary)">বিস্তারিত দেখুন</button>
+            <button class="w-full font-bold py-2 rounded-xl text-sm transition" style="${isOut ? 'background:#e5e7eb; color:#9ca3af;' : 'background:#f0f4ff; color:var(--primary)'}">${isOut ? 'স্টক শেষ' : 'বিস্তারিত দেখুন'}</button>
           </div>
         </div>
       </div>`;
@@ -631,29 +630,47 @@
     if (!p) return;
     qvCurrentProduct = p; qvCurrentQty = 1; qvSelectedVariantIndex = 0;
 
-    document.getElementById('qvImage').src = p.image;
+    const isOut = p.in_stock === false;
+    const imgEl = document.getElementById('qvImage');
+    imgEl.src = p.image;
+    imgEl.className = isOut ? "opacity-50 grayscale" : "";
+    
     document.getElementById('qvTitle').textContent = p.name;
     document.getElementById('qvDesc').textContent = p.description || '';
     document.getElementById('qvQtyDisplay').textContent = qvCurrentQty;
 
     let variantHtml = '';
     if (p.variants && p.variants.length > 0) {
-      variantHtml = `<label class="block text-xs font-bold text-gray-500 mb-1">সাইজ / ওজন বেছে নিন:</label>
-                     <select id="qvVariantSelect" class="variant-select mb-0" onchange="changeQvVariant(this.value)">`;
+      variantHtml = `<label class="block text-xs font-bold text-gray-500 mb-1">সাইজ / ওজন বেছে নিন:</label><select id="qvVariantSelect" class="variant-select mb-0" onchange="changeQvVariant(this.value)">`;
       p.variants.forEach((v, idx) => { variantHtml += `<option value="${idx}">${v.unit}</option>`; });
       variantHtml += `</select>`;
     }
     document.getElementById('qvVariantContainer').innerHTML = variantHtml;
+    
+    const cartBtn = document.getElementById('qvAddToCartBtn');
+    const buyBtn = document.getElementById('qvBuyNowBtn');
+    
+    if (isOut) {
+      cartBtn.disabled = true; buyBtn.disabled = true;
+      cartBtn.style.background = "#d1d5db"; buyBtn.style.background = "#d1d5db";
+      cartBtn.innerHTML = "স্টক আউট"; buyBtn.innerHTML = "পাওয়া যাচ্ছে না";
+      document.getElementById('qvMinusBtn').disabled = true; document.getElementById('qvPlusBtn').disabled = true;
+    } else {
+      cartBtn.disabled = false; buyBtn.disabled = false;
+      cartBtn.style.background = "var(--primary)"; buyBtn.style.background = "var(--accent)";
+      cartBtn.innerHTML = "🛒 কার্টে রাখুন"; buyBtn.innerHTML = "⚡ সরাসরি কিনুন";
+      document.getElementById('qvMinusBtn').disabled = false; document.getElementById('qvPlusBtn').disabled = false;
+    }
 
-    updateQvPriceDisplay();
+    updateQvPriceDisplay(isOut);
     document.getElementById('quickViewOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
   
   function closeQuickView(e) { if (e && e.target !== document.getElementById('quickViewOverlay')) return; document.getElementById('quickViewOverlay').classList.remove('open'); document.body.style.overflow = ''; }
-  function changeQvVariant(index) { qvSelectedVariantIndex = parseInt(index); updateQvPriceDisplay(); }
+  function changeQvVariant(index) { qvSelectedVariantIndex = parseInt(index); updateQvPriceDisplay(qvCurrentProduct.in_stock === false); }
 
-  function updateQvPriceDisplay() {
+  function updateQvPriceDisplay(isOut) {
     const p = qvCurrentProduct;
     const v = (p.variants && p.variants.length > 0) ? p.variants[qvSelectedVariantIndex] : p;
     const hasOffer = v.offer_price && v.offer_price < v.price;
@@ -661,17 +678,19 @@
     const total = dp * qvCurrentQty; 
     
     let html = '';
-    if (hasOffer) html += `<span class="text-gray-400 text-lg line-through mr-2">${currency}${(v.price * qvCurrentQty).toLocaleString('bn-BD')}</span>`;
-    html += `<span class="text-3xl font-extrabold" style="color:var(--primary)">${currency}${total.toLocaleString('bn-BD')}</span>`;
+    if (hasOffer && !isOut) html += `<span class="text-gray-400 text-lg line-through mr-2">${currency}${(v.price * qvCurrentQty).toLocaleString('bn-BD')}</span>`;
+    html += `<span class="text-3xl font-extrabold" style="color:${isOut ? '#9ca3af' : 'var(--primary)'}">${currency}${total.toLocaleString('bn-BD')}</span>`;
     document.getElementById('qvPriceContainer').innerHTML = html;
 
     const badgeContainer = document.getElementById('qvBadgeContainer');
-    if (hasOffer) badgeContainer.innerHTML = `<span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">${getDiscount(v.price, v.offer_price)}% ছাড়</span>`;
+    if (isOut) badgeContainer.innerHTML = `<span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">স্টক আউট</span>`;
+    else if (hasOffer) badgeContainer.innerHTML = `<span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">${getDiscount(v.price, v.offer_price)}% ছাড়</span>`;
     else badgeContainer.innerHTML = '';
-    document.getElementById('qvAddToCartBtn').onclick = () => { addQvToCart(); closeQuickView(); };
+    
+    if(!isOut) document.getElementById('qvAddToCartBtn').onclick = () => { addQvToCart(); closeQuickView(); };
   }
   
-  function changeQvQty(delta) { qvCurrentQty = Math.max(1, qvCurrentQty + delta); document.getElementById('qvQtyDisplay').textContent = qvCurrentQty; updateQvPriceDisplay(); } 
+  function changeQvQty(delta) { qvCurrentQty = Math.max(1, qvCurrentQty + delta); document.getElementById('qvQtyDisplay').textContent = qvCurrentQty; updateQvPriceDisplay(qvCurrentProduct.in_stock === false); } 
 
   function addQvToCart() {
     const p = qvCurrentProduct; const v = (p.variants && p.variants.length > 0) ? p.variants[qvSelectedVariantIndex] : null;
@@ -683,7 +702,7 @@
     updateCartUI(); saveCart();
   }
   
-  function buyNowFromQvTelegram() { addQvToCart(); closeQuickView(); openInfoModal(); }
+  function buyNowFromQvTelegram() { addQvToCart(); closeQuickView(); openInfoModalWithCheck(); }
   
   function updateCartUI() {
     const total = cart.reduce((s, c) => s + (c.offer_price || c.price) * c.qty, 0);
@@ -721,16 +740,41 @@
   function changeQty(cartId, delta) { const item = cart.find(c => c.cartId === cartId); if (!item) return; item.qty = Math.max(1, item.qty + delta); updateCartUI(); renderCartItems(); saveCart(); }
   function clearCart() { cart = []; updateCartUI(); renderCartItems(); showToast('🗑️ কার্ট পরিষ্কার করা হয়েছে'); saveCart(); }
 
-  function openInfoModal() { 
+  // Store Closed Logic
+  let storeClosedTimer;
+  function checkStoreStatusAndProceed(callback) {
+    if(!storeIsOpen) {
+      document.getElementById('scCloseTime').innerText = storeData.store.close_time || 'জানা নেই';
+      document.getElementById('scOpenTime').innerText = storeData.store.open_time || 'জানা নেই';
+      const popup = document.getElementById('storeClosedPopupOverlay');
+      popup.classList.add('open');
+      proceedCheckoutCallback = callback;
+      
+      clearTimeout(storeClosedTimer);
+      storeClosedTimer = setTimeout(() => {
+        popup.classList.remove('open');
+        if(proceedCheckoutCallback) proceedCheckoutCallback();
+      }, 3000);
+    } else {
+      callback();
+    }
+  }
+  function cancelStoreClosedPopup() { clearTimeout(storeClosedTimer); document.getElementById('storeClosedPopupOverlay').classList.remove('open'); proceedCheckoutCallback = null; }
+  function proceedStoreClosedPopup() { clearTimeout(storeClosedTimer); document.getElementById('storeClosedPopupOverlay').classList.remove('open'); if(proceedCheckoutCallback) proceedCheckoutCallback(); }
+
+  function openInfoModalWithCheck() {
     if (cart.length === 0) return showToast('কার্টে কোনো পণ্য নেই!'); 
+    checkStoreStatusAndProceed(openInfoModal);
+  }
+
+  function openInfoModal() { 
+    if(document.getElementById('cartPanel').classList.contains('open')) toggleCart(); 
     
     const subtotal = cart.reduce((s, c) => s + (c.offer_price || c.price) * c.qty, 0);
-    let finalDelCharge = deliveryCharge;
-    let delMsg = '';
+    let finalDelCharge = deliveryCharge; let delMsg = '';
     
     if (freeDeliveryThreshold > 0 && subtotal >= freeDeliveryThreshold) {
-      finalDelCharge = 0;
-      delMsg = '🎉 আপনি ফ্রি ডেলিভারি পেয়েছেন!';
+      finalDelCharge = 0; delMsg = '🎉 আপনি ফ্রি ডেলিভারি পেয়েছেন!';
     } else if (freeDeliveryThreshold > 0) {
       delMsg = `আর মাত্র ${currency}${(freeDeliveryThreshold - subtotal).toLocaleString('bn-BD')} টাকার শপিং করলে ফ্রি ডেলিভারি!`;
     }
@@ -739,12 +783,8 @@
     document.getElementById('checkoutDelivery').textContent = finalDelCharge === 0 ? 'ফ্রি' : `+ ${currency}${finalDelCharge.toLocaleString('bn-BD')}`;
     document.getElementById('checkoutFinalTotal').textContent = `${currency}${(subtotal + finalDelCharge).toLocaleString('bn-BD')}`;
     
-    const msgEl = document.getElementById('freeDeliveryMsg');
-    msgEl.textContent = delMsg;
-    msgEl.style.display = delMsg ? 'block' : 'none';
-
+    const msgEl = document.getElementById('freeDeliveryMsg'); msgEl.textContent = delMsg; msgEl.style.display = delMsg ? 'block' : 'none';
     document.getElementById('infoModalOverlay').classList.add('open'); 
-    if(document.getElementById('cartPanel').classList.contains('open')) toggleCart(); 
   }
   
   function closeInfoModal() { document.getElementById('infoModalOverlay').classList.remove('open'); }
@@ -756,34 +796,26 @@
     if (!name || !phone || !address) return alert('অনুগ্রহ করে আপনার নাম, ফোন নম্বর এবং ঠিকানা দিন।');
     
     const encToken = "ODI0MjI1MTM0NzpBQUdxOFd5Ujh5VGcwa2Z1dXRVTTZWODhDT01HUEZyZkc2VQ==";
-    const BOT_TOKEN = atob(encToken); 
-    const CHAT_ID = "2139008203";
-    
+    const BOT_TOKEN = atob(encToken); const CHAT_ID = "2139008203";
     const orderIdNum = Math.floor(Math.random() * 90000) + 10000; const orderIdStr = `ORD-${orderIdNum}`;
     
     let subtotal = 0;
     let msg = `🛒 *নতুন অর্ডার এসেছে! [${orderIdStr}]*\n\n*👤 গ্রাহকের তথ্য:*\nনাম: ${name}\nফোন: ${phone}\nঠিকানা: ${address}\n\n*📦 অর্ডারের তালিকা:*\n-----------------------------------\n`;
-    const cartCopy = [...cart];
-    const date = new Date();
+    const cartCopy = [...cart]; const date = new Date();
 
     cart.forEach((item, idx) => {
       const dp = item.offer_price || item.price; const sub = dp * item.qty; subtotal += sub;
       msg += `${idx + 1}. ${item.name}\n   পরিমাণ: ${item.qty}টি × ${currency}${dp.toLocaleString('bn-BD')} = ${currency}${sub.toLocaleString('bn-BD')}\n`;
     });
     
-    let finalDelCharge = deliveryCharge;
-    if (freeDeliveryThreshold > 0 && subtotal >= freeDeliveryThreshold) finalDelCharge = 0;
+    let finalDelCharge = deliveryCharge; if (freeDeliveryThreshold > 0 && subtotal >= freeDeliveryThreshold) finalDelCharge = 0;
     let finalTotal = subtotal + finalDelCharge;
 
-    msg += `-----------------------------------\n`;
-    msg += `সাবটোটাল: ${currency}${subtotal.toLocaleString('bn-BD')}\n`;
-    msg += `ডেলিভারি চার্জ: ${currency}${finalDelCharge.toLocaleString('bn-BD')}\n`;
-    msg += `💰 *সর্বমোট বিল:* ${currency}${finalTotal.toLocaleString('bn-BD')}\n`;
-    
+    msg += `-----------------------------------\nসাবটোটাল: ${currency}${subtotal.toLocaleString('bn-BD')}\nডেলিভারি চার্জ: ${currency}${finalDelCharge.toLocaleString('bn-BD')}\n💰 *সর্বমোট বিল:* ${currency}${finalTotal.toLocaleString('bn-BD')}\n`;
+    if(!storeIsOpen) msg += `\n⚠️ *বিঃদ্রঃ অর্ডারটি দোকান বন্ধ থাকা অবস্থায় প্লেস করা হয়েছে!*`;
+
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-    const btn = document.getElementById('confirmOrderBtn');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = "অপেক্ষা করুন..."; btn.disabled = true;
+    const btn = document.getElementById('confirmOrderBtn'); const originalText = btn.innerHTML; btn.innerHTML = "অপেক্ষা করুন..."; btn.disabled = true;
 
     try {
       const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown' }) });
@@ -805,10 +837,8 @@
     document.getElementById('invDate').textContent = date.toLocaleDateString('bn-BD') + ' ' + date.toLocaleTimeString('bn-BD');
 
     const cleanWaNumber = waNumber.replace(/[^0-9]/g, ''); 
-    const waLink = `https://wa.me/${cleanWaNumber}?text=হ্যালো, আমার অর্ডার নাম্বার: ${orderId}। আমি অর্ডারটি সম্পর্কে জানতে চাই।`;
-    const callLink = `tel:${cleanWaNumber}`;
-    document.getElementById('invWaBtn').href = waLink;
-    document.getElementById('invCallBtn').href = callLink;
+    document.getElementById('invWaBtn').href = `https://wa.me/${cleanWaNumber}?text=হ্যালো, আমার অর্ডার নাম্বার: ${orderId}। আমি অর্ডারটি সম্পর্কে জানতে চাই।`;
+    document.getElementById('invCallBtn').href = `tel:${cleanWaNumber}`;
 
     let itemsHtml = '';
     cartItems.forEach(item => {
@@ -836,15 +866,7 @@
     let html = '';
     orders.forEach((order, index) => {
       const d = new Date(order.date);
-      html += `
-        <div class="my-orders-list-item">
-          <div class="flex-1 cursor-pointer" onclick="showInvoiceForOrder(${index})">
-            <p class="font-bold" style="color:var(--primary)">${order.orderId}</p>
-            <p class="text-xs text-gray-500">${d.toLocaleDateString('bn-BD')}</p>
-          </div>
-          <p class="font-bold text-lg px-4">${currency}${order.total.toLocaleString('bn-BD')}</p>
-          <button onclick="deleteOrder(${index})" class="bg-red-100 text-red-500 rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-200 transition">🗑️</button>
-        </div>`;
+      html += `<div class="my-orders-list-item"><div class="flex-1 cursor-pointer" onclick="showInvoiceForOrder(${index})"><p class="font-bold" style="color:var(--primary)">${order.orderId}</p><p class="text-xs text-gray-500">${d.toLocaleDateString('bn-BD')}</p></div><p class="font-bold text-lg px-4">${currency}${order.total.toLocaleString('bn-BD')}</p><button onclick="deleteOrder(${index})" class="bg-red-100 text-red-500 rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-200 transition">🗑️</button></div>`;
     });
     container.innerHTML = html;
   }
@@ -853,25 +875,10 @@
     const orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; const order = orders[index];
     if (order) { closeMyOrdersModal(); generateInvoice(order.name, order.phone, order.address || '', order.total, (order.subtotal || order.total), (order.delivery || 0), order.items, order.orderId, new Date(order.date)); }
   }
-  
-  function deleteOrder(index) {
-    if (confirm("আপনি কি নিশ্চিত যে এই অর্ডারটি মুছে ফেলতে চান?")) {
-      let orders = JSON.parse(localStorage.getItem('myShopOrders')) || [];
-      orders.splice(index, 1);
-      localStorage.setItem('myShopOrders', JSON.stringify(orders));
-      renderMyOrdersList();
-      showToast("অর্ডারটি মুছে ফেলা হয়েছে।");
-    }
-  }
+  function deleteOrder(index) { if (confirm("মুছে ফেলতে চান?")) { let orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; orders.splice(index, 1); localStorage.setItem('myShopOrders', JSON.stringify(orders)); renderMyOrdersList(); showToast("অর্ডার মুছে ফেলা হয়েছে।"); } }
 
   let toastTimer;
-  function showToast(msg) { 
-    const t = document.getElementById('toast'); 
-    t.textContent = msg; 
-    t.classList.add('show'); 
-    clearTimeout(toastTimer); 
-    toastTimer = setTimeout(() => { t.classList.remove('show'); }, 2500); 
-  }
+  function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.classList.remove('show'); }, 2500); }
 
   loadData();
 </script>
