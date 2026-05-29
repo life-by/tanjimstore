@@ -205,5 +205,6 @@
       "price": 30,
       "offer_price": 28
     }
-  ]
+  ],
+  "blacklist": []
 }
