@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#6C63FF">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg">
+  <link class="apple-touch-icon" href="https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg">
   
   <link rel="preconnect" href="https://raw.githubusercontent.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +18,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   
+  <!-- FingerprintJS Library for Advanced Browser Fingerprinting -->
+  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
+
   <style>
     html, body { max-width: 100vw; overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
     *, *::before, *::after { box-sizing: border-box; }
@@ -37,7 +40,6 @@
 
     body { background: var(--bg); color: var(--text); }
 
-    /* Premium & Highlighted Marquee */
     .offer-bar { background: linear-gradient(90deg, #1e1b4b, #312e81, #1e1b4b); background-size: 200% 100%; animation: gradientMove 4s ease infinite; color: #ffffff; overflow: hidden; padding: 8px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
     @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     .marquee-wrapper { display: flex; width: 100%; overflow: hidden; }
@@ -133,11 +135,9 @@
     .grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; width: 100%; }
     @media (max-width: 480px) { .grid-products { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
 
-    /* Slider Image Transition */
     .slider-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.8s ease-in-out; }
     .slider-img.active { opacity: 1; z-index: 5; }
     
-    /* POS Print Styling */
     @media print {
       body * { visibility: hidden; }
       #invoiceBox, #invoiceBox * { visibility: visible; }
@@ -190,10 +190,7 @@
         <p class="text-gray-700 font-medium text-sm mb-4" id="heroBannerSub">সেরা মানের পণ্য, সাশ্রয়ী মূল্যে। আজই অর্ডার করুন!</p>
         <button onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})" class="bg-white text-indigo-700 font-bold px-5 py-2 rounded-full text-sm hover:shadow-lg transition inline-block">🛍️ কেনাকাটা শুরু করুন</button>
       </div>
-      <!-- Slider Container -->
-      <div id="heroImageContainer" class="relative z-10 hidden sm:block w-full sm:w-1/2 aspect-video overflow-hidden rounded-xl drop-shadow-md">
-        <!-- Slider Images will be injected here -->
-      </div>
+      <div id="heroImageContainer" class="relative z-10 hidden sm:block w-full sm:w-1/2 aspect-video overflow-hidden rounded-xl drop-shadow-md"></div>
     </div>
     
     <div class="mb-6">
@@ -243,7 +240,7 @@
     <div class="flex justify-between items-center mb-3"><span class="font-semibold text-gray-600">মোট মূল্য:</span><span class="text-xl font-bold text-indigo-700" id="cartTotal">৳০</span></div>
     <div class="flex gap-3">
       <button onclick="clearCart()" class="flex-1 border-2 border-red-300 text-red-500 hover:bg-red-50 rounded-xl py-3 font-semibold text-sm transition">🗑️ সব মুছুন</button>
-      <button onclick="openInfoModal()" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl py-3 font-semibold text-sm hover:shadow-lg transition flex items-center justify-center gap-2">অর্ডার করুন</button>
+      <button onclick="openInfoModalWithCheck()" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl py-3 font-semibold text-sm hover:shadow-lg transition flex items-center justify-center gap-2">অর্ডার করুন</button>
     </div>
   </div>
 </div>
@@ -362,7 +359,6 @@
   </div>
 </div>
 
-<!-- Store Closed Warning Popup -->
 <div class="info-modal-overlay" id="storeClosedPopupOverlay">
   <div class="info-modal bg-white text-center p-6 border-t-4 border-red-500">
     <div class="text-5xl mb-3">🌙</div>
@@ -399,7 +395,9 @@
   let storeIsOpen = true;
   let proceedCheckoutCallback = null;
 
-  let deferredPrompt;
+  let clientDeviceId = '';
+  let clientFingerprint = '';
+
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
@@ -420,10 +418,52 @@
     window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(err => console.log('SW Failed', err)); });
   }
 
+  // ডিভাইস ট্র্যাকিং এবং ফিঙ্গারপ্রিন্ট জেনারেশন মেথড
+  async function initDeviceTracking() {
+    if (!localStorage.getItem('tanjim_device_id')) {
+      localStorage.setItem('tanjim_device_id', 'DEV-' + Math.random().toString(36).substr(2, 9).toUpperCase() + '-' + Date.now().toString().slice(-4));
+    }
+    clientDeviceId = localStorage.getItem('tanjim_device_id');
+
+    try {
+      const fp = await FingerprintJS.load();
+      const result = await fp.get();
+      clientFingerprint = 'FP-' + result.visitorId.toUpperCase();
+    } catch (e) {
+      clientFingerprint = 'FP-BK-' + btoa(navigator.userAgent + screen.width + screen.height).slice(0, 12).toUpperCase();
+    }
+  }
+
   function getIconHtml(iconStr) {
     if (!iconStr) return '';
     if (iconStr.startsWith('http')) return `<img src="${iconStr}" class="w-6 h-6 rounded object-cover inline-block">`;
     return iconStr;
+  }
+
+  // ব্লকলিস্ট চেক করার ফাংশন
+  function checkBlockStatus(phoneInput) {
+    const localBlock = localStorage.getItem('tanjim_local_block_until');
+    if (localBlock && Date.now() < parseInt(localBlock)) {
+      const daysLeft = Math.ceil((parseInt(localBlock) - Date.now()) / (24 * 60 * 60 * 1000));
+      return { blocked: true, reason: `অতিরিক্ত অর্ডার ক্যান্সেল করার জন্য আপনার ডিভাইসটি সাময়িকভাবে ব্লক করা হয়েছে। আরও ${daysLeft} দিন পর চেষ্টা করুন।` };
+    }
+
+    if (storeData.blacklist && storeData.blacklist.length > 0) {
+      const now = new Date();
+      for (let entry of storeData.blacklist) {
+        const expiry = new Date(entry.expires_at);
+        if (now > expiry) continue; 
+
+        const phoneMatch = entry.phone && phoneInput && phoneInput.trim() === entry.phone.trim();
+        const deviceMatch = entry.device_id && clientDeviceId && clientDeviceId === entry.device_id;
+        const fpMatch = entry.fingerprint && clientFingerprint && clientFingerprint === entry.fingerprint;
+
+        if (phoneMatch || deviceMatch || fpMatch) {
+          return { blocked: true, reason: entry.reason || "অর্ডার বাতিল বা স্প্যামিংজনিত কারণে আপনাকে ব্লক করা হয়েছে।" };
+        }
+      }
+    }
+    return { blocked: false };
   }
 
   async function loadData() {
@@ -431,7 +471,7 @@
       const res = await fetch('data.json?t=' + new Date().getTime());
       storeData = await res.json();
     } catch {
-      storeData = { store: {}, offers: [], categories: [], products: [] };
+      storeData = { store: {}, offers: [], categories: [], products: [], blacklist: [] };
     }
     
     const sd = storeData.store || {};
@@ -441,7 +481,6 @@
     deliveryCharge = parseInt(sd.delivery_charge) || 0;
     freeDeliveryThreshold = parseInt(sd.free_delivery_min) || 0;
     
-    // দোকান খোলা/বন্ধ স্ট্যাটাস ফিক্স করা হলো
     let isOp = sd.is_open;
     if (isOp === undefined) isOp = true; 
     storeIsOpen = (isOp === true || isOp === "true");
@@ -475,6 +514,7 @@
     }
 
     buildOfferBar(); buildCategoryTabs(); loadCart(); renderProducts();
+    await initDeviceTracking(); 
   }
 
   function buildOfferBar() { 
@@ -787,9 +827,6 @@
   
   function closeInfoModal() { document.getElementById('infoModalOverlay').classList.remove('open'); }
   
-  // ==========================================
-  // টেলিগ্রাম মেসেজ পাঠানোর কমন ফাংশন
-  // ==========================================
   async function sendToTelegram(msgText) {
     const encToken = "ODI0MjI1MTM0NzpBQUdxOFd5Ujh5VGcwa2Z1dXRVTTZWODhDT01HUEZyZkc2VQ==";
     const BOT_TOKEN = atob(encToken); 
@@ -802,15 +839,19 @@
     } catch(e) { console.log("Telegram Error"); }
   }
 
-  // ==========================================
-  // নতুন অর্ডার প্রসেসিং (সাথে সাথে মেসেজ যাবে)
-  // ==========================================
   async function processTelegramOrder() {
     const name = document.getElementById('customerName').value.trim(); 
     const phone = document.getElementById('customerPhone').value.trim();
     const address = document.getElementById('customerAddress').value.trim(); 
     if (!name || !phone || !address) return alert('অনুগ্রহ করে আপনার নাম, ফোন নম্বর এবং ঠিকানা দিন।');
     
+    // ব্লকলিস্ট ভ্যালিডেশন
+    const blockCheck = checkBlockStatus(phone);
+    if (blockCheck.blocked) {
+      alert(`⚠️ দুঃখিত! ${blockCheck.reason}`);
+      return;
+    }
+
     const btn = document.getElementById('confirmOrderBtn'); 
     const originalText = btn.innerHTML; 
     btn.innerHTML = "অপেক্ষা করুন..."; 
@@ -830,11 +871,11 @@
       orderId: orderIdStr, name: name, phone: phone, address: address, 
       total: finalTotal, subtotal: subtotal, delivery: finalDelCharge, 
       items: [...cart], date: date.toISOString(), 
-      status: 'pending' // ৫ মিনিটের কাউন্টডাউন শুরু
+      device_id: clientDeviceId, fingerprint: clientFingerprint,
+      status: 'pending'
     };
 
-    // টেলিগ্রামে মূল মেসেজ পাঠানো
-    let msg = `🛒 *নতুন অর্ডার এসেছে! [${orderIdStr}]*\n\n*👤 গ্রাহকের তথ্য:*\nনাম: ${name}\nফোন: ${phone}\nঠিকানা: ${address}\n\n*📦 অর্ডারের তালিকা:*\n-----------------------------------\n`;
+    let msg = `🛒 *নতুন অর্ডার এসেছে! [${orderIdStr}]*\n\n*👤 গ্রাহকের তথ্য:*\nনাম: ${name}\nফোন: ${phone}\nঠিকানা: ${address}\n📱 Device ID: \`${clientDeviceId}\`\n🛡️ Fingerprint: \`${clientFingerprint}\`\n\n*📦 অর্ডারের তালিকা:*\n-----------------------------------\n`;
     cart.forEach((item, idx) => {
       const dp = item.offer_price || item.price; const sub = dp * item.qty;
       msg += `${idx + 1}. ${item.name}\n   পরিমাণ: ${item.qty}টি × ${currency}${dp.toLocaleString('bn-BD')} = ${currency}${sub.toLocaleString('bn-BD')}\n`;
@@ -842,15 +883,13 @@
     msg += `-----------------------------------\nসাবটোটাল: ${currency}${subtotal.toLocaleString('bn-BD')}\nডেলিভারি চার্জ: ${currency}${finalDelCharge.toLocaleString('bn-BD')}\n💰 *সর্বমোট বিল:* ${currency}${finalTotal.toLocaleString('bn-BD')}\n`;
     if(!storeIsOpen) msg += `\n⚠️ *বিঃদ্রঃ অর্ডারটি দোকান বন্ধ থাকা অবস্থায় প্লেস করা হয়েছে!*`;
     
-    // ৫ মিনিটের ওয়ার্নিং
     msg += `\n\n⏳ *বিঃদ্রঃ* কাস্টমার চাইলে আগামী ৫ মিনিটের মধ্যে অর্ডারটি বাতিল করতে পারে। প্যাক করার আগে ৫ মিনিট অপেক্ষা করুন।`;
 
-    await sendToTelegram(msg); // সাথে সাথে মেসেজ যাবে
+    await sendToTelegram(msg); 
 
     closeInfoModal();
     saveOrderToHistory(newOrder);
     
-    // শুধু মেমো ওপেন হবে (অর্ডার লিস্ট ওপেন হবে না)
     generateInvoice(name, phone, address, finalTotal, subtotal, finalDelCharge, [...cart], orderIdStr, date);
     
     cart = []; updateCartUI(); saveCart();
@@ -898,9 +937,6 @@
   function openMyOrdersModal() { renderMyOrdersList(); document.getElementById('myOrdersOverlay').classList.add('open'); }
   function closeMyOrdersModal(e) { if (!e || e.target.id === 'myOrdersOverlay') document.getElementById('myOrdersOverlay').classList.remove('open'); }
   
-  // ==========================================
-  // কাস্টমার অর্ডার বাতিল করলে (টেলিগ্রামে মেসেজ যাবে)
-  // ==========================================
   async function cancelPendingOrder(event, orderId) {
     event.stopPropagation(); 
     if(!confirm("আপনি কি নিশ্চিতভাবে এই অর্ডারটি বাতিল করতে চান?")) return;
@@ -914,9 +950,17 @@
         renderMyOrdersList(); 
         
         showToast("অর্ডারটি বাতিল করা হচ্ছে...");
+
+        // অটোমেটিক ৩ বার ক্যান্সেল ট্র্যাকিং সিকিউরিটি
+        let cancelCount = parseInt(localStorage.getItem('tanjim_cancel_count') || 0);
+        cancelCount++;
+        localStorage.setItem('tanjim_cancel_count', cancelCount);
+        if (cancelCount >= 3) {
+          const sevenDays = 7 * 24 * 60 * 60 * 1000;
+          localStorage.setItem('tanjim_local_block_until', Date.now() + sevenDays);
+        }
         
-        // টেলিগ্রামে বাতিল হওয়ার মেসেজ পাঠানো
-        let cancelMsg = `❌ *অর্ডার বাতিল!*\n\nকাস্টমার এই অর্ডারটি বাতিল করেছেন: *${orderId}*\nদয়া করে এই অর্ডারটি আর ডেলিভারি করবেন না।`;
+        let cancelMsg = `❌ *অর্ডার বাতিল!*\n\nকাস্টমার এই অর্ডারটি বাতিল করেছেন: *${orderId}*\nফোন: ${orders[index].phone}\nDevice ID: \`${clientDeviceId || 'Unknown'}\`\nFingerprint: \`${clientFingerprint || 'Unknown'}\`\nদয়া করে এই অর্ডারটি আর ডেলিভারি করবেন না।`;
         await sendToTelegram(cancelMsg);
         
         showToast("অর্ডারটি সফলভাবে বাতিল করা হয়েছে।");
@@ -925,7 +969,6 @@
     }
   }
 
-  // --- অর্ডার লিস্ট (হিস্ট্রি) দেখানোর কোড ---
   function renderMyOrdersList() {
     const orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; 
     const container = document.getElementById('myOrdersList');
@@ -944,7 +987,6 @@
       } else if (order.status === 'confirmed') {
           statusHtml = '<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-md font-bold">✅ অর্ডার কনফার্মড</span>';
       } else { 
-          // Pending status 
           let timeElapsed = now - d.getTime();
           let timeLeft = (5 * 60 * 1000) - timeElapsed; 
           
@@ -994,9 +1036,6 @@
   let toastTimer;
   function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.classList.remove('show'); }, 2500); }
 
-  // ==========================================
-  // ৫ মিনিট পর স্ট্যাটাস অটোমেটিক "কনফার্মড" করার ইঞ্জিন
-  // ==========================================
   function checkPendingOrders() {
     let orders = JSON.parse(localStorage.getItem('myShopOrders')) || [];
     let now = Date.now();
@@ -1005,12 +1044,11 @@
     orders.forEach((order, index) => {
       if (order.status === 'pending') {
         let orderTime = new Date(order.date).getTime();
-        // ৫ মিনিট পার হয়ে গেলে লোকালি কনফার্মড করে দেওয়া হবে
         if (now - orderTime >= 5 * 60 * 1000) { 
           orders[index].status = 'confirmed';
           needsUpdate = true;
         } else {
-          needsUpdate = true; // টাইমার কমানোর জন্য আপডেট
+          needsUpdate = true; 
         }
       }
     });
