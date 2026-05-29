@@ -860,13 +860,50 @@
   function openMyOrdersModal() { renderMyOrdersList(); document.getElementById('myOrdersOverlay').classList.add('open'); }
   function closeMyOrdersModal(e) { if (!e || e.target.id === 'myOrdersOverlay') document.getElementById('myOrdersOverlay').classList.remove('open'); }
   
-  function renderMyOrdersList() {
-    const orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; const container = document.getElementById('myOrdersList');
+ function renderMyOrdersList() {
+    const orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; 
+    const container = document.getElementById('myOrdersList');
     if (orders.length === 0) { container.innerHTML = `<p class="text-center text-gray-500 py-10">আপনি এখনো কোনো অর্ডার করেননি।</p>`; return; }
+    
     let html = '';
+    let now = Date.now();
+
     orders.forEach((order, index) => {
       const d = new Date(order.date);
-      html += `<div class="my-orders-list-item"><div class="flex-1 cursor-pointer" onclick="showInvoiceForOrder(${index})"><p class="font-bold" style="color:var(--primary)">${order.orderId}</p><p class="text-xs text-gray-500">${d.toLocaleDateString('bn-BD')}</p></div><p class="font-bold text-lg px-4">${currency}${order.total.toLocaleString('bn-BD')}</p><button onclick="deleteOrder(${index})" class="bg-red-100 text-red-500 rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-200 transition">🗑️</button></div>`;
+      let statusHtml = '';
+      let actionHtml = `<button onclick="deleteOrder(${index})" class="bg-gray-100 text-gray-500 rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-100 hover:text-red-500 transition" title="হিস্ট্রি মুছুন">🗑️</button>`;
+
+      if (order.status === 'cancelled') {
+          statusHtml = '<span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-md font-bold">❌ বাতিল করা হয়েছে</span>';
+      } else if (order.status === 'confirmed' || order.telegramSent) {
+          statusHtml = '<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-md font-bold">✅ অর্ডার কনফার্মড</span>';
+      } else { 
+          // Pending status
+          let timeElapsed = now - d.getTime();
+          let timeLeft = (5 * 60 * 1000) - timeElapsed; // ৫ মিনিট বাকি আছে কিনা
+          if (timeLeft > 0) {
+              let min = Math.floor(timeLeft / 60000);
+              statusHtml = `<span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-md font-bold">⏳ পেন্ডিং (আর ${min+1} মিনিট)</span>`;
+              actionHtml = `<button onclick="cancelPendingOrder('${order.orderId}')" class="bg-red-500 text-white px-3 py-1.5 rounded-lg font-bold text-xs hover:bg-red-600 transition shadow-sm">অর্ডার বাতিল করুন</button>`;
+          } else {
+              statusHtml = '<span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-md font-bold">🔄 প্রসেসিং হচ্ছে...</span>';
+          }
+      }
+
+      html += `
+      <div class="my-orders-list-item flex flex-col items-start gap-2">
+        <div class="flex justify-between w-full items-center">
+            <div class="flex-1 cursor-pointer" onclick="showInvoiceForOrder(${index})">
+                <p class="font-bold text-indigo-700">${order.orderId}</p>
+                <p class="text-xs text-gray-500">${d.toLocaleDateString('bn-BD')} ${d.toLocaleTimeString('bn-BD')}</p>
+            </div>
+            <p class="font-bold text-lg px-2">${currency}${order.total.toLocaleString('bn-BD')}</p>
+        </div>
+        <div class="flex justify-between w-full items-center border-t border-gray-100 pt-2 w-full">
+            <div>${statusHtml}</div>
+            <div>${actionHtml}</div>
+        </div>
+      </div>`;
     });
     container.innerHTML = html;
   }
