@@ -226,6 +226,12 @@
       <h2 class="section-title mb-4">জনপ্রিয় ক্যাটাগরি</h2>
       <div class="category-grid" id="categoryTabs"></div>
     </div>
+
+    <!-- বিশেষ পছন্দ / সাজেশন সেকশন -->
+    <div id="recommendationSection" class="mb-10" style="display: none;">
+      <h2 class="section-title mb-4">✨ আপনার জন্য বিশেষ পছন্দ</h2>
+      <div class="grid-products" id="recommendedProductsGrid"></div>
+    </div>
   </div>
 
   <div id="backBtnWrapper" class="mb-5" style="display: none;">
@@ -251,7 +257,7 @@
     </div><span>কার্ট</span>
   </div>
   <div class="app-bar-item" onclick="openMyOrdersModal()">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg><span>অর্ডার</span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 002 2h2a2 2 0 002-2zM9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg><span>অর্ডার</span>
   </div>
   <div class="app-bar-item" id="installAppBtnMobile" onclick="installPWA()">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#e11d48"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg><span class="text-rose-600 font-bold">ইনস্টল</span>
@@ -502,7 +508,7 @@
     const localBlock = localStorage.getItem('tanjim_local_block_until');
     if (localBlock && Date.now() < parseInt(localBlock)) {
       const daysLeft = Math.ceil((parseInt(localBlock) - Date.now()) / (24 * 60 * 60 * 1000));
-      return { blocked: true, reason: `অতিরিক্ত অর্ডার ক্যান্সেল করার জন্য আপনার ডিভাইসটি সাময়িকভাবে ব্লক করা হয়েছে। আরও ${daysLeft} দিন পর চেষ্টা করুন।` };
+      return { blocked: true, reason: `অতিরিক্ত অর্ডার ক্যানসেল করার জন্য আপনার ডিভাইসটি সাময়িকভাবে ব্লক করা হয়েছে। আরও ${daysLeft} দিন পর চেষ্টা করুন।` };
     }
 
     if (storeData.blacklist && storeData.blacklist.length > 0) {
@@ -582,6 +588,7 @@
     }
 
     buildOfferBar(); buildCategoryTabs(); loadCart(); renderProducts();
+    renderRecommendations();
     await initDeviceTracking(); 
   }
 
@@ -600,6 +607,7 @@
     const dInput = document.getElementById('searchInput'); const mInput = document.getElementById('mobileSearchInput');
     if(dInput && dInput.value !== val) dInput.value = val; if(mInput && mInput.value !== val) mInput.value = val;
     renderProducts(); renderSearchDropdown(val);
+    renderRecommendations();
   }
   
   function renderSearchDropdown(val) {
@@ -652,6 +660,7 @@
     if (catId === 'all') {
       document.getElementById('homeContentWrapper').style.display = 'block'; document.getElementById('backBtnWrapper').style.display = 'none'; document.getElementById('subCategoryTabs').style.display = 'none';
       window.scrollTo({top: 0, behavior: 'smooth'});
+      renderRecommendations();
     } else {
       document.getElementById('homeContentWrapper').style.display = 'none'; document.getElementById('backBtnWrapper').style.display = 'block'; renderSubCategories(catId);
     }
@@ -697,6 +706,107 @@
       
       if (otherProducts.length > 0) html += `<div class="mb-10 pt-8 mt-8 border-t border-gray-200 dark:border-slate-800"><h2 class="section-title mb-4 text-gray-500 dark:text-slate-400">অন্যান্য ক্যাটাগরির পণ্য</h2><div class="grid-products">${otherProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
       container.innerHTML = html;
+    }
+  }
+
+  // সার্চ এবং অর্ডার হিস্ট্রি বিশ্লেষণ করে সাজেস্টেড বা রিকমেন্ডেড পণ্য সাজানো
+  function renderRecommendations() {
+    const recSection = document.getElementById('recommendationSection');
+    const recGrid = document.getElementById('recommendedProductsGrid');
+    if (!recSection || !recGrid) return;
+
+    const orders = JSON.parse(localStorage.getItem('myShopOrders')) || [];
+    const searches = JSON.parse(localStorage.getItem('myShopSearchHistory')) || [];
+
+    // যদি কোনো অর্ডার বা সার্চ হিস্ট্রি না থাকে তবে সেকশনটি হাইড থাকবে
+    if (orders.length === 0 && searches.length === 0) {
+      recSection.style.display = 'none';
+      return;
+    }
+
+    const scores = {}; // ক্যাটাগরি ও ট্যাগের ইন্টারেস্ট স্কোর স্টোর করার অবজেক্ট
+
+    // ১. অর্ডার হিস্ট্রি থেকে স্কোর জেনারেট (পয়েন্ট ওয়েট: ৫)
+    orders.forEach(order => {
+      if (order.items) {
+        order.items.forEach(item => {
+          const p = storeData.products.find(prod => prod.id === item.id);
+          if (p) {
+            if (p.category) {
+              scores[p.category] = (scores[p.category] || 0) + 5;
+            }
+            if (p.tags) {
+              p.tags.forEach(tag => {
+                const tagKey = tag.toLowerCase().trim();
+                scores[tagKey] = (scores[tagKey] || 0) + 3;
+              });
+            }
+          }
+        });
+      }
+    });
+
+    // ২. সার্চ হিস্ট্রি থেকে স্কোর জেনারেট (পয়েন্ট ওয়েট: ২)
+    searches.forEach(searchKeyword => {
+      const cleanSearch = searchKeyword.toLowerCase().trim();
+      if (!cleanSearch) return;
+
+      storeData.products.forEach(p => {
+        let isMatch = p.name.toLowerCase().includes(cleanSearch) || 
+                      (p.description && p.description.toLowerCase().includes(cleanSearch)) ||
+                      (p.tags && p.tags.some(t => t.toLowerCase().includes(cleanSearch)));
+        
+        if (isMatch) {
+          if (p.category) {
+            scores[p.category] = (scores[p.category] || 0) + 2;
+          }
+          if (p.tags) {
+            p.tags.forEach(tag => {
+              const tagKey = tag.toLowerCase().trim();
+              scores[tagKey] = (scores[tagKey] || 0) + 1;
+            });
+          }
+        }
+      });
+    });
+
+    // সবচেয়ে বেশি স্কোর পাওয়া ট্যাগ বা ক্যাটাগরিগুলো সর্ট করা
+    const sortedInterests = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+
+    if (sortedInterests.length === 0) {
+      recSection.style.display = 'none';
+      return;
+    }
+
+    // সর্বাধিক পয়েন্ট পাওয়া শীর্ষ ৩টি ইন্টারেস্ট কি-ওয়ার্ড নেওয়া হলো
+    const topInterests = sortedInterests.slice(0, 3); 
+
+    const recommendedProducts = [];
+    const addedProductIds = new Set();
+
+    topInterests.forEach(interest => {
+      storeData.products.forEach(p => {
+        if (addedProductIds.has(p.id)) return;
+
+        const matchesCategory = p.category && p.category.toLowerCase() === interest.toLowerCase();
+        const matchesTag = p.tags && p.tags.some(t => t.toLowerCase() === interest.toLowerCase());
+
+        if (matchesCategory || matchesTag) {
+          recommendedProducts.push(p);
+          addedProductIds.add(p.id);
+        }
+      });
+    });
+
+    // হোমপেজে সর্বাধিক ৪টি সাজেস্টেড প্রোডাক্ট প্রদর্শন করা হবে
+    const finalRecommendations = recommendedProducts.slice(0, 4);
+
+    // শুধুমাত্র হোমপেজে এবং সার্চ ফিল্টার অফ থাকা অবস্থায় এটি দৃশ্যমান হবে
+    if (finalRecommendations.length > 0 && activeCategory === 'all' && !searchQuery) {
+      recGrid.innerHTML = finalRecommendations.map(p => productCardHTML(p)).join('');
+      recSection.style.display = 'block';
+    } else {
+      recSection.style.display = 'none';
     }
   }
 
