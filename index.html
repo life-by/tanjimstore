@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#6C63FF">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link class="apple-touch-icon" href="https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg">
   
   <link rel="preconnect" href="https://raw.githubusercontent.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,6 +40,14 @@
 
     body { background: var(--bg); color: var(--text); }
 
+    /* Dark Mode variables fallback */
+    html.dark {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+
     .offer-bar { background: linear-gradient(90deg, #1e1b4b, #312e81, #1e1b4b); background-size: 200% 100%; animation: gradientMove 4s ease infinite; color: #ffffff; overflow: hidden; padding: 8px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
     @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     .marquee-wrapper { display: flex; width: 100%; overflow: hidden; }
@@ -56,18 +64,21 @@
 
     .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; }
     @media (max-width: 480px) { .category-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; } }
-    .category-card { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; background: white; border: 2px solid transparent; border-radius: 12px; padding: 10px 4px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.25s; }
+    .category-card { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; background: var(--card); border: 2px solid transparent; border-radius: 12px; padding: 10px 4px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.25s; }
     .category-card:hover { background: #f8f9ff; border-color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-2px); }
+    html.dark .category-card:hover { background: #1e293b; }
     .category-card-img { width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0; background: #f0f4ff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; overflow: hidden; }
+    html.dark .category-card-img { background: #334155; }
     .category-card-img img { width: 100%; height: 100%; object-fit: cover; }
     .category-card-text { font-size: 0.75rem; font-weight: 700; color: var(--text); line-height: 1.2; }
 
-    .cat-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; border: 2px solid #e5e7eb; background: white; color: var(--muted); font-weight: 500; font-size: 0.8rem; cursor: pointer; transition: all 0.25s; white-space: nowrap; }
+    .cat-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; border: 2px solid #e5e7eb; background: var(--card); color: var(--muted); font-weight: 500; font-size: 0.8rem; cursor: pointer; transition: all 0.25s; white-space: nowrap; }
+    html.dark .cat-btn { border-color: #334155; }
     .cat-btn:hover, .cat-btn.active { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
     .cat-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; width: 100%; }
     .cat-scroll::-webkit-scrollbar { display: none; }
 
-    .product-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); transition: transform 0.28s, box-shadow 0.28s; display: flex; flex-direction: column; cursor: pointer; width: 100%; }
+    .product-card { background: var(--card); border-radius: 20px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); transition: transform 0.28s, box-shadow 0.28s; display: flex; flex-direction: column; cursor: pointer; width: 100%; }
     .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.15); }
     .product-img-wrap { position: relative; overflow: hidden; height: 160px; }
     @media (min-width: 640px) { .product-img-wrap { height: 180px; } }
@@ -79,34 +90,39 @@
     .price-offer { color: var(--accent); font-size: 1.15rem; font-weight: 700; }
     
     .variant-select { width: 100%; padding: 6px 8px; margin-bottom: 10px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 0.85rem; font-weight: 600; color: var(--text); background: #f9fafb; outline: none; cursor: pointer; }
+    html.dark .variant-select { background: #334155; border-color: #475569; color: #f8fafc; }
     .variant-select:focus { border-color: var(--primary); }
 
     .cart-overlay, .info-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .cart-overlay.open, .info-modal-overlay.open { opacity: 1; pointer-events: all; }
-    .cart-panel { position: fixed; top: 0; right: -420px; width: 420px; max-width: 100vw; height: 100%; background: white; z-index: 201; display: flex; flex-direction: column; box-shadow: -8px 0 40px rgba(0,0,0,0.18); transition: right 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .cart-panel { position: fixed; top: 0; right: -420px; width: 420px; max-width: 100vw; height: 100%; background: var(--card); z-index: 201; display: flex; flex-direction: column; box-shadow: -8px 0 40px rgba(0,0,0,0.18); transition: right 0.35s cubic-bezier(0.4,0,0.2,1); }
     .cart-panel.open { right: 0; }
     .cart-header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; }
     .cart-items-list { flex: 1; overflow-y: auto; padding: 16px; -webkit-overflow-scrolling: touch;}
     .cart-item-card { display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8f9ff; border-radius: 14px; margin-bottom: 10px; border: 1px solid #e8eaff; }
+    html.dark .cart-item-card { background: #334155; border-color: #475569; }
     .cart-item-img { width: 70px; height: 70px; object-fit: cover; border-radius: 10px; flex-shrink: 0; }
-    .cart-footer { padding: 16px 20px; border-top: 2px solid #f0f0ff; background: white; padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+    .cart-footer { padding: 16px 20px; border-top: 2px solid #f0f0ff; background: var(--card); padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+    html.dark .cart-footer { border-color: #334155; }
     .btn-remove { background: none; border: 1.5px solid #fca5a5; color: #ef4444; border-radius: 8px; padding: 4px 10px; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; }
     .cart-badge { background: var(--accent); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; position: absolute; top: -6px; right: -6px; }
 
-    .info-modal { background: white; padding: 24px; border-radius: 16px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: scale(0.95); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; margin: auto; }
+    .info-modal { background: var(--card); padding: 24px; border-radius: 16px; width: 90%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: scale(0.95); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; margin: auto; }
     .info-modal-overlay.open .info-modal { transform: scale(1); }
-    .modal-input { width: 100%; border: 1.5px solid #d1d5db; border-radius: 8px; padding: 10px; margin-top: 4px; font-size: 0.9rem; }
+    .modal-input { width: 100%; border: 1.5px solid #d1d5db; border-radius: 8px; padding: 10px; margin-top: 4px; font-size: 0.9rem; color: var(--text); background: var(--card); }
+    html.dark .modal-input { border-color: #475569; }
     .modal-input:focus { border-color: var(--primary); outline: none; }
     .section-title { font-size: 1.25rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
     .section-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, var(--primary), transparent); border-radius: 2px; margin-left: 10px; }
-    .qty-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid #c7d2fe; background: white; color: var(--primary); font-size: 1rem; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+    .qty-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid #c7d2fe; background: var(--card); color: var(--primary); font-size: 1rem; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
     .qty-btn:hover { background: var(--primary); color: white; }
     
     .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(150px); opacity: 0; background: #1a1a2e; color: white; padding: 12px 24px; border-radius: 50px; font-size: 0.88rem; font-weight: 500; z-index: 9999; transition: all 0.4s ease; white-space: nowrap; box-shadow: 0 8px 30px rgba(0,0,0,0.2); pointer-events: none; }
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    .bottom-app-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-around; padding: 8px 0; z-index: 90; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); padding-bottom: calc(8px + env(safe-area-inset-bottom)); width: 100vw; }
-    .app-bar-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #6b7280; font-size: 0.7rem; font-weight: 600; cursor: pointer; position: relative; width: 60px;}
+    .bottom-app-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid #e5e7eb; display: flex; justify-content: space-around; padding: 8px 0; z-index: 90; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); padding-bottom: calc(8px + env(safe-area-inset-bottom)); width: 100vw; }
+    html.dark .bottom-app-bar { border-color: #334155; }
+    .app-bar-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--muted); font-size: 0.7rem; font-weight: 600; cursor: pointer; position: relative; width: 60px;}
     .app-bar-item.active { color: var(--primary); }
     .app-bar-item svg { width: 22px; height: 22px; }
     @media (max-width: 640px) { body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); } }
@@ -115,20 +131,26 @@
     @media (max-width: 639px) { #installAppBtnDesktop { display: none !important; } }
     @media all and (display-mode: standalone) { #installAppBtnDesktop, #installAppBtnMobile { display: none !important; } }
 
-    .quick-view-box { background: white; border-radius: 20px; width: 90%; max-width: 800px; display: flex; overflow: hidden; transform: scale(0.95); transition: transform 0.3s; max-height: 90vh; margin: auto;}
+    .quick-view-box { background: var(--card); border-radius: 20px; width: 90%; max-width: 800px; display: flex; overflow: hidden; transform: scale(0.95); transition: transform 0.3s; max-height: 90vh; margin: auto;}
     .info-modal-overlay.open .quick-view-box { transform: scale(1); }
     .qv-img-sec { flex: 1; background: #f8f9ff; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;}
+    html.dark .qv-img-sec { background: #1e293b; }
     .qv-img-sec img { width: 100%; height: 100%; object-fit: cover; }
     .qv-info-sec { flex: 1; padding: 30px; display: flex; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch;}
     @media (max-width: 768px) { .quick-view-box { flex-direction: column; overflow-y: auto;} .qv-img-sec { height: 250px; flex: none; } .qv-info-sec { padding: 20px; } }
     
     .invoice-box { background: #fff; padding: 25px; border-radius: 12px; width: 95%; max-width: 400px; font-family: 'Courier New', Courier, monospace; position: relative; transform: scale(0.95); transition: transform 0.3s; background-image: radial-gradient(circle at 10px 0, transparent 10px, white 11px); background-size: 20px 10px; background-repeat: repeat-x; background-position: top; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15)); max-height: 90vh; overflow-y: auto; margin: auto;}
+    html.dark .invoice-box { background: #1e293b; color: #fff; background-image: radial-gradient(circle at 10px 0, transparent 10px, #1e293b 11px); }
     .info-modal-overlay.open .invoice-box { transform: scale(1); }
     .inv-header { text-align: center; border-bottom: 2px dashed #d1d5db; padding-bottom: 15px; margin-bottom: 15px; }
     .inv-item { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px; color: #374151;}
+    html.dark .inv-item { color: #cbd5e1; }
     .inv-total { border-top: 2px dashed #d1d5db; padding-top: 15px; margin-top: 15px; font-weight: bold; font-size: 1.1rem; display: flex; justify-content: space-between; color: #111827;}
+    html.dark .inv-total { color: #f8fafc; }
     .my-orders-list-item { background: #f8f9ff; border: 1px solid #e8eaff; padding: 12px 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; cursor: pointer; transition: all 0.2s; }
+    html.dark .my-orders-list-item { background: #1e293b; border-color: #334155; }
     .my-orders-list-item:hover { border-color: var(--primary); background: #eff2ff;}
+    html.dark .my-orders-list-item:hover { background: #334155; }
     .inv-item-details { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0;}
     .inv-item-img { width: 32px; height: 32px; border-radius: 4px; object-fit: cover;}
 
@@ -154,7 +176,7 @@
 </div>
 
 <header class="site-header">
-  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3 animate-none">
     <div class="flex-1 min-w-0">
       <h1 class="text-white text-xl font-bold leading-tight truncate" id="storeName">আমার দোকান</h1>
       <p class="text-purple-200 text-xs truncate" id="storeTagline">সেরা পণ্য, সেরা দাম</p>
@@ -164,9 +186,14 @@
       📱 অ্যাপ ইনস্টল
     </button>
 
+    <!-- ডার্ক মোড টগল বাটন -->
+    <button onclick="toggleDarkMode()" id="darkToggleBtn" class="bg-white/15 hover:bg-white/25 text-white p-2.5 rounded-xl transition cursor-pointer" title="ডার্ক মোড">
+      🌙
+    </button>
+
     <div class="flex-1 max-w-xs hidden sm:block relative" id="searchContainerDesktop">
       <input type="text" class="search-input text-sm" placeholder="🔍 পণ্য খুঁজুন..." id="searchInput" autocomplete="off" onfocus="renderSearchDropdown(this.value)" oninput="processSearch(this.value)" onkeydown="handleSearchKeydown(event)" />
-      <div id="searchDropdownDesktop" class="absolute top-full mt-2 left-0 right-0 bg-white rounded-xl shadow-2xl border border-gray-100 hidden z-50 max-h-80 overflow-y-auto text-left text-gray-800"></div>
+      <div id="searchDropdownDesktop" class="absolute top-full mt-2 left-0 right-0 bg-white dark:bg-slate-850 rounded-xl shadow-2xl border border-gray-100 dark:border-slate-800 hidden z-50 max-h-80 overflow-y-auto text-left text-gray-800 dark:text-slate-100"></div>
     </div>
 
     <button onclick="toggleCart()" class="relative bg-white/15 hover:bg-white/25 transition rounded-xl p-2.5 hidden sm:block">
@@ -177,18 +204,20 @@
   
   <div class="px-4 pb-3 sm:hidden relative" id="searchContainerMobile">
     <input type="text" class="search-input text-sm" placeholder="🔍 পণ্য খুঁজুন..." id="mobileSearchInput" autocomplete="off" onfocus="renderSearchDropdown(this.value)" oninput="processSearch(this.value)" onkeydown="handleSearchKeydown(event)" />
-    <div id="searchDropdownMobile" class="absolute top-full mt-1 left-4 right-4 bg-white rounded-xl shadow-2xl border border-gray-100 hidden z-50 max-h-64 overflow-y-auto text-left text-gray-800"></div>
+    <div id="searchDropdownMobile" class="absolute top-full mt-1 left-4 right-4 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-100 dark:border-slate-700 hidden z-50 max-h-64 overflow-y-auto text-left text-gray-800 dark:text-slate-100"></div>
   </div>
 </header>
 
 <main class="max-w-6xl mx-auto px-4 py-6 w-full">
   <div id="homeContentWrapper">
-    <div class="hero-banner mb-6 flex flex-col sm:flex-row items-center justify-between">
+    <!-- হিরো সেকশন কার্টিং ডার্ক মোড কালার সাপোর্টেড -->
+    <div class="hero-banner mb-6 flex flex-col sm:flex-row items-center justify-between bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-indigo-50 dark:border-slate-800">
       <div class="relative z-10 flex-1 w-full text-center sm:text-left mb-4 sm:mb-0">
-        <p class="text-gray-800 font-semibold text-sm mb-1">স্বাগতম!</p>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-2" id="heroBannerTitle">আমার দোকানে</h2>
-        <p class="text-gray-700 font-medium text-sm mb-4" id="heroBannerSub">সেরা মানের পণ্য, সাশ্রয়ী মূল্যে। আজই অর্ডার করুন!</p>
-        <button onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})" class="bg-white text-indigo-700 font-bold px-5 py-2 rounded-full text-sm hover:shadow-lg transition inline-block">🛍️ কেনাকাটা শুরু করুন</button>
+        <!-- পারসোনালাইজড ওয়েলকাম টেক্সট এড়িয়া -->
+        <p class="text-gray-800 dark:text-gray-200 font-semibold text-sm mb-1" id="welcomeText">স্বাগতম!</p>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-800 dark:text-white mb-2" id="heroBannerTitle">আমার দোকানে</h2>
+        <p class="text-gray-700 dark:text-gray-300 font-medium text-sm mb-4" id="heroBannerSub">সেরা মানের পণ্য, সাশ্রয়ী মূল্যে। আজই অর্ডার করুন!</p>
+        <button onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2 rounded-full text-sm hover:shadow-lg transition inline-block cursor-pointer">🛍️ কেনাকাটা শুরু করুন</button>
       </div>
       <div id="heroImageContainer" class="relative z-10 hidden sm:block w-full sm:w-1/2 aspect-video overflow-hidden rounded-xl drop-shadow-md"></div>
     </div>
@@ -200,7 +229,7 @@
   </div>
 
   <div id="backBtnWrapper" class="mb-5" style="display: none;">
-    <button onclick="filterCategory('all')" class="bg-white border-2 border-indigo-100 hover:border-indigo-500 text-indigo-700 font-bold py-2 px-5 rounded-full flex items-center gap-2 text-sm shadow-sm transition"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg> হোম পেজে ফিরে যান</button>
+    <button onclick="filterCategory('all')" class="bg-white dark:bg-slate-900 border-2 border-indigo-100 dark:border-slate-800 hover:border-indigo-500 text-indigo-700 dark:text-indigo-400 font-bold py-2 px-5 rounded-full flex items-center gap-2 text-sm shadow-sm transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg> হোম পেজে ফিরে যান</button>
   </div>
 
   <div class="cat-scroll mb-5" id="subCategoryTabs" style="display:none;"></div>
@@ -237,43 +266,43 @@
   </div>
   <div class="cart-items-list" id="cartItemsList"></div>
   <div class="cart-footer" id="cartFooter" style="display:none">
-    <div class="flex justify-between items-center mb-3"><span class="font-semibold text-gray-600">মোট মূল্য:</span><span class="text-xl font-bold text-indigo-700" id="cartTotal">৳০</span></div>
+    <div class="flex justify-between items-center mb-3"><span class="font-semibold text-slate-500 dark:text-slate-400">মোট মূল্য:</span><span class="text-xl font-bold text-indigo-700 dark:text-indigo-400" id="cartTotal">৳০</span></div>
     <div class="flex gap-3">
-      <button onclick="clearCart()" class="flex-1 border-2 border-red-300 text-red-500 hover:bg-red-50 rounded-xl py-3 font-semibold text-sm transition">🗑️ সব মুছুন</button>
-      <button onclick="openInfoModalWithCheck()" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl py-3 font-semibold text-sm hover:shadow-lg transition flex items-center justify-center gap-2">অর্ডার করুন</button>
+      <button onclick="clearCart()" class="flex-1 border-2 border-red-300 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/25 rounded-xl py-3 font-semibold text-sm transition cursor-pointer">🗑️ সব মুছুন</button>
+      <button onclick="openInfoModalWithCheck()" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl py-3 font-semibold text-sm hover:shadow-lg transition flex items-center justify-center gap-2 cursor-pointer">অর্ডার করুন</button>
     </div>
   </div>
 </div>
 
 <div class="info-modal-overlay" id="infoModalOverlay">
   <div class="info-modal" id="infoModal">
-    <h2 class="text-xl font-bold mb-2 text-gray-800">অর্ডারের তথ্য</h2>
-    <p class="text-sm text-gray-500 mb-4">অর্ডার কনফার্ম করতে নিচের তথ্যগুলো সঠিকভাবে পূরণ করুন।</p>
+    <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-white">অর্ডারের তথ্য</h2>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">অর্ডার কনফার্ম করতে নিচের তথ্যগুলো সঠিকভাবে পূরণ করুন।</p>
     
     <div class="mb-3">
-      <label class="text-sm font-semibold text-gray-600">আপনার নাম *</label>
+      <label class="text-sm font-semibold text-slate-600 dark:text-slate-400">আপনার নাম *</label>
       <input type="text" id="customerName" class="modal-input" placeholder="আপনার সম্পূর্ণ নাম লিখুন">
     </div>
     <div class="mb-3">
-      <label class="text-sm font-semibold text-gray-600">ফোন নম্বর *</label>
+      <label class="text-sm font-semibold text-slate-600 dark:text-slate-400">ফোন নম্বর *</label>
       <input type="tel" id="customerPhone" class="modal-input" placeholder="01XXXXXXXXX">
     </div>
     <div class="mb-4">
-      <label class="text-sm font-semibold text-gray-600">ডেলিভারি ঠিকানা *</label>
+      <label class="text-sm font-semibold text-slate-600 dark:text-slate-400">ডেলিভারি ঠিকানা *</label>
       <textarea id="customerAddress" class="modal-input" placeholder="বাড়ি নং, রাস্তা, এলাকা বিস্তারিত লিখুন" rows="2"></textarea>
     </div>
     
-    <div class="mb-4 bg-gray-50 p-3 rounded-lg text-sm border border-gray-200">
+    <div class="mb-4 bg-gray-50 dark:bg-slate-800 p-3 rounded-lg text-sm border border-gray-200 dark:border-slate-700">
       <div class="flex justify-between mb-1"><span>সাবটোটাল:</span><span id="checkoutSubtotal">৳0</span></div>
       <div class="flex justify-between mb-1 text-red-500 font-medium"><span>ডেলিভারি চার্জ:</span><span id="checkoutDelivery">৳0</span></div>
-      <hr class="my-2 border-gray-300">
-      <div class="flex justify-between font-bold text-lg text-indigo-700"><span>সর্বমোট:</span><span id="checkoutFinalTotal">৳0</span></div>
-      <p id="freeDeliveryMsg" class="text-xs text-green-600 mt-1 font-bold hidden"></p>
+      <hr class="my-2 border-gray-300 dark:border-slate-700">
+      <div class="flex justify-between font-bold text-lg text-indigo-700 dark:text-indigo-400"><span>সর্বমোট:</span><span id="checkoutFinalTotal">৳0</span></div>
+      <p id="freeDeliveryMsg" class="text-xs text-green-600 dark:text-green-400 mt-1 font-bold hidden"></p>
     </div>
     
     <div class="flex gap-3 mt-4">
-      <button onclick="closeInfoModal()" class="flex-1 py-2.5 border-2 border-gray-300 text-gray-600 rounded-lg font-semibold text-sm transition hover:bg-gray-100">বাতিল</button>
-      <button id="confirmOrderBtn" onclick="processTelegramOrder()" class="flex-1 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-semibold text-sm hover:shadow-lg transition">কনফার্ম অর্ডার</button>
+      <button onclick="closeInfoModal()" class="flex-1 py-2.5 border-2 border-gray-300 dark:border-slate-700 text-gray-600 dark:text-slate-300 rounded-lg font-semibold text-sm transition hover:bg-gray-100 dark:hover:bg-slate-800 cursor-pointer">বাতিল</button>
+      <button id="confirmOrderBtn" onclick="processTelegramOrder()" class="flex-1 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-semibold text-sm hover:shadow-lg transition cursor-pointer">কনফার্ম অর্ডার</button>
     </div>
   </div>
 </div>
@@ -286,25 +315,25 @@
     </div>
     <div class="qv-info-sec">
       <div class="flex justify-between items-start mb-2">
-        <h2 id="qvTitle" class="text-2xl font-bold text-gray-800 leading-tight"></h2>
-        <button onclick="closeQuickView()" class="bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full p-2 ml-2 transition">
+        <h2 id="qvTitle" class="text-2xl font-bold text-gray-800 dark:text-white leading-tight"></h2>
+        <button onclick="closeQuickView()" class="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 text-gray-600 dark:text-slate-300 rounded-full p-2 ml-2 transition cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
         </button>
       </div>
-      <p id="qvDesc" class="text-sm text-gray-500 mb-4"></p>
+      <p id="qvDesc" class="text-sm text-gray-500 dark:text-gray-400 mb-4"></p>
       <div id="qvPriceContainer" class="mb-4 flex items-end gap-3"></div>
       <div id="qvVariantContainer" class="mb-5"></div>
       <div class="flex items-center gap-4 mb-6">
-        <span class="font-bold text-gray-700 text-sm">পরিমাণ:</span>
-        <div class="flex items-center gap-3 bg-gray-100 p-1 rounded-xl">
-          <button id="qvMinusBtn" onclick="changeQvQty(-1)" class="w-8 h-8 rounded-lg bg-white text-gray-800 font-bold shadow-sm flex items-center justify-center hover:bg-gray-50">−</button>
+        <span class="font-bold text-gray-700 dark:text-gray-300 text-sm">পরিমাণ:</span>
+        <div class="flex items-center gap-3 bg-gray-100 dark:bg-slate-800 p-1 rounded-xl">
+          <button id="qvMinusBtn" onclick="changeQvQty(-1)" class="w-8 h-8 rounded-lg bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-100 font-bold shadow-sm flex items-center justify-center hover:bg-gray-50 dark:hover:bg-slate-600 cursor-pointer">−</button>
           <span id="qvQtyDisplay" class="font-bold w-6 text-center">1</span>
-          <button id="qvPlusBtn" onclick="changeQvQty(1)" class="w-8 h-8 rounded-lg bg-white text-gray-800 font-bold shadow-sm flex items-center justify-center hover:bg-gray-50">+</button>
+          <button id="qvPlusBtn" onclick="changeQvQty(1)" class="w-8 h-8 rounded-lg bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-100 font-bold shadow-sm flex items-center justify-center hover:bg-gray-50 dark:hover:bg-slate-600 cursor-pointer">+</button>
         </div>
       </div>
       <div class="mt-auto flex gap-3">
-        <button id="qvAddToCartBtn" class="flex-1 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white rounded-xl py-3 font-bold text-sm shadow-md transition flex flex-col items-center justify-center"><span class="text-sm">🛒 কার্টে রাখুন</span></button>
-        <button id="qvBuyNowBtn" onclick="buyNowFromQvTelegram()" class="flex-1 bg-[var(--accent)] hover:opacity-90 text-white rounded-xl py-3 font-bold text-sm shadow-md transition flex flex-col items-center justify-center"><span class="text-sm">⚡ সরাসরি কিনুন</span></button>
+        <button id="qvAddToCartBtn" class="flex-1 bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white rounded-xl py-3 font-bold text-sm shadow-md transition flex flex-col items-center justify-center cursor-pointer"><span class="text-sm">🛒 কার্টে রাখুন</span></button>
+        <button id="qvBuyNowBtn" onclick="buyNowFromQvTelegram()" class="flex-1 bg-[var(--accent)] hover:opacity-90 text-white rounded-xl py-3 font-bold text-sm shadow-md transition flex flex-col items-center justify-center cursor-pointer"><span class="text-sm">⚡ সরাসরি কিনুন</span></button>
       </div>
     </div>
   </div>
@@ -315,7 +344,7 @@
     <div class="inv-header">
       <h2 class="text-xl font-bold" id="invStoreName">দোকান</h2>
       <p class="text-xs text-gray-500 mt-1">ক্যাশ মেমো / ইনভয়েস</p>
-      <p class="text-sm font-bold mt-2 bg-gray-100 inline-block px-3 py-1 rounded" id="invOrderId">#ORD-0000</p>
+      <p class="text-sm font-bold mt-2 bg-gray-100 dark:bg-slate-850 inline-block px-3 py-1 rounded" id="invOrderId">#ORD-0000</p>
     </div>
     <div class="text-sm mb-4 border-b-2 border-dashed border-gray-300 pb-3">
       <p><strong>নাম:</strong> <span id="invName"></span></p>
@@ -325,14 +354,14 @@
     </div>
     
     <div id="invItemsList" class="mb-2 max-h-48 overflow-y-auto pr-2"></div>
-    <div class="border-t-2 border-dashed border-gray-300 pt-2 mb-2 text-sm text-gray-600">
+    <div class="border-t-2 border-dashed border-gray-300 pt-2 mb-2 text-sm text-gray-600 dark:text-gray-400">
       <div class="flex justify-between mb-1"><span>সাবটোটাল:</span><span id="invSubTotalAmt"></span></div>
       <div class="flex justify-between"><span>ডেলিভারি চার্জ:</span><span id="invDelAmt"></span></div>
     </div>
     <div class="inv-total"><span>সর্বমোট বিল:</span><span id="invTotalAmt"></span></div>
     
-    <div class="mt-4 p-3 bg-indigo-50 rounded-lg text-center border border-indigo-100 inv-print-hide">
-       <p class="text-xs text-gray-700 mb-2 font-bold">অর্ডার সম্পর্কে বিস্তারিত জানতে কল বা মেসেজ করুন:</p>
+    <div class="mt-4 p-3 bg-indigo-50 dark:bg-slate-800 rounded-lg text-center border border-indigo-100 dark:border-slate-700 inv-print-hide">
+       <p class="text-xs text-gray-700 dark:text-gray-300 mb-2 font-bold">অর্ডার সম্পর্কে বিস্তারিত জানতে কল বা মেসেজ করুন:</p>
        <div class="flex gap-2 justify-center">
          <a id="invCallBtn" href="#" class="flex-1 bg-blue-600 text-white py-2 rounded-lg text-xs font-bold decoration-none flex items-center justify-center gap-1 shadow-sm">📞 কল করুন</a>
          <a id="invWaBtn" href="#" target="_blank" class="flex-1 bg-green-500 text-white py-2 rounded-lg text-xs font-bold decoration-none flex items-center justify-center gap-1 shadow-sm">💬 WhatsApp</a>
@@ -340,10 +369,10 @@
     </div>
 
     <div class="mt-4 flex flex-col gap-2 inv-print-hide">
-      <p class="text-xs text-center text-green-600 font-bold mb-2">✅ আপনার অর্ডারটি সফলভাবে সম্পন্ন হয়েছে!</p>
+      <p class="text-xs text-center text-green-600 dark:text-green-400 font-bold mb-2">✅ আপনার অর্ডারটি সফলভাবে সম্পন্ন হয়েছে!</p>
       <div class="flex gap-2">
-        <button onclick="window.print()" class="flex-1 bg-blue-100 text-blue-700 border border-blue-300 rounded-lg py-2.5 font-bold text-sm hover:bg-blue-200 transition">🖨️ প্রিন্ট (POS)</button>
-        <button onclick="closeInvoiceModal()" class="flex-1 bg-gray-800 text-white rounded-lg py-2.5 font-bold text-sm hover:bg-gray-900 transition">বন্ধ করুন</button>
+        <button onclick="window.print()" class="flex-1 bg-blue-100 dark:bg-blue-950/25 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-800 rounded-lg py-2.5 font-bold text-sm hover:bg-blue-200 transition cursor-pointer">🖨️ প্রিন্ট (POS)</button>
+        <button onclick="closeInvoiceModal()" class="flex-1 bg-gray-800 dark:bg-slate-700 text-white rounded-lg py-2.5 font-bold text-sm hover:bg-gray-900 transition cursor-pointer">বন্ধ করুন</button>
       </div>
     </div>
   </div>
@@ -353,21 +382,21 @@
   <div class="info-modal w-full max-w-lg" onclick="event.stopPropagation()">
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-xl font-bold">আমার অর্ডারসমূহ</h2>
-      <button onclick="closeMyOrdersModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full p-2 transition"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></button>
+      <button onclick="closeMyOrdersModal()" class="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 text-gray-600 dark:text-slate-300 rounded-full p-2 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></button>
     </div>
     <div id="myOrdersList" class="max-h-[60vh] overflow-y-auto pr-2"></div>
   </div>
 </div>
 
 <div class="info-modal-overlay" id="storeClosedPopupOverlay">
-  <div class="info-modal bg-white text-center p-6 border-t-4 border-red-500">
+  <div class="info-modal bg-white dark:bg-slate-900 text-center p-6 border-t-4 border-red-500">
     <div class="text-5xl mb-3">🌙</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2">দোকান এখন বন্ধ আছে!</h3>
-    <p class="text-sm text-gray-600 mb-4">বন্ধ হওয়ার সময়: <span id="scCloseTime" class="font-bold"></span><br>খোলার সময়: <span id="scOpenTime" class="font-bold"></span></p>
+    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">দোকান এখন বন্ধ আছে!</h3>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">বন্ধ হওয়ার সময়: <span id="scCloseTime" class="font-bold"></span><br>খোলার সময়: <span id="scOpenTime" class="font-bold"></span></p>
     <p class="text-xs text-rose-500 font-bold mb-5">আপনি চাইলে এখনই অর্ডার প্লেস করে রাখতে পারেন, খোলার পর ডেলিভারি দেওয়া হবে।</p>
     <div class="flex gap-2">
-      <button onclick="cancelStoreClosedPopup()" class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-bold">বাতিল করুন</button>
-      <button onclick="proceedStoreClosedPopup()" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-bold">অর্ডার চালিয়ে যান</button>
+      <button onclick="cancelStoreClosedPopup()" class="flex-1 bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-slate-300 py-2 rounded-lg font-bold cursor-pointer">বাতিল করুন</button>
+      <button onclick="proceedStoreClosedPopup()" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-bold cursor-pointer">অর্ডার চালিয়ে যান</button>
     </div>
   </div>
 </div>
@@ -397,6 +426,7 @@
 
   let clientDeviceId = '';
   let clientFingerprint = '';
+  let deferredPrompt;
 
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
@@ -416,6 +446,33 @@
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(err => console.log('SW Failed', err)); });
+  }
+
+  // ডার্ক মোড টগল লজিক
+  function toggleDarkMode() {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+      html.classList.remove('dark');
+      localStorage.setItem('tanjim_theme', 'light');
+      document.getElementById('darkToggleBtn').textContent = '🌙';
+    } else {
+      html.classList.add('dark');
+      localStorage.setItem('tanjim_theme', 'dark');
+      document.getElementById('darkToggleBtn').textContent = '☀️';
+    }
+  }
+
+  function applySavedTheme() {
+    const savedTheme = localStorage.getItem('tanjim_theme');
+    const html = document.documentElement;
+    const btn = document.getElementById('darkToggleBtn');
+    if (savedTheme === 'dark') {
+      html.classList.add('dark');
+      if(btn) btn.textContent = '☀️';
+    } else {
+      html.classList.remove('dark');
+      if(btn) btn.textContent = '🌙';
+    }
   }
 
   // ডিভাইস ট্র্যাকিং এবং ফিঙ্গারপ্রিন্ট জেনারেশন মেথড
@@ -467,6 +524,9 @@
   }
 
   async function loadData() {
+    // থিম অ্যাপ্লাই
+    applySavedTheme();
+
     try {
       const res = await fetch('data.json?t=' + new Date().getTime());
       storeData = await res.json();
@@ -492,6 +552,14 @@
     document.getElementById('storeTagline').textContent = sd.tagline || '';
     document.getElementById('heroBannerTitle').textContent = (sd.name || 'আমার দোকান') + '-এ';
     document.title = sd.name || 'দোকান';
+
+    // পারসোনালাইজড ওয়েলকাম মেসেজ সেটআপ
+    const savedName = localStorage.getItem('customer_saved_name');
+    if (savedName) {
+      document.getElementById('welcomeText').innerHTML = `স্বাগতম, <span class="text-indigo-600 dark:text-indigo-400 font-bold">${savedName}</span>!`;
+    } else {
+      document.getElementById('welcomeText').textContent = 'স্বাগতম!';
+    }
     
     const heroContainer = document.getElementById('heroImageContainer');
     let heroImages = sd.hero_images;
@@ -538,19 +606,19 @@
     const q = val.toLowerCase().trim(); let html = '';
     if (q === '') {
       if (searchHistory.length > 0) {
-        html += `<div class="px-3 py-2 text-xs font-bold text-gray-400 flex justify-between bg-gray-50 border-b border-gray-100 sticky top-0"><span>সাম্প্রতিক অনুসন্ধান</span><button onclick="clearHistory(event)" class="text-red-400">মুছুন</button></div>`;
-        searchHistory.forEach(h => html += `<div class="px-3 py-2.5 hover:bg-gray-50 cursor-pointer flex items-center gap-2 text-sm text-gray-600 border-b border-gray-50 last:border-0" onclick="selectSearch('${h}')"><span class="text-gray-300">🕒</span> ${h}</div>`);
+        html += `<div class="px-3 py-2 text-xs font-bold text-gray-400 flex justify-between bg-gray-50 dark:bg-slate-800 border-b border-gray-100 dark:border-slate-700 sticky top-0"><span>সাম্প্রতিক অনুসন্ধান</span><button onclick="clearHistory(event)" class="text-red-400">মুছুন</button></div>`;
+        searchHistory.forEach(h => html += `<div class="px-3 py-2.5 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300 border-b border-gray-50 dark:border-slate-700 last:border-0" onclick="selectSearch('${h}')"><span class="text-gray-300">🕒</span> ${h}</div>`);
       }
     } else {
       const products = storeData.products || [];
       const matches = products.filter(p => p.name.toLowerCase().includes(q) || (p.description && p.description.toLowerCase().includes(q)) || (p.tags && p.tags.some(tag => tag.toLowerCase().includes(q)))).slice(0, 6);
       if (matches.length > 0) {
-        html += `<div class="px-3 py-2 text-xs font-bold text-gray-400 bg-gray-50 border-b border-gray-100 sticky top-0">সাজেশন সমূহ</div>`;
+        html += `<div class="px-3 py-2 text-xs font-bold text-gray-400 bg-gray-50 dark:bg-slate-800 border-b border-gray-100 dark:border-slate-700 sticky top-0">সাজেশন সমূহ</div>`;
         matches.forEach(m => {
           const dp = (m.variants && m.variants.length > 0) ? (m.variants[0].offer_price || m.variants[0].price) : (m.offer_price || m.price);
-          html += `<div class="px-3 py-2.5 hover:bg-gray-100 cursor-pointer flex items-center gap-3 border-b border-gray-50 last:border-0 transition" onclick="selectSearch('${m.name}')"><img src="${m.image}" class="w-10 h-10 rounded-lg object-cover border border-gray-200"><div class="flex-1 min-w-0"><div class="text-sm font-semibold text-gray-800 truncate">${m.name}</div><div class="text-xs font-bold" style="color:var(--primary)">${currency}${dp.toLocaleString('bn-BD')}</div></div></div>`;
+          html += `<div class="px-3 py-2.5 hover:bg-gray-100 dark:hover:bg-slate-700 cursor-pointer flex items-center gap-3 border-b border-gray-50 dark:border-slate-700 last:border-0 transition" onclick="selectSearch('${m.name}')"><img src="${m.image}" class="w-10 h-10 rounded-lg object-cover border border-gray-200 dark:border-slate-600"><div class="flex-1 min-w-0"><div class="text-sm font-semibold text-gray-800 dark:text-slate-100 truncate">${m.name}</div><div class="text-xs font-bold" style="color:var(--primary)">${currency}${dp.toLocaleString('bn-BD')}</div></div></div>`;
         });
-      } else { html += `<div class="px-4 py-6 text-center text-sm text-gray-500">কোনো পণ্য পাওয়া যায়নি</div>`; }
+      } else { html += `<div class="px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-450">কোনো পণ্য পাওয়া যায়নি</div>`; }
     }
     document.getElementById('searchDropdownDesktop').innerHTML = html; document.getElementById('searchDropdownMobile').innerHTML = html;
     if (html) { if(window.innerWidth >= 640) document.getElementById('searchDropdownDesktop').classList.remove('hidden'); else document.getElementById('searchDropdownMobile').classList.remove('hidden'); } else closeSearchDropdowns();
@@ -605,7 +673,7 @@
   function renderProducts() {
     const container = document.getElementById('productSections'); let allProducts = storeData.products || [];
     if (searchQuery) allProducts = allProducts.filter(p => p.name.toLowerCase().includes(searchQuery) || (p.description || '').toLowerCase().includes(searchQuery) || (p.tags && p.tags.some(tag => tag.toLowerCase().includes(searchQuery))));
-    if (allProducts.length === 0) return container.innerHTML = `<div class="text-center py-16 text-gray-400"><div class="text-5xl mb-3">😕</div><p class="text-lg">কোনো পণ্য পাওয়া যায়নি</p></div>`;
+    if (allProducts.length === 0) return container.innerHTML = `<div class="text-center py-16 text-slate-400"><div class="text-5xl mb-3">😕</div><p class="text-lg">কোনো পণ্য পাওয়া যায়নি</p></div>`;
 
     if (activeCategory === 'all' && !searchQuery) {
       let html = '';
@@ -625,9 +693,9 @@
       const catInfo = storeData.categories.find(c => c.id === activeCategory); const catName = catInfo ? catInfo.name : 'منتخب ক্যাটাগরি';
       
       if (targetProducts.length > 0) html += `<div class="mb-10"><h2 class="section-title mb-4" style="color:var(--primary)">${catName} এর পণ্যসমূহ</h2><div class="grid-products">${targetProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
-      else html += `<div class="text-center py-10 text-gray-400"><p class="text-lg">এই ক্যাটাগরিতে কোনো পণ্য নেই</p></div>`;
+      else html += `<div class="text-center py-10 text-slate-400"><p class="text-lg">এই ক্যাটাগরিতে কোনো পণ্য নেই</p></div>`;
       
-      if (otherProducts.length > 0) html += `<div class="mb-10 pt-8 mt-8 border-t border-gray-200"><h2 class="section-title mb-4 text-gray-500">অন্যান্য ক্যাটাগরির পণ্য</h2><div class="grid-products">${otherProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
+      if (otherProducts.length > 0) html += `<div class="mb-10 pt-8 mt-8 border-t border-gray-200 dark:border-slate-800"><h2 class="section-title mb-4 text-gray-500 dark:text-slate-400">অন্যান্য ক্যাটাগরির পণ্য</h2><div class="grid-products">${otherProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
       container.innerHTML = html;
     }
   }
@@ -650,15 +718,15 @@
           ${isOut ? `<div class="badge-stockout">স্টক আউট</div>` : (hasOffer ? `<div class="badge-offer">${discount}% ছাড়</div>` : '')}
         </div>
         <div class="p-3 flex flex-col flex-1">
-          <h3 class="font-bold text-sm mb-1 leading-snug ${isOut ? 'text-gray-400' : ''}">${p.name}</h3>
-          ${p.description ? `<p class="text-xs text-gray-400 mb-2 line-clamp-1">${p.description}</p>` : ''}
-          ${hasVariants && !isOut ? `<div class="text-xs font-bold mb-2 inline-block px-2 py-0.5 rounded" style="color:var(--primary); background:#f0f4ff">${p.variants.length} টি ভ্যারিয়েন্ট আছে</div>` : ''}
+          <h3 class="font-bold text-sm mb-1 leading-snug dark:text-white ${isOut ? 'text-gray-400 dark:text-gray-500' : ''}">${p.name}</h3>
+          ${p.description ? `<p class="text-xs text-gray-400 dark:text-gray-400 mb-2 line-clamp-1">${p.description}</p>` : ''}
+          ${hasVariants && !isOut ? `<div class="text-xs font-bold mb-2 inline-block px-2 py-0.5 rounded text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-slate-800">${p.variants.length} টি ভ্যারিয়েন্ট আছে</div>` : ''}
           <div class="mb-3 flex-1 ${isOut ? 'opacity-50' : ''}">
             ${hasOffer ? `<div class="price-original">${currency}${basePrice.toLocaleString('bn-BD')}</div>` : ''}
             <div class="price-offer">${currency}${displayPrice.toLocaleString('bn-BD')}</div>
           </div>
           <div class="flex gap-2">
-            <button class="w-full font-bold py-2 rounded-xl text-sm transition" style="${isOut ? 'background:#e5e7eb; color:#9ca3af;' : 'background:#f0f4ff; color:var(--primary)'}">${isOut ? 'স্টক শেষ' : 'বিস্তারিত দেখুন'}</button>
+            <button class="w-full font-bold py-2 rounded-xl text-sm transition cursor-pointer" style="${isOut ? 'background:#e5e7eb; color:#9ca3af;' : 'background:#f0f4ff; color:var(--primary)'}">${isOut ? 'স্টক শেষ' : 'বিস্তারিত দেখুন'}</button>
           </div>
         </div>
       </div>`;
@@ -680,7 +748,7 @@
 
     let variantHtml = '';
     if (p.variants && p.variants.length > 0) {
-      variantHtml = `<label class="block text-xs font-bold text-gray-500 mb-1">সাইজ / ওজন বেছে নিন:</label><select id="qvVariantSelect" class="variant-select mb-0" onchange="changeQvVariant(this.value)">`;
+      variantHtml = `<label class="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">সাইজ / ওজন বেছে নিন:</label><select id="qvVariantSelect" class="variant-select mb-0" onchange="changeQvVariant(this.value)">`;
       p.variants.forEach((v, idx) => { variantHtml += `<option value="${idx}">${v.unit}</option>`; });
       variantHtml += `</select>`;
     }
@@ -754,18 +822,18 @@
 
   function renderCartItems() {
     const list = document.getElementById('cartItemsList');
-    if (cart.length === 0) { list.innerHTML = `<div class="empty-cart flex flex-col justify-center items-center h-full text-gray-400"><div style="font-size:4rem">🛒</div><p class="font-semibold text-lg">কার্ট খালি আছে</p></div>`; return; }
+    if (cart.length === 0) { list.innerHTML = `<div class="empty-cart flex flex-col justify-center items-center h-full text-gray-400 dark:text-slate-500"><div style="font-size:4rem">🛒</div><p class="font-semibold text-lg">কার্ট খালি আছে</p></div>`; return; }
     list.innerHTML = cart.map(item => {
       const dp = item.offer_price || item.price;
       const subtotal = dp * item.qty;
       return `<div class="cart-item-card">
           <img src="${item.image}" class="cart-item-img" onerror="this.src='https://via.placeholder.com/70'">
           <div class="flex-1 min-w-0">
-            <p class="font-semibold text-sm leading-tight mb-1">${item.name}</p>
+            <p class="font-semibold text-sm leading-tight mb-1 dark:text-white">${item.name}</p>
             <p class="font-bold text-sm" style="color:var(--primary)">${currency}${subtotal.toLocaleString('bn-BD')}</p>
             <div class="flex items-center gap-2 mt-2">
               <button class="qty-btn" onclick="changeQty('${item.cartId}', -1)">−</button>
-              <span class="font-bold text-sm w-6 text-center">${item.qty}</span>
+              <span class="font-bold text-sm w-6 text-center dark:text-white">${item.qty}</span>
               <button class="qty-btn" onclick="changeQty('${item.cartId}', 1)">+</button>
               <button class="btn-remove ml-auto" onclick="removeFromCart('${item.cartId}')">🗑️</button>
             </div>
@@ -845,7 +913,7 @@
     const address = document.getElementById('customerAddress').value.trim(); 
     if (!name || !phone || !address) return alert('অনুগ্রহ করে আপনার নাম, ফোন নম্বর এবং ঠিকানা দিন।');
     
-    // ব্লকলিস্ট ভ্যালিডেশন
+    // ব্লকলিস্ট ভ্যালিডেশন চেক
     const blockCheck = checkBlockStatus(phone);
     if (blockCheck.blocked) {
       alert(`⚠️ দুঃখিত! ${blockCheck.reason}`);
@@ -874,6 +942,9 @@
       device_id: clientDeviceId, fingerprint: clientFingerprint,
       status: 'pending'
     };
+
+    // কাস্টমারের নাম চিরতরে সেভ রাখা
+    localStorage.setItem('customer_saved_name', name);
 
     let msg = `🛒 *নতুন অর্ডার এসেছে! [${orderIdStr}]*\n\n*👤 গ্রাহকের তথ্য:*\nনাম: ${name}\nফোন: ${phone}\nঠিকানা: ${address}\n📱 Device ID: \`${clientDeviceId}\`\n🛡️ Fingerprint: \`${clientFingerprint}\`\n\n*📦 অর্ডারের তালিকা:*\n-----------------------------------\n`;
     cart.forEach((item, idx) => {
@@ -921,7 +992,7 @@
     let itemsHtml = '';
     cartItems.forEach(item => {
       const dp = item.offer_price || item.price; const sub = dp * item.qty;
-      itemsHtml += `<div class="inv-item"><div class="inv-item-details"><span class="truncate">${item.name} <span class="text-xs text-gray-500">(x${item.qty})</span></span></div><span class="font-bold">${currency}${sub.toLocaleString('bn-BD')}</span></div>`;
+      itemsHtml += `<div class="inv-item"><div class="inv-item-details"><span class="truncate">${item.name} <span class="text-xs text-slate-500">(x${item.qty})</span></span></div><span class="font-bold">${currency}${sub.toLocaleString('bn-BD')}</span></div>`;
     });
     document.getElementById('invItemsList').innerHTML = itemsHtml;
     
@@ -951,7 +1022,7 @@
         
         showToast("অর্ডারটি বাতিল করা হচ্ছে...");
 
-        // অটোমেটিক ৩ বার ক্যান্সেল ট্র্যাকিং সিকিউরিটি
+        // অটোমেটিক ৩ বার ক্যানসেল হলে ৭ দিনের লোকাল ব্লক
         let cancelCount = parseInt(localStorage.getItem('tanjim_cancel_count') || 0);
         cancelCount++;
         localStorage.setItem('tanjim_cancel_count', cancelCount);
@@ -972,7 +1043,7 @@
   function renderMyOrdersList() {
     const orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; 
     const container = document.getElementById('myOrdersList');
-    if (orders.length === 0) { container.innerHTML = `<p class="text-center text-gray-500 py-10">আপনি এখনো কোনো অর্ডার করেননি।</p>`; return; }
+    if (orders.length === 0) { container.innerHTML = `<p class="text-center text-slate-500 py-10">আপনি এখনো কোনো অর্ডার করেননি।</p>`; return; }
     
     let html = '';
     let now = Date.now();
@@ -980,7 +1051,7 @@
     orders.forEach((order, index) => {
       const d = new Date(order.date);
       let statusHtml = '';
-      let actionHtml = `<button onclick="deleteOrder(event, ${index})" class="bg-gray-100 text-gray-500 rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-100 hover:text-red-500 transition" title="হিস্ট্রি মুছুন">🗑️</button>`;
+      let actionHtml = `<button onclick="deleteOrder(event, ${index})" class="bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-slate-300 rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-100 dark:hover:bg-red-950/25 hover:text-red-500 transition cursor-pointer" title="হিস্ট্রি মুছুন">🗑️</button>`;
 
       if (order.status === 'cancelled') {
           statusHtml = '<span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-md font-bold">❌ বাতিল করা হয়েছে</span>';
@@ -1003,12 +1074,12 @@
       <div class="my-orders-list-item flex flex-col items-start gap-2 relative">
         <div class="flex justify-between w-full items-center">
             <div class="flex-1 cursor-pointer" onclick="showInvoiceForOrder(${index})">
-                <p class="font-bold text-indigo-700">${order.orderId}</p>
-                <p class="text-xs text-gray-500">${d.toLocaleDateString('bn-BD')} ${d.toLocaleTimeString('bn-BD')}</p>
+                <p class="font-bold text-indigo-700 dark:text-indigo-400">${order.orderId}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">${d.toLocaleDateString('bn-BD')} ${d.toLocaleTimeString('bn-BD')}</p>
             </div>
-            <p class="font-bold text-lg px-2">${currency}${order.total.toLocaleString('bn-BD')}</p>
+            <p class="font-bold text-lg px-2 dark:text-white">${currency}${order.total.toLocaleString('bn-BD')}</p>
         </div>
-        <div class="flex justify-between w-full items-center border-t border-gray-100 pt-2 relative">
+        <div class="flex justify-between w-full items-center border-t border-gray-100 dark:border-slate-800 pt-2 relative">
             <div>${statusHtml}</div>
             <div class="relative z-10">${actionHtml}</div>
         </div>
