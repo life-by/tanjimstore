@@ -789,43 +789,44 @@
   
   function closeInfoModal() { document.getElementById('infoModalOverlay').classList.remove('open'); }
   
-  async function processTelegramOrder() {
+// --- নতুন অর্ডার প্রসেসিং সিস্টেম শুরু ---
+  function processTelegramOrder() {
     const name = document.getElementById('customerName').value.trim(); 
     const phone = document.getElementById('customerPhone').value.trim();
     const address = document.getElementById('customerAddress').value.trim(); 
     if (!name || !phone || !address) return alert('অনুগ্রহ করে আপনার নাম, ফোন নম্বর এবং ঠিকানা দিন।');
     
-    const encToken = "ODI0MjI1MTM0NzpBQUdxOFd5Ujh5VGcwa2Z1dXRVTTZWODhDT01HUEZyZkc2VQ==";
-    const BOT_TOKEN = atob(encToken); const CHAT_ID = "2139008203";
-    const orderIdNum = Math.floor(Math.random() * 90000) + 10000; const orderIdStr = `ORD-${orderIdNum}`;
+    const orderIdNum = Math.floor(Math.random() * 90000) + 10000; 
+    const orderIdStr = `ORD-${orderIdNum}`;
+    const date = new Date();
     
     let subtotal = 0;
-    let msg = `🛒 *নতুন অর্ডার এসেছে! [${orderIdStr}]*\n\n*👤 গ্রাহকের তথ্য:*\nনাম: ${name}\nফোন: ${phone}\nঠিকানা: ${address}\n\n*📦 অর্ডারের তালিকা:*\n-----------------------------------\n`;
-    const cartCopy = [...cart]; const date = new Date();
-
-    cart.forEach((item, idx) => {
-      const dp = item.offer_price || item.price; const sub = dp * item.qty; subtotal += sub;
-      msg += `${idx + 1}. ${item.name}\n   পরিমাণ: ${item.qty}টি × ${currency}${dp.toLocaleString('bn-BD')} = ${currency}${sub.toLocaleString('bn-BD')}\n`;
-    });
-    
-    let finalDelCharge = deliveryCharge; if (freeDeliveryThreshold > 0 && subtotal >= freeDeliveryThreshold) finalDelCharge = 0;
+    cart.forEach(item => { subtotal += (item.offer_price || item.price) * item.qty; });
+    let finalDelCharge = deliveryCharge; 
+    if (freeDeliveryThreshold > 0 && subtotal >= freeDeliveryThreshold) finalDelCharge = 0;
     let finalTotal = subtotal + finalDelCharge;
 
-    msg += `-----------------------------------\nসাবটোটাল: ${currency}${subtotal.toLocaleString('bn-BD')}\nডেলিভারি চার্জ: ${currency}${finalDelCharge.toLocaleString('bn-BD')}\n💰 *সর্বমোট বিল:* ${currency}${finalTotal.toLocaleString('bn-BD')}\n`;
-    if(!storeIsOpen) msg += `\n⚠️ *বিঃদ্রঃ অর্ডারটি দোকান বন্ধ থাকা অবস্থায় প্লেস করা হয়েছে!*`;
+    const newOrder = {
+      orderId: orderIdStr, name: name, phone: phone, address: address, 
+      total: finalTotal, subtotal: subtotal, delivery: finalDelCharge, 
+      items: [...cart], date: date.toISOString(), 
+      status: 'pending', // pending, confirmed, cancelled
+      telegramSent: false
+    };
 
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-    const btn = document.getElementById('confirmOrderBtn'); const originalText = btn.innerHTML; btn.innerHTML = "অপেক্ষা করুন..."; btn.disabled = true;
+    closeInfoModal();
+    saveOrderToHistory(newOrder);
+    generateInvoice(name, phone, address, finalTotal, subtotal, finalDelCharge, [...cart], orderIdStr, date);
+    
+    cart = []; updateCartUI(); saveCart();
+    showToast("অর্ডার পেন্ডিং এ রাখা হয়েছে! ৫ মিনিট পর কনফার্ম হবে।");
+    openMyOrdersModal(); // অর্ডার লিস্ট ওপেন করে কাস্টমারকে দেখানো হবে
+  }
 
-    try {
-      const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown' }) });
-      if (response.ok) {
-        closeInfoModal();
-        generateInvoice(name, phone, address, finalTotal, subtotal, finalDelCharge, cartCopy, orderIdStr, date);
-        saveOrderToHistory({ name, phone, address, total: finalTotal, subtotal: subtotal, delivery: finalDelCharge, items: cartCopy, orderId: orderIdStr, date });
-        cart = []; updateCartUI(); saveCart();
-      } else { alert("অর্ডার পাঠাতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।"); }
-    } catch (error) { alert("ইন্টারনেট কানেকশন চেক করুন!"); } finally { btn.innerHTML = originalText; btn.disabled = false; }
+  function saveOrderToHistory(orderObject) { 
+    let orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; 
+    orders.unshift(orderObject); 
+    localStorage.setItem('myShopOrders', JSON.stringify(orders)); 
   }
 
   function generateInvoice(name, phone, address, total, subtotal, delCharge, cartItems, orderId, date) {
@@ -855,8 +856,7 @@
   }
   
   function closeInvoiceModal() { document.getElementById('invoiceModalOverlay').classList.remove('open'); }
-
-  function saveOrderToHistory(orderObject) { let orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; orders.unshift(orderObject); localStorage.setItem('myShopOrders', JSON.stringify(orders)); }
+  // --- নতুন অর্ডার প্রসেসিং সিস্টেম শেষ ---
   function openMyOrdersModal() { renderMyOrdersList(); document.getElementById('myOrdersOverlay').classList.add('open'); }
   function closeMyOrdersModal(e) { if (!e || e.target.id === 'myOrdersOverlay') document.getElementById('myOrdersOverlay').classList.remove('open'); }
   
