@@ -206,5 +206,15 @@
       "offer_price": 28
     }
   ],
-  "blacklist": []
+  "blacklist": [
+    {
+      "id": "block_1780053500352",
+      "phone": "01401615822",
+      "device_id": "DEV-CAJTYVF3C-8981",
+      "fingerprint": "FP-B48DFB443CC01F9B4D147FE5C644B9DE",
+      "reason": "অতিরিক্ত অর্ডার বাতিল করা",
+      "blocked_at": "2026-05-29T11:18:20.352Z",
+      "expires_at": "2026-06-05T11:18:20.352Z"
+    }
+  ]
 }
