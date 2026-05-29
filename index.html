@@ -388,7 +388,7 @@
   <div class="info-modal w-full max-w-lg" onclick="event.stopPropagation()">
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-xl font-bold">আমার অর্ডারসমূহ</h2>
-      <button onclick="closeMyOrdersModal()" class="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 text-gray-600 dark:text-slate-300 rounded-full p-2 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></button>
+      <button onclick="closeMyOrdersModal()" class="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 text-gray-600 dark:text-slate-300 rounded-full p-2 transition cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg></button>
     </div>
     <div id="myOrdersList" class="max-h-[60vh] overflow-y-auto pr-2"></div>
   </div>
@@ -402,7 +402,7 @@
     <p class="text-xs text-rose-500 font-bold mb-5">আপনি চাইলে এখনই অর্ডার প্লেস করে রাখতে পারেন, খোলার পর ডেলিভারি দেওয়া হবে।</p>
     <div class="flex gap-2">
       <button onclick="cancelStoreClosedPopup()" class="flex-1 bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-slate-300 py-2 rounded-lg font-bold cursor-pointer">বাতিল করুন</button>
-      <button onclick="proceedStoreClosedPopup()" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-bold cursor-pointer">অর্ডার চালিয়ে যান</button>
+      <button onclick="proceedStoreClosedPopup()" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-bold cursor-pointer">অर्डर চালিয়ে যান</button>
     </div>
   </div>
 </div>
@@ -435,13 +435,16 @@
   let deferredPrompt;
 
   // -----------------------------------------------------------------
-  // ☁️ ট্র্যাকিং বটের তথ্য (দয়া করে আপনার নিজের বটের টোকেন এবং চ্যাট আইডি দিয়ে পরিবর্তন করুন)
+  // ☁️ ট্র্যাকিং বটের তথ্য (দয়া করে আপনার নিজের বটের টোকেন এবং চ্যাট আইডি/টপিক আইডি বসিয়ে নিন)
   // -----------------------------------------------------------------
-  const BOT_OPEN_TOKEN = "8668040896:AAFKGDy6GipR0DGhM1kw-7gnN0wXk7_9R1A";       // ১নং বট (অ্যাপ ওপেন ট্র্যাকার)
-  const BOT_OPEN_CHAT_ID = "2139008203";   // ১নং বটের চ্যাট আইডি বা টপিক আইডি
+  const BOT_OPEN_TOKEN = "YOUR_BOT_OPEN_TOKEN";       // ১নং বট (ভিজিটর ট্র্যাকার)
+  const BOT_OPEN_CHAT_ID = "YOUR_BOT_OPEN_CHAT_ID";   
   
-  const BOT_SEARCH_TOKEN = "8951598240:AAFEJNwkQUlHIgizTuM38rgNcY56DSFzzwk";   // ২নং বট (সার্চ অ্যাক্টিভিটি ট্র্যাকার)
-  const BOT_SEARCH_CHAT_ID = "2139008203"; // ২নং বটের চ্যাট আইডি বা টপিক আইডি
+  const BOT_SEARCH_TOKEN = "YOUR_BOT_SEARCH_TOKEN";   // ২নং বট (সার্চ ট্র্যাকার)
+  const BOT_SEARCH_CHAT_ID = "YOUR_BOT_SEARCH_CHAT_ID"; 
+  
+  const BOT_CANCEL_TOKEN = "YOUR_BOT_CANCEL_TOKEN";   // ৩নং বট (অর্ডার বাতিল ট্র্যাকার)
+  const BOT_CANCEL_CHAT_ID = "YOUR_BOT_CANCEL_CHAT_ID"; 
   // -----------------------------------------------------------------
 
   window.addEventListener('beforeinstallprompt', (e) => {
@@ -491,7 +494,7 @@
     }
   }
 
-  // ব্রাউজারে কাস্টমারের সেভড প্রোফাইল রিটার্ন করার ফাংশন
+  // কাস্টমারের সেভড প্রোফাইল রিটার্ন করার ফাংশন
   function getCustomerProfile() {
     const name = localStorage.getItem('customer_saved_name') || '';
     const phone = localStorage.getItem('customer_saved_phone') || '';
@@ -499,9 +502,9 @@
     return { name, phone, address };
   }
 
-  // সাইলেন্টলি ট্র্যাকিং মেসেজ পাঠানোর ফাংশন
+  // সাইলেন্টলি ট্র্যাকিং মেসেজ পাঠানোর ফাংশন (disable_notification সহ)
   async function sendSilentTrackingMessage(token, chatId, text) {
-    if (!token || token.includes("YOUR_BOT")) return; // প্লেসহোল্ডার থাকলে রিকোয়েস্ট পাঠানো হবে না
+    if (!token || token.includes("YOUR_BOT")) return; 
     try {
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, { 
         method: 'POST', 
@@ -510,20 +513,72 @@
           chat_id: chatId, 
           text: text, 
           parse_mode: 'Markdown',
-          disable_notification: true // সাইলেন্ট নোটিফিকেশন (সাউন্ড হবে না)
+          disable_notification: true // সাইলেন্ট নোটিফিকেশন
         }) 
       });
     } catch(e) { console.log("Tracking send failed"); }
   }
 
-  // কাস্টমার প্রবেশ করলে ১নং বটে সাইলেন্ট নোটিফিকেশন পাঠানো
+  // বাংলায় নিখুঁত সময় ও বার ফরমেট করার ডাইনামিক ফাংশন
+  function getFormattedBengaliDateTime() {
+    const days = ['रविवार', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'];
+    const months = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
+    const date = new Date();
+    
+    const dayName = days[date.getDay()];
+    const day = date.getDate().toLocaleString('bn-BD');
+    const monthName = months[date.getMonth()];
+    const year = date.getFullYear().toLocaleString('bn-BD');
+    
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toLocaleString('bn-BD', { minimumIntegerDigits: 2 });
+    const ampm = hours >= 12 ? 'বিকাল/রাত' : 'সকাল/দুপুর';
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+    const hoursBn = hours.toLocaleString('bn-BD');
+    
+    return `${day} ${monthName}, ${year} | ${dayName} | ${ampm} ${hoursBn}:${minutes} মিনিট`;
+  }
+
+  // ডিভাইস ও ব্রাউজারের বিস্তারিত ইনফরমেশন বের করার ফাংশন
+  function getDeviceAndBrowserInfo() {
+    const ua = navigator.userAgent;
+    let os = "অজানা ওএস (Unknown OS)";
+    let browser = "অজানা ব্রাউজার (Unknown Browser)";
+
+    // OS সনাক্তকরণ
+    if (/android/i.test(ua)) os = "Android OS (মোবাইল)";
+    else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) os = "iOS (Apple Mobile)";
+    else if (/windows/i.test(ua)) os = "Windows (ডেস্কটপ)";
+    else if (/mac/i.test(ua)) os = "macOS (Apple Desktop)";
+    else if (/linux/i.test(ua)) os = "Linux PC";
+
+    // ব্রাউজার সনাক্তকরণ
+    if (/chrome|crios/i.test(ua) && !/edge|opr|opera|brave/i.test(ua)) browser = "Google Chrome";
+    else if (/safari/i.test(ua) && !/chrome|crios|opr|opera|edge/i.test(ua)) browser = "Safari";
+    else if (/firefox|fxios/i.test(ua)) browser = "Firefox";
+    else if (/edge|edg/i.test(ua)) browser = "Microsoft Edge";
+    else if (/opr|opera/i.test(ua)) browser = "Opera";
+    else if (/brave/i.test(ua)) browser = "Brave Browser";
+
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+    const deviceType = screenWidth < 768 ? "স্মার্টফোন" : "কম্পিউটার/ডেস্কটপ";
+
+    return `${os} | ব্রাউজার: ${browser} | স্ক্রিন: ${screenWidth}x${screenHeight} (${deviceType})`;
+  }
+
+  // কাস্টমার প্রবেশ করলে ১নং বটে সাইলেন্ট নোটিফিকেশন পাঠানো (সময় ও ব্রাউজার ডিটেইল সহ)
   function trackAppOpen() {
     const profile = getCustomerProfile();
+    const dateTimeStr = getFormattedBengaliDateTime();
+    const devInfoStr = getDeviceAndBrowserInfo();
+    
     let msg = '';
     if (profile.name && profile.phone) {
-      msg = `📱 *[ভিজিটর প্রবেশ করেছেন]*\n👤 নাম: ${profile.name}\n📞 ফোন: ${profile.phone}\n🏠 ঠিকানা: ${profile.address}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint}\``;
+      msg = `📱 *[ভিজিটর প্রবেশ করেছেন]*\n\n👤 *কাস্টমার তথ্য:*\nनाम: *${profile.name}*\n📞 ফোন: *${profile.phone}*\n🏠 ঠিকানা: *${profile.address}*\n\n📅 *ভিজিট সময়:* ${dateTimeStr}\nℹ️ *ডিভাইস লগ:* ${devInfoStr}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint}\``;
     } else {
-      msg = `📱 *[ভিজিটর প্রবেশ করেছেন (অজানা)]*\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint}\``;
+      msg = `📱 *[ভিজিটর প্রবেশ করেছেন (অজানা ভিজিটর)]*\n\n📅 *ভিজিট সময়:* ${dateTimeStr}\nℹ️ *ডিভাইস লগ:* ${devInfoStr}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint}\``;
     }
     sendSilentTrackingMessage(BOT_OPEN_TOKEN, BOT_OPEN_CHAT_ID, msg);
   }
@@ -533,11 +588,13 @@
     const cleanQuery = query.trim();
     if (!cleanQuery) return;
     const profile = getCustomerProfile();
+    const dateTimeStr = getFormattedBengaliDateTime();
+    
     let msg = '';
     if (profile.name && profile.phone) {
-      msg = `🔍 *[অনুসন্ধান সম্পন্ন]*\n👤 নাম: ${profile.name}\n📞 ফোন: ${profile.phone}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🔍 সার্চ কি-ওয়ার্ড: *"${cleanQuery}"*`;
+      msg = `🔍 *[অনুসন্ধান সম্পন্ন]*\n\n👤 *কাস্টমার:* *${profile.name}* (${profile.phone})\n📅 সময়: ${dateTimeStr}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🔍 সার্চ কি-ওয়ার্ড: *"${cleanQuery}"*`;
     } else {
-      msg = `🔍 *[অনুসন্ধান সম্পন্ন (অজানা)]*\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🔍 সার্চ কি-ওয়ার্ড: *"${cleanQuery}"*`;
+      msg = `🔍 *[অনুসন্ধান সম্পন্ন (অজানা)]*\n📅 সময়: ${dateTimeStr}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🔍 সার্চ কি-ওয়ার্ড: *"${cleanQuery}"*`;
     }
     sendSilentTrackingMessage(BOT_SEARCH_TOKEN, BOT_SEARCH_CHAT_ID, msg);
   }
@@ -700,13 +757,12 @@
     saveToHistory(val); 
     processSearch(val); 
     closeSearchDropdowns(); 
-    // কাস্টমার ড্রপডাউন সাজেশন বা সাম্প্রতিক সার্চে ক্লিক করলে ট্র্যাকিং মেসেজ যাবে
+    // সাজেশন বা সাম্প্রতিক সার্চে ক্লিক করলে ট্র্যাকিং মেসেজ যাবে
     trackSearchAction(val);
   }
   function saveToHistory(val) { const q = val.trim(); if(!q) return; searchHistory = searchHistory.filter(h => h !== q); searchHistory.unshift(q); if(searchHistory.length > 6) searchHistory.pop(); localStorage.setItem('myShopSearchHistory', JSON.stringify(searchHistory)); }
   function clearHistory(e) { e.stopPropagation(); searchHistory = []; localStorage.removeItem('myShopSearchHistory'); renderSearchDropdown(''); }
   function closeSearchDropdowns() { document.getElementById('searchDropdownDesktop').classList.add('hidden'); document.getElementById('searchDropdownMobile').classList.add('hidden'); }
-  document.addEventListener('click', (e) => { const dCont = document.getElementById('searchContainerDesktop'); const mCont = document.getElementById('searchContainerMobile'); if (dCont && !dCont.contains(e.target) && mCont && !mCont.contains(e.target)) closeSearchDropdowns(); });
   
   function handleSearchKeydown(e) { 
     if (e.key === 'Enter') { 
@@ -1223,8 +1279,15 @@
           localStorage.setItem('tanjim_local_block_until', Date.now() + sevenDays);
         }
         
-        let cancelMsg = `❌ *অর্ডার বাতিল!*\n\nকাস্টমার এই অর্ডারটি বাতিল করেছেন: *${orderId}*\nফোন: ${orders[index].phone}\nDevice ID: \`${clientDeviceId || 'Unknown'}\`\nFingerprint: \`${clientFingerprint || 'Unknown'}\`\nদয়া করে এই অর্ডারটি আর ডেলিভারি করবেন না।`;
-        await sendToTelegram(cancelMsg);
+        // ৩নং বট বা অর্ডার বাতিল নোটিফিকেশন সুন্দরভাবে ফরমেট করে পাঠানো
+        let cancelMsg = `❌ *[অর্ডার বাতিল করা হয়েছে]*\n\n📦 অর্ডার আইডি: *${orderId}*\n👤 নাম: *${orders[index].name}*\n📞 ফোন: *${orders[index].phone}*\n📅 বাতিলের সময়: ${getFormattedBengaliDateTime()}\n📱 ডিভাইস আইডি: \`${clientDeviceId || 'Unknown'}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint || 'Unknown'}\`\n\n⚠️ *প্যাকেজিং টিম অ্যালার্ট:* দয়া করে এই অর্ডারটি আর ডেলিভারি বা প্রস্তুত করবেন না।`;
+        
+        if (BOT_CANCEL_TOKEN && !BOT_CANCEL_TOKEN.includes("YOUR_BOT")) {
+           await sendSilentTrackingMessage(BOT_CANCEL_TOKEN, BOT_CANCEL_CHAT_ID, cancelMsg);
+        } else {
+           // ৩নং বটের সেটিংস না থাকলে ফলব্যাক হিসেবে মেইন চ্যাটে ক্যানসেল মেসেজ যাবে
+           await sendToTelegram(cancelMsg);
+        }
         
         showToast("অর্ডারটি সফলভাবে বাতিল করা হয়েছে।");
     } else {
