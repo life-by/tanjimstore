@@ -428,7 +428,8 @@
 
   async function loadData() {
     try {
-      const res = await fetch('data.json');
+      // ডেটা ক্যাশ না হওয়ার জন্য ?t=new Date().getTime() যোগ করা হয়েছে
+      const res = await fetch('data.json?t=' + new Date().getTime());
       storeData = await res.json();
     } catch {
       storeData = { store: {}, offers: [], categories: [], products: [] };
@@ -789,7 +790,7 @@
   
   function closeInfoModal() { document.getElementById('infoModalOverlay').classList.remove('open'); }
   
-// --- নতুন অর্ডার প্রসেসিং সিস্টেম শুরু ---
+  // --- নতুন অর্ডার প্রসেসিং সিস্টেম ---
   function processTelegramOrder() {
     const name = document.getElementById('customerName').value.trim(); 
     const phone = document.getElementById('customerPhone').value.trim();
@@ -810,7 +811,7 @@
       orderId: orderIdStr, name: name, phone: phone, address: address, 
       total: finalTotal, subtotal: subtotal, delivery: finalDelCharge, 
       items: [...cart], date: date.toISOString(), 
-      status: 'pending', // pending, confirmed, cancelled
+      status: 'pending', 
       telegramSent: false
     };
 
@@ -820,7 +821,7 @@
     
     cart = []; updateCartUI(); saveCart();
     showToast("অর্ডার পেন্ডিং এ রাখা হয়েছে! ৫ মিনিট পর কনফার্ম হবে।");
-    openMyOrdersModal(); // অর্ডার লিস্ট ওপেন করে কাস্টমারকে দেখানো হবে
+    openMyOrdersModal(); 
   }
 
   function saveOrderToHistory(orderObject) { 
@@ -856,11 +857,30 @@
   }
   
   function closeInvoiceModal() { document.getElementById('invoiceModalOverlay').classList.remove('open'); }
-  // --- নতুন অর্ডার প্রসেসিং সিস্টেম শেষ ---
+
   function openMyOrdersModal() { renderMyOrdersList(); document.getElementById('myOrdersOverlay').classList.add('open'); }
   function closeMyOrdersModal(e) { if (!e || e.target.id === 'myOrdersOverlay') document.getElementById('myOrdersOverlay').classList.remove('open'); }
   
- function renderMyOrdersList() {
+  // --- কাস্টমার অর্ডার বাতিল করলে ---
+  function cancelPendingOrder(event, orderId) {
+    event.stopPropagation(); 
+    if(!confirm("আপনি কি নিশ্চিতভাবে এই অর্ডারটি বাতিল করতে চান?")) return;
+    
+    let orders = JSON.parse(localStorage.getItem('myShopOrders')) || [];
+    let index = orders.findIndex(o => o.orderId === orderId);
+    
+    if(index > -1) {
+        orders[index].status = 'cancelled';
+        localStorage.setItem('myShopOrders', JSON.stringify(orders));
+        renderMyOrdersList(); 
+        showToast("অর্ডারটি সফলভাবে বাতিল করা হয়েছে।");
+    } else {
+        alert("দুঃখিত, অর্ডারটি খুঁজে পাওয়া যায়নি!");
+    }
+  }
+
+  // --- অর্ডার লিস্ট (হিস্ট্রি) দেখানোর কোড ---
+  function renderMyOrdersList() {
     const orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; 
     const container = document.getElementById('myOrdersList');
     if (orders.length === 0) { container.innerHTML = `<p class="text-center text-gray-500 py-10">আপনি এখনো কোনো অর্ডার করেননি।</p>`; return; }
@@ -871,27 +891,27 @@
     orders.forEach((order, index) => {
       const d = new Date(order.date);
       let statusHtml = '';
-      let actionHtml = `<button onclick="deleteOrder(${index})" class="bg-gray-100 text-gray-500 rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-100 hover:text-red-500 transition" title="হিস্ট্রি মুছুন">🗑️</button>`;
+      let actionHtml = `<button onclick="deleteOrder(event, ${index})" class="bg-gray-100 text-gray-500 rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-100 hover:text-red-500 transition" title="হিস্ট্রি মুছুন">🗑️</button>`;
 
       if (order.status === 'cancelled') {
           statusHtml = '<span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-md font-bold">❌ বাতিল করা হয়েছে</span>';
       } else if (order.status === 'confirmed' || order.telegramSent) {
           statusHtml = '<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-md font-bold">✅ অর্ডার কনফার্মড</span>';
       } else { 
-          // Pending status
           let timeElapsed = now - d.getTime();
-          let timeLeft = (5 * 60 * 1000) - timeElapsed; // ৫ মিনিট বাকি আছে কিনা
+          let timeLeft = (5 * 60 * 1000) - timeElapsed; 
+          
           if (timeLeft > 0) {
               let min = Math.floor(timeLeft / 60000);
-              statusHtml = `<span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-md font-bold">⏳ পেন্ডিং (আর ${min+1} মিনিট)</span>`;
-              actionHtml = `<button onclick="cancelPendingOrder('${order.orderId}')" class="bg-red-500 text-white px-3 py-1.5 rounded-lg font-bold text-xs hover:bg-red-600 transition shadow-sm">অর্ডার বাতিল করুন</button>`;
+              statusHtml = `<span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-md font-bold">⏳ পেন্ডিং (আর ${min+1} মি.)</span>`;
+              actionHtml = `<button onclick="cancelPendingOrder(event, '${order.orderId}')" class="bg-red-500 text-white px-3 py-1.5 rounded-lg font-bold text-xs hover:bg-red-600 transition shadow-sm cursor-pointer relative z-10">অর্ডার বাতিল করুন</button>`;
           } else {
               statusHtml = '<span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-md font-bold">🔄 প্রসেসিং হচ্ছে...</span>';
           }
       }
 
       html += `
-      <div class="my-orders-list-item flex flex-col items-start gap-2">
+      <div class="my-orders-list-item flex flex-col items-start gap-2 relative">
         <div class="flex justify-between w-full items-center">
             <div class="flex-1 cursor-pointer" onclick="showInvoiceForOrder(${index})">
                 <p class="font-bold text-indigo-700">${order.orderId}</p>
@@ -899,9 +919,9 @@
             </div>
             <p class="font-bold text-lg px-2">${currency}${order.total.toLocaleString('bn-BD')}</p>
         </div>
-        <div class="flex justify-between w-full items-center border-t border-gray-100 pt-2 w-full">
+        <div class="flex justify-between w-full items-center border-t border-gray-100 pt-2 relative">
             <div>${statusHtml}</div>
-            <div>${actionHtml}</div>
+            <div class="relative z-10">${actionHtml}</div>
         </div>
       </div>`;
     });
@@ -912,10 +932,86 @@
     const orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; const order = orders[index];
     if (order) { closeMyOrdersModal(); generateInvoice(order.name, order.phone, order.address || '', order.total, (order.subtotal || order.total), (order.delivery || 0), order.items, order.orderId, new Date(order.date)); }
   }
-  function deleteOrder(index) { if (confirm("মুছে ফেলতে চান?")) { let orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; orders.splice(index, 1); localStorage.setItem('myShopOrders', JSON.stringify(orders)); renderMyOrdersList(); showToast("অর্ডার মুছে ফেলা হয়েছে।"); } }
+  
+  function deleteOrder(event, index) { 
+    if(event) event.stopPropagation();
+    if (confirm("মুছে ফেলতে চান?")) { 
+        let orders = JSON.parse(localStorage.getItem('myShopOrders')) || []; 
+        orders.splice(index, 1); 
+        localStorage.setItem('myShopOrders', JSON.stringify(orders)); 
+        renderMyOrdersList(); 
+        showToast("অর্ডার মুছে ফেলা হয়েছে।"); 
+    } 
+  }
 
   let toastTimer;
   function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.classList.remove('show'); }, 2500); }
+
+  // ==========================================
+  // ৫ মিনিট পর অটোমেটিক টেলিগ্রামে মেসেজ পাঠানোর ইঞ্জিন
+  // ==========================================
+  async function sendOrderToTelegram(order, index) {
+    let currentOrders = JSON.parse(localStorage.getItem('myShopOrders')) || [];
+    if (currentOrders[index] && currentOrders[index].telegramSent) return;
+
+    const encToken = "ODI0MjI1MTM0NzpBQUdxOFd5Ujh5VGcwa2Z1dXRVTTZWODhDT01HUEZyZkc2VQ==";
+    const BOT_TOKEN = atob(encToken); 
+    const CHAT_ID = "2139008203";
+    
+    let msg = `🛒 *নতুন অর্ডার কনফার্ম হয়েছে! [${order.orderId}]*\n\n*👤 গ্রাহকের তথ্য:*\nনাম: ${order.name}\nফোন: ${order.phone}\nঠিকানা: ${order.address}\n\n*📦 অর্ডারের তালিকা:*\n-----------------------------------\n`;
+    
+    order.items.forEach((item, idx) => {
+      const dp = item.offer_price || item.price; 
+      const sub = dp * item.qty;
+      msg += `${idx + 1}. ${item.name}\n   পরিমাণ: ${item.qty}টি × ${currency}${dp.toLocaleString('bn-BD')} = ${currency}${sub.toLocaleString('bn-BD')}\n`;
+    });
+    
+    msg += `-----------------------------------\nসাবটোটাল: ${currency}${order.subtotal.toLocaleString('bn-BD')}\nডেলিভারি চার্জ: ${currency}${order.delivery.toLocaleString('bn-BD')}\n💰 *সর্বমোট বিল:* ${currency}${order.total.toLocaleString('bn-BD')}\n`;
+    if(!storeIsOpen) msg += `\n⚠️ *বিঃদ্রঃ অর্ডারটি দোকান বন্ধ থাকা অবস্থায় প্লেস করা হয়েছে!*`;
+
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, { 
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown' }) 
+      });
+      
+      if (response.ok) {
+        let updatedOrders = JSON.parse(localStorage.getItem('myShopOrders')) || [];
+        if(updatedOrders[index]) {
+            updatedOrders[index].status = 'confirmed';
+            updatedOrders[index].telegramSent = true;
+            localStorage.setItem('myShopOrders', JSON.stringify(updatedOrders));
+            if(document.getElementById('myOrdersOverlay').classList.contains('open')) {
+                renderMyOrdersList();
+            }
+        }
+      }
+    } catch (error) { console.log("Telegram Error: ", error); }
+  }
+
+  function checkPendingOrders() {
+    let orders = JSON.parse(localStorage.getItem('myShopOrders')) || [];
+    let now = Date.now();
+    let needsUpdate = false;
+
+    orders.forEach((order, index) => {
+      if (order.status === 'pending' && !order.telegramSent) {
+        let orderTime = new Date(order.date).getTime();
+        if (now - orderTime >= 5 * 60 * 1000) { 
+          sendOrderToTelegram(order, index);
+        } else {
+          needsUpdate = true;
+        }
+      }
+    });
+    
+    if(needsUpdate && document.getElementById('myOrdersOverlay').classList.contains('open')) {
+        renderMyOrdersList();
+    }
+  }
+
+  setInterval(checkPendingOrders, 5000); 
+  setTimeout(checkPendingOrders, 2000); 
 
   loadData();
 </script>
