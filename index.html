@@ -227,7 +227,7 @@
       <div class="category-grid" id="categoryTabs"></div>
     </div>
 
-    <!-- বিশেষ পছন্দ / সাজেশন সেকশন -->
+    <!-- বিশেষ পছন্দ / সাজেস্টেড প্রোডাক্ট সেকশন -->
     <div id="recommendationSection" class="mb-10" style="display: none;">
       <h2 class="section-title mb-4">✨ আপনার জন্য বিশেষ পছন্দ</h2>
       <div class="grid-products" id="recommendedProductsGrid"></div>
@@ -257,7 +257,7 @@
     </div><span>কার্ট</span>
   </div>
   <div class="app-bar-item" onclick="openMyOrdersModal()">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 002 2h2a2 2 0 002-2zM9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg><span>অর্ডার</span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2zm7 0a1 1 0 100-2 1 1 0 000 2z" /></svg><span>অর্ডার</span>
   </div>
   <div class="app-bar-item" id="installAppBtnMobile" onclick="installPWA()">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#e11d48"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg><span class="text-rose-600 font-bold">ইনস্টল</span>
@@ -434,6 +434,16 @@
   let clientFingerprint = '';
   let deferredPrompt;
 
+  // -----------------------------------------------------------------
+  // ☁️ ট্র্যাকিং বটের তথ্য (দয়া করে আপনার নিজের বটের টোকেন এবং চ্যাট আইডি দিয়ে পরিবর্তন করুন)
+  // -----------------------------------------------------------------
+  const BOT_OPEN_TOKEN = "8668040896:AAFKGDy6GipR0DGhM1kw-7gnN0wXk7_9R1A";       // ১নং বট (অ্যাপ ওপেন ট্র্যাকার)
+  const BOT_OPEN_CHAT_ID = "2139008203";   // ১নং বটের চ্যাট আইডি বা টপিক আইডি
+  
+  const BOT_SEARCH_TOKEN = "8951598240:AAFEJNwkQUlHIgizTuM38rgNcY56DSFzzwk";   // ২নং বট (সার্চ অ্যাক্টিভিটি ট্র্যাকার)
+  const BOT_SEARCH_CHAT_ID = "2139008203"; // ২নং বটের চ্যাট আইডি বা টপিক আইডি
+  // -----------------------------------------------------------------
+
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
@@ -481,6 +491,57 @@
     }
   }
 
+  // ব্রাউজারে কাস্টমারের সেভড প্রোফাইল রিটার্ন করার ফাংশন
+  function getCustomerProfile() {
+    const name = localStorage.getItem('customer_saved_name') || '';
+    const phone = localStorage.getItem('customer_saved_phone') || '';
+    const address = localStorage.getItem('customer_saved_address') || '';
+    return { name, phone, address };
+  }
+
+  // সাইলেন্টলি ট্র্যাকিং মেসেজ পাঠানোর ফাংশন
+  async function sendSilentTrackingMessage(token, chatId, text) {
+    if (!token || token.includes("YOUR_BOT")) return; // প্লেসহোল্ডার থাকলে রিকোয়েস্ট পাঠানো হবে না
+    try {
+      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ 
+          chat_id: chatId, 
+          text: text, 
+          parse_mode: 'Markdown',
+          disable_notification: true // সাইলেন্ট নোটিফিকেশন (সাউন্ড হবে না)
+        }) 
+      });
+    } catch(e) { console.log("Tracking send failed"); }
+  }
+
+  // কাস্টমার প্রবেশ করলে ১নং বটে সাইলেন্ট নোটিফিকেশন পাঠানো
+  function trackAppOpen() {
+    const profile = getCustomerProfile();
+    let msg = '';
+    if (profile.name && profile.phone) {
+      msg = `📱 *[ভিজিটর প্রবেশ করেছেন]*\n👤 নাম: ${profile.name}\n📞 ফোন: ${profile.phone}\n🏠 ঠিকানা: ${profile.address}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint}\``;
+    } else {
+      msg = `📱 *[ভিজিটর প্রবেশ করেছেন (অজানা)]*\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint}\``;
+    }
+    sendSilentTrackingMessage(BOT_OPEN_TOKEN, BOT_OPEN_CHAT_ID, msg);
+  }
+
+  // কাস্টমার সার্চ সম্পন্ন করলে ২নং বটে সাইলেন্ট নোটিফিকেশন পাঠানো
+  function trackSearchAction(query) {
+    const cleanQuery = query.trim();
+    if (!cleanQuery) return;
+    const profile = getCustomerProfile();
+    let msg = '';
+    if (profile.name && profile.phone) {
+      msg = `🔍 *[অনুসন্ধান সম্পন্ন]*\n👤 নাম: ${profile.name}\n📞 ফোন: ${profile.phone}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🔍 সার্চ কি-ওয়ার্ড: *"${cleanQuery}"*`;
+    } else {
+      msg = `🔍 *[অনুসন্ধান সম্পন্ন (অজানা)]*\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🔍 সার্চ কি-ওয়ার্ড: *"${cleanQuery}"*`;
+    }
+    sendSilentTrackingMessage(BOT_SEARCH_TOKEN, BOT_SEARCH_CHAT_ID, msg);
+  }
+
   // ডিভাইস ট্র্যাকিং এবং ফিঙ্গারপ্রিন্ট জেনারেশন মেথড
   async function initDeviceTracking() {
     if (!localStorage.getItem('tanjim_device_id')) {
@@ -495,6 +556,9 @@
     } catch (e) {
       clientFingerprint = 'FP-BK-' + btoa(navigator.userAgent + screen.width + screen.height).slice(0, 12).toUpperCase();
     }
+    
+    // ডিভাইস আইডি সেটআপ হওয়ার পর ভিজিটর ট্রাক করা হবে
+    trackAppOpen();
   }
 
   function getIconHtml(iconStr) {
@@ -632,12 +696,27 @@
     if (html) { if(window.innerWidth >= 640) document.getElementById('searchDropdownDesktop').classList.remove('hidden'); else document.getElementById('searchDropdownMobile').classList.remove('hidden'); } else closeSearchDropdowns();
   }
   
-  function selectSearch(val) { saveToHistory(val); processSearch(val); closeSearchDropdowns(); }
+  function selectSearch(val) { 
+    saveToHistory(val); 
+    processSearch(val); 
+    closeSearchDropdowns(); 
+    // কাস্টমার ড্রপডাউন সাজেশন বা সাম্প্রতিক সার্চে ক্লিক করলে ট্র্যাকিং মেসেজ যাবে
+    trackSearchAction(val);
+  }
   function saveToHistory(val) { const q = val.trim(); if(!q) return; searchHistory = searchHistory.filter(h => h !== q); searchHistory.unshift(q); if(searchHistory.length > 6) searchHistory.pop(); localStorage.setItem('myShopSearchHistory', JSON.stringify(searchHistory)); }
   function clearHistory(e) { e.stopPropagation(); searchHistory = []; localStorage.removeItem('myShopSearchHistory'); renderSearchDropdown(''); }
   function closeSearchDropdowns() { document.getElementById('searchDropdownDesktop').classList.add('hidden'); document.getElementById('searchDropdownMobile').classList.add('hidden'); }
   document.addEventListener('click', (e) => { const dCont = document.getElementById('searchContainerDesktop'); const mCont = document.getElementById('searchContainerMobile'); if (dCont && !dCont.contains(e.target) && mCont && !mCont.contains(e.target)) closeSearchDropdowns(); });
-  function handleSearchKeydown(e) { if (e.key === 'Enter') { saveToHistory(e.target.value); closeSearchDropdowns(); } }
+  
+  function handleSearchKeydown(e) { 
+    if (e.key === 'Enter') { 
+      const query = e.target.value;
+      saveToHistory(query); 
+      closeSearchDropdowns(); 
+      // কাস্টমার কিবোর্ডের এন্টার বাটনে ক্লিক করলেই কেবল ট্র্যাকিং মেসেজ যাবে
+      trackSearchAction(query);
+    } 
+  }
 
   function saveCart() { localStorage.setItem('myShopCart', JSON.stringify(cart)); }
   function loadCart() { const saved = localStorage.getItem('myShopCart'); if (saved) { try { cart = JSON.parse(saved); updateCartUI(); } catch(e){} } }
@@ -921,6 +1000,7 @@
   
   function buyNowFromQvTelegram() { addQvToCart(); closeQuickView(); openInfoModalWithCheck(); }
   
+  // কার্ট লিস্ট রেন্ডার করা
   function updateCartUI() {
     const total = cart.reduce((s, c) => s + (c.offer_price || c.price) * c.qty, 0);
     const count = cart.reduce((s, c) => s + c.qty, 0);
@@ -1053,8 +1133,10 @@
       status: 'pending'
     };
 
-    // কাস্টমারের নাম চিরতরে সেভ রাখা
+    // কাস্টমারের নাম, ফোন ও ঠিকানা ব্রাউজারে স্থায়ীভাবে সেভ রাখা (পরবর্তীতে ট্র্যাকিংয়ের জন্য)
     localStorage.setItem('customer_saved_name', name);
+    localStorage.setItem('customer_saved_phone', phone);
+    localStorage.setItem('customer_saved_address', address);
 
     let msg = `🛒 *নতুন অর্ডার এসেছে! [${orderIdStr}]*\n\n*👤 গ্রাহকের তথ্য:*\nনাম: ${name}\nফোন: ${phone}\nঠিকানা: ${address}\n📱 Device ID: \`${clientDeviceId}\`\n🛡️ Fingerprint: \`${clientFingerprint}\`\n\n*📦 অর্ডারের তালিকা:*\n-----------------------------------\n`;
     cart.forEach((item, idx) => {
