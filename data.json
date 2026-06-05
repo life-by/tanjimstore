@@ -110,6 +110,25 @@
   ],
   "products": [
     {
+      "id": 1780653789609,
+      "name": "ilu",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1780653772570_80.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "111111",
+          "price": 111111,
+          "offer_price": 1111
+        }
+      ],
+      "price": 111111,
+      "offer_price": 1111
+    },
+    {
       "id": 1778429541577,
       "name": "তেল",
       "category": "তেল ও মশলা",
