@@ -244,11 +244,12 @@
 </main>
 
 <div class="bottom-app-bar sm:hidden">
-  <div class="app-bar-item active" onclick="filterCategory('all'); window.scrollTo({top:0, behavior:'smooth'})">
+  <div class="app-bar-item active" id="navHome" onclick="filterCategory('all'); window.scrollTo({top:0, behavior:'smooth'})">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg><span>হোম</span>
   </div>
-  <div class="app-bar-item" onclick="document.getElementById('categoryTabs').scrollIntoView({behavior:'smooth'})">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg><span>ক্যাটাগরি</span>
+  <!-- ক্যাটাগরির বদলে কিডস অপশন -->
+  <div class="app-bar-item" id="navKids" onclick="filterCategory('kids_zone'); window.scrollTo({top:0, behavior:'smooth'})">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>কিডস</span>
   </div>
   <div class="app-bar-item" onclick="toggleCart()">
     <div class="relative">
@@ -283,7 +284,7 @@
 <div class="info-modal-overlay" id="infoModalOverlay">
   <div class="info-modal" id="infoModal">
     <h2 class="text-xl font-bold mb-2 text-gray-800 dark:text-white">অর্ডারের তথ্য</h2>
-    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">অর্ডার কনফার্ম করতে নিচের তথ্যগুলো সঠিকভাবে পূরণ করুন।</p>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">অর্ডার কনফার্ম করতে নিচের তথ্যগুলো সঠিকভাবে পূরণ করুন.</p>
     
     <div class="mb-3">
       <label class="text-sm font-semibold text-slate-600 dark:text-slate-400">আপনার নাম *</label>
@@ -521,7 +522,7 @@
 
   // বাংলায় নিখুঁত সময় ও বার ফরমেট করার ডাইনামিক ফাংশন
   function getFormattedBengaliDateTime() {
-    const days = ['रविवार', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'];
+    const days = ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'];
     const months = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
     const date = new Date();
     
@@ -576,7 +577,7 @@
     
     let msg = '';
     if (profile.name && profile.phone) {
-      msg = `📱 *[ভিজিটর প্রবেশ করেছেন]*\n\n👤 *কাস্টমার তথ্য:*\nनाम: *${profile.name}*\n📞 ফোন: *${profile.phone}*\n🏠 ঠিকানা: *${profile.address}*\n\n📅 *ভিজিট সময়:* ${dateTimeStr}\nℹ️ *ডিভাইস লগ:* ${devInfoStr}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint}\``;
+      msg = `📱 *[ভিজিটর প্রবেশ করেছেন]*\n\n👤 *কাস্টমার তথ্য:*\nনাম: *${profile.name}*\n📞 ফোন: *${profile.phone}*\n🏠 ঠিকানা: *${profile.address}*\n\n📅 *ভিজিট সময়:* ${dateTimeStr}\nℹ️ *ডিভাইস লগ:* ${devInfoStr}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint}\``;
     } else {
       msg = `📱 *[ভিজিটর প্রবেশ করেছেন (অজানা ভিজিটর)]*\n\n📅 *ভিজিট সময়:* ${dateTimeStr}\nℹ️ *ডিভাইস লগ:* ${devInfoStr}\n📱 ডিভাইস আইডি: \`${clientDeviceId}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint}\``;
     }
@@ -757,7 +758,6 @@
     saveToHistory(val); 
     processSearch(val); 
     closeSearchDropdowns(); 
-    // সাজেশন বা সাম্প্রতিক সার্চে ক্লিক করলে ট্র্যাকিং মেসেজ যাবে
     trackSearchAction(val);
   }
   function saveToHistory(val) { const q = val.trim(); if(!q) return; searchHistory = searchHistory.filter(h => h !== q); searchHistory.unshift(q); if(searchHistory.length > 6) searchHistory.pop(); localStorage.setItem('myShopSearchHistory', JSON.stringify(searchHistory)); }
@@ -769,7 +769,6 @@
       const query = e.target.value;
       saveToHistory(query); 
       closeSearchDropdowns(); 
-      // কাস্টমার কিবোর্ডের এন্টার বাটনে ক্লিক করলেই কেবল ট্র্যাকিং মেসেজ যাবে
       trackSearchAction(query);
     } 
   }
@@ -781,6 +780,8 @@
     const tabs = document.getElementById('categoryTabs'); const cats = storeData.categories || [];
     let html = `<div class="category-card active" data-cat="all" onclick="filterCategory('all')"><div class="category-card-img text-2xl">🏪</div><div class="category-card-text">সব পণ্য</div></div>`;
     cats.forEach(c => {
+      if(c.id === 'kids_zone') return; // Hide kids zone from horizontal top bar
+      
       let iconDisplay = c.icon || '📁'; if (c.icon && c.icon.startsWith('http')) iconDisplay = `<img src="${c.icon}" alt="${c.name}" loading="lazy">`;
       html += `<div class="category-card" data-cat="${c.id}" onclick="filterCategory('${c.id}')"><div class="category-card-img">${iconDisplay}</div><div class="category-card-text">${c.name}</div></div>`;
     });
@@ -792,12 +793,19 @@
     document.querySelectorAll('#categoryTabs .category-card').forEach(b => b.classList.remove('active'));
     const btn = document.querySelector(`.category-card[data-cat="${catId}"]`); if (btn) btn.classList.add('active');
     
+    // Bottom Nav Active State Management
+    document.querySelectorAll('.app-bar-item').forEach(item => item.classList.remove('active'));
+    if(catId === 'all' && document.getElementById('navHome')) document.getElementById('navHome').classList.add('active');
+    else if(catId === 'kids_zone' && document.getElementById('navKids')) document.getElementById('navKids').classList.add('active');
+
     if (catId === 'all') {
       document.getElementById('homeContentWrapper').style.display = 'block'; document.getElementById('backBtnWrapper').style.display = 'none'; document.getElementById('subCategoryTabs').style.display = 'none';
       window.scrollTo({top: 0, behavior: 'smooth'});
       renderRecommendations();
     } else {
-      document.getElementById('homeContentWrapper').style.display = 'none'; document.getElementById('backBtnWrapper').style.display = 'block'; renderSubCategories(catId);
+      document.getElementById('homeContentWrapper').style.display = 'none'; document.getElementById('backBtnWrapper').style.display = 'block'; 
+      if(catId !== 'kids_zone') renderSubCategories(catId); 
+      else document.getElementById('subCategoryTabs').style.display = 'none';
     }
     renderProducts();
   }
@@ -822,6 +830,8 @@
     if (activeCategory === 'all' && !searchQuery) {
       let html = '';
       (storeData.categories || []).forEach(cat => {
+        if (cat.id === 'kids_zone') return; // Do not show kids zone on the main page feed
+        
         const catProducts = allProducts.filter(p => p.category === cat.id);
         if (catProducts.length === 0) return;
         html += `<div class="mb-10"><h2 class="section-title mb-4">${getIconHtml(cat.icon)} ${cat.name}</h2><div class="grid-products">${catProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
@@ -832,14 +842,18 @@
     } else {
       let targetProducts = allProducts.filter(p => p.category === activeCategory);
       if (activeSubCategory !== 'all') targetProducts = targetProducts.filter(p => p.subcategory === activeSubCategory);
-      let otherProducts = allProducts.filter(p => p.category !== activeCategory);
-      let html = '';
-      const catInfo = storeData.categories.find(c => c.id === activeCategory); const catName = catInfo ? catInfo.name : 'منتخب ক্যাটাগরি';
+      let otherProducts = allProducts.filter(p => p.category !== activeCategory && p.category !== 'kids_zone');
       
-      if (targetProducts.length > 0) html += `<div class="mb-10"><h2 class="section-title mb-4" style="color:var(--primary)">${catName} এর পণ্যসমূহ</h2><div class="grid-products">${targetProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
+      let html = '';
+      const catInfo = storeData.categories.find(c => c.id === activeCategory); 
+      const catName = catInfo ? catInfo.name : (activeCategory === 'kids_zone' ? 'বাচ্চাদের স্পেশাল আইটেম' : 'নির্বাচিত ক্যাটাগরি');
+      
+      if (targetProducts.length > 0) html += `<div class="mb-10"><h2 class="section-title mb-4" style="color:var(--primary)">${catName}</h2><div class="grid-products">${targetProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
       else html += `<div class="text-center py-10 text-slate-400"><p class="text-lg">এই ক্যাটাগরিতে কোনো পণ্য নেই</p></div>`;
       
-      if (otherProducts.length > 0) html += `<div class="mb-10 pt-8 mt-8 border-t border-gray-200 dark:border-slate-800"><h2 class="section-title mb-4 text-gray-500 dark:text-slate-400">অন্যান্য ক্যাটাগরির পণ্য</h2><div class="grid-products">${otherProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
+      if (otherProducts.length > 0 && activeCategory !== 'kids_zone') {
+        html += `<div class="mb-10 pt-8 mt-8 border-t border-gray-200 dark:border-slate-800"><h2 class="section-title mb-4 text-gray-500 dark:text-slate-400">অন্যান্য ক্যাটাগরির পণ্য</h2><div class="grid-products">${otherProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
+      }
       container.innerHTML = html;
     }
   }
@@ -853,15 +867,13 @@
     const orders = JSON.parse(localStorage.getItem('myShopOrders')) || [];
     const searches = JSON.parse(localStorage.getItem('myShopSearchHistory')) || [];
 
-    // যদি কোনো অর্ডার বা সার্চ হিস্ট্রি না থাকে তবে সেকশনটি হাইড থাকবে
     if (orders.length === 0 && searches.length === 0) {
       recSection.style.display = 'none';
       return;
     }
 
-    const scores = {}; // ক্যাটাগরি ও ট্যাগের ইন্টারেস্ট স্কোর স্টোর করার অবজেক্ট
+    const scores = {}; 
 
-    // ১. অর্ডার হিস্ট্রি থেকে স্কোর জেনারেট (পয়েন্ট ওয়েট: ৫)
     orders.forEach(order => {
       if (order.items) {
         order.items.forEach(item => {
@@ -881,7 +893,6 @@
       }
     });
 
-    // ২. সার্চ হিস্ট্রি থেকে স্কোর জেনারেট (পয়েন্ট ওয়েট: ২)
     searches.forEach(searchKeyword => {
       const cleanSearch = searchKeyword.toLowerCase().trim();
       if (!cleanSearch) return;
@@ -905,7 +916,6 @@
       });
     });
 
-    // সবচেয়ে বেশি স্কোর পাওয়া ট্যাগ বা ক্যাটাগরিগুলো সর্ট করা
     const sortedInterests = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
 
     if (sortedInterests.length === 0) {
@@ -913,7 +923,6 @@
       return;
     }
 
-    // সর্বাধিক পয়েন্ট পাওয়া শীর্ষ ৩টি ইন্টারেস্ট কি-ওয়ার্ড নেওয়া হলো
     const topInterests = sortedInterests.slice(0, 3); 
 
     const recommendedProducts = [];
@@ -922,6 +931,8 @@
     topInterests.forEach(interest => {
       storeData.products.forEach(p => {
         if (addedProductIds.has(p.id)) return;
+        // রিকমেন্ডেশনেও কিডস জোন বাদ রাখা হয়েছে
+        if (p.category === 'kids_zone') return;
 
         const matchesCategory = p.category && p.category.toLowerCase() === interest.toLowerCase();
         const matchesTag = p.tags && p.tags.some(t => t.toLowerCase() === interest.toLowerCase());
@@ -933,10 +944,8 @@
       });
     });
 
-    // হোমপেজে সর্বাধিক ৪টি সাজেস্টেড প্রোডাক্ট প্রদর্শন করা হবে
     const finalRecommendations = recommendedProducts.slice(0, 4);
 
-    // শুধুমাত্র হোমপেজে এবং সার্চ ফিল্টার অফ থাকা অবস্থায় এটি দৃশ্যমান হবে
     if (finalRecommendations.length > 0 && activeCategory === 'all' && !searchQuery) {
       recGrid.innerHTML = finalRecommendations.map(p => productCardHTML(p)).join('');
       recSection.style.display = 'block';
