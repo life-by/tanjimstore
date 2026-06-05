@@ -100,6 +100,12 @@
       "name": "মশলা",
       "icon": "https://raw.githubusercontent.com/life-by/tanjimstore/refs/heads/main/Logo/%E0%A6%AE%E0%A6%B6%E0%A6%B2%E0%A6%BE.jpg",
       "subcategories": []
+    },
+    {
+      "id": "kids_zone",
+      "name": "বাচ্চাদের আইটেম",
+      "icon": "👶",
+      "subcategories": []
     }
   ],
   "products": [
