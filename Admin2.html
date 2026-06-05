@@ -136,9 +136,24 @@
           <!-- Banner Slider -->
           <div class="mt-4 pt-4 border-t">
             <label class="block text-sm font-bold text-gray-800 mb-2">ব্যানার স্লাইডার ছবি (সর্বোচ্চ ৩টি)</label>
-            <input type="text" id="storeImg1" placeholder="Image URL 1" class="w-full border rounded p-2 mb-2 focus:ring-2 focus:ring-indigo-500">
-            <input type="text" id="storeImg2" placeholder="Image URL 2 (Optional)" class="w-full border rounded p-2 mb-2 focus:ring-2 focus:ring-indigo-500">
-            <input type="text" id="storeImg3" placeholder="Image URL 3 (Optional)" class="w-full border rounded p-2 mb-2 focus:ring-2 focus:ring-indigo-500">
+            <div class="flex gap-2 mb-2">
+              <input type="text" id="storeImg1" placeholder="Image URL 1" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500">
+              <label class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-3 py-2 rounded font-bold cursor-pointer whitespace-nowrap transition" title="ছবি আপলোড করুন">
+                📂 <input type="file" class="hidden" accept="image/*" onchange="handleFileUpload(event, 'storeImg1')">
+              </label>
+            </div>
+            <div class="flex gap-2 mb-2">
+              <input type="text" id="storeImg2" placeholder="Image URL 2 (Optional)" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500">
+              <label class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-3 py-2 rounded font-bold cursor-pointer whitespace-nowrap transition" title="ছবি আপলোড করুন">
+                📂 <input type="file" class="hidden" accept="image/*" onchange="handleFileUpload(event, 'storeImg2')">
+              </label>
+            </div>
+            <div class="flex gap-2 mb-2">
+              <input type="text" id="storeImg3" placeholder="Image URL 3 (Optional)" class="w-full border rounded p-2 focus:ring-2 focus:ring-indigo-500">
+              <label class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-3 py-2 rounded font-bold cursor-pointer whitespace-nowrap transition" title="ছবি আপলোড করুন">
+                📂 <input type="file" class="hidden" accept="image/*" onchange="handleFileUpload(event, 'storeImg3')">
+              </label>
+            </div>
           </div>
 
           <div class="mt-4 pt-4 border-t">
@@ -151,6 +166,7 @@
 
           <div class="mt-6 pt-4 border-t border-blue-100 bg-blue-50 p-4 rounded-lg">
             <h3 class="block text-sm font-bold text-blue-800 mb-2">☁️ GitHub অটোমেশন</h3>
+            <p class="text-xs text-blue-600 mb-3">ডাটা সেভ ও ছবি অটোমেটিক আপলোড করার জন্য টোকেনটি অবশ্যই থাকতে হবে।</p>
             <label class="block text-xs font-semibold text-gray-700 mb-1">আপনার GitHub Token (PAT):</label>
             <input type="password" id="githubToken" placeholder="ghp_..." class="w-full border border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-500">
           </div>
@@ -232,7 +248,15 @@
           <div><label class="block text-sm font-semibold mb-1">ক্যাটাগরি *</label><select id="p_category" class="w-full border rounded p-2" onchange="updateSubCategoryOptions()"></select></div>
           <div><label class="block text-sm font-semibold mb-1">সাব-ক্যাটাগরি</label><select id="p_subcategory" class="w-full border rounded p-2"><option value="">-- নির্বাচন করুন --</option></select></div>
           
-          <div class="col-span-1"><label class="block text-sm font-semibold mb-1">ছবির URL *</label><input type="text" id="p_image" class="w-full border rounded p-2"></div>
+          <div class="col-span-1">
+            <label class="block text-sm font-semibold mb-1">ছবির URL *</label>
+            <div class="flex gap-2">
+              <input type="text" id="p_image" class="w-full border rounded p-2" placeholder="URL দিন অথবা আপলোড করুন">
+              <label class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-3 py-2 rounded font-bold cursor-pointer whitespace-nowrap transition" title="ছবি আপলোড করুন">
+                📂 <input type="file" class="hidden" accept="image/*" onchange="handleFileUpload(event, 'p_image')">
+              </label>
+            </div>
+          </div>
           <div class="col-span-1">
             <label class="block text-sm font-semibold mb-1">স্টক স্ট্যাটাস</label>
             <select id="p_instock" class="w-full border rounded p-2 bg-gray-50 font-bold text-gray-700">
@@ -271,7 +295,15 @@
         <div class="space-y-4">
           <div><label class="block text-sm font-semibold mb-1">ID (ইংরেজিতে) *</label><input type="text" id="c_id" class="w-full border rounded p-2" required></div>
           <div><label class="block text-sm font-semibold mb-1">ক্যাটাগরির নাম *</label><input type="text" id="c_name" class="w-full border rounded p-2" required></div>
-          <div><label class="block text-sm font-semibold mb-1">ক্যাটাগরি ছবি (Image URL) *</label><input type="text" id="c_icon" class="w-full border rounded p-2" required></div>
+          <div>
+            <label class="block text-sm font-semibold mb-1">ক্যাটাগরি ছবি (Image URL) *</label>
+            <div class="flex gap-2">
+              <input type="text" id="c_icon" class="w-full border rounded p-2" required placeholder="URL দিন অথবা আপলোড করুন">
+              <label class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-3 py-2 rounded font-bold cursor-pointer whitespace-nowrap transition" title="ছবি আপলোড করুন">
+                📂 <input type="file" class="hidden" accept="image/*" onchange="handleFileUpload(event, 'c_icon')">
+              </label>
+            </div>
+          </div>
         </div>
         <div class="border-t pt-4 mt-6">
           <div class="flex justify-between items-center mb-3">
@@ -444,7 +476,6 @@
     });
   }
 
-  // নতুন ব্লক তথ্য ডাটাবেজে রাখা
   function addBlockEntry() {
     const phone = document.getElementById('b_phone').value.trim();
     const deviceId = document.getElementById('b_device_id').value.trim();
@@ -483,7 +514,6 @@
     alert("🚫 স্প্যামার ব্লকলিস্টে যুক্ত হয়েছে! পরিবর্তনটি স্থায়ী করতে গিটহাবে সেভ করুন।");
   }
 
-  // আনব্লক করার ফাংশন
   function removeBlockEntry(index) {
     if (confirm("আপনি কি নিশ্চিত এই কাস্টমারকে আনব্লক করতে চান?")) {
       db.blacklist.splice(index, 1);
@@ -498,7 +528,6 @@
       const subCount = c.subcategories ? c.subcategories.length : 0;
       const iconDisplay = (c.icon && c.icon.startsWith('http')) ? `<img src="${c.icon}" class="w-8 h-8 rounded-full object-cover shadow-sm inline-block">` : (c.icon || '📁');
       
-      // কিডস জোন এর জন্য বিশেষ ট্যাগ
       let nameDisplay = c.name;
       if(c.id === 'kids_zone') {
           nameDisplay += ` <br><span class="bg-pink-100 text-pink-600 text-[10px] px-2 py-0.5 rounded font-bold shadow-sm inline-block mt-1">👶 কিডস স্পেশাল</span>`;
@@ -511,7 +540,6 @@
   }
   function deleteCategory(id) { if(confirm("নিশ্চিত?")) { db.categories = db.categories.filter(c => c.id !== id); renderCategoriesList(); updateDashboardStats(); } }
 
-  // বাচ্চাদের স্পেশাল ক্যাটাগরি তৈরি করার শর্টকাট
   function createKidsZone() {
     if (db.categories && db.categories.find(c => c.id === 'kids_zone')) {
       alert("কিডস জোন ক্যাটাগরি আগে থেকেই তৈরি করা আছে! লিস্ট থেকে খুঁজুন এবং Edit করুন।");
@@ -663,9 +691,83 @@
   function closeJsonModal() { document.getElementById('jsonModal').classList.remove('active'); }
   function copyJSONCode() { const textArea = document.getElementById('jsonOutputArea'); textArea.select(); navigator.clipboard.writeText(textArea.value); alert("✅ JSON কপি হয়েছে!"); }
 
+  // --------------------------------------------------------
+  // 🌟 GitHub API Auto Image Uploader Setup 
+  // --------------------------------------------------------
+  async function uploadImageToGitHub(file, targetInputId) {
+    const token = document.getElementById('githubToken').value.trim() || localStorage.getItem('tanjimstore_gh_token');
+    if (!token) {
+      alert("প্রথমে 'স্টোর সেটিংস' থেকে আপনার GitHub Token সেভ করুন!");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      alert("ছবির সাইজ ২ মেগাবাইটের (2MB) চেয়ে ছোট হতে হবে!");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      // Data URL থেকে Base64 কনটেন্ট আলাদা করা
+      const base64Content = e.target.result.split(',')[1];
+      const fileExt = file.name.split('.').pop();
+      const fileName = `img_${Date.now()}_${Math.floor(Math.random()*1000)}.${fileExt}`;
+      const filePath = `images/${fileName}`; // গিটহাবে 'images' নামে একটি ফোল্ডারে সেভ হবে
+
+      const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${filePath}`;
+
+      const targetInput = document.getElementById(targetInputId);
+      const originalValue = targetInput.value;
+      targetInput.value = "⏳ আপলোড হচ্ছে... অপেক্ষা করুন";
+      targetInput.disabled = true;
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `Upload ${fileName} via Admin Panel`,
+            content: base64Content,
+            branch: 'main'
+          })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          // আপলোড সফল হলে র-ইউআরএল জেনারেট করা
+          const rawUrl = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/main/${filePath}`;
+          targetInput.value = rawUrl;
+          alert("✅ ছবি সফলভাবে আপলোড হয়েছে!");
+        } else {
+          targetInput.value = originalValue;
+          alert("❌ আপলোড ফেইল্ড: " + data.message);
+        }
+      } catch (err) {
+        targetInput.value = originalValue;
+        alert("❌ নেটওয়ার্ক এরর! আবার চেষ্টা করুন।");
+      } finally {
+        targetInput.disabled = false;
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function handleFileUpload(event, targetInputId) {
+    const file = event.target.files[0];
+    if (!file) return;
+    uploadImageToGitHub(file, targetInputId);
+    event.target.value = ''; // ইনপুট ক্লিয়ার করে দেওয়া যাতে একই ছবি আবার সিলেক্ট করা যায়
+  }
+
+  // --------------------------------------------------------
+  // 🌟 GitHub Data Save System 
+  // --------------------------------------------------------
   async function saveToGitHub() {
     if(!db) return; saveStoreSettings(true);
-    const token = document.getElementById('githubToken').value.trim();
+    const token = document.getElementById('githubToken').value.trim() || localStorage.getItem('tanjimstore_gh_token');
     if (!token) { alert("GitHub Token দিন!"); return; }
     const btn = document.getElementById('btn-github-save'); const originalText = btn.innerHTML; btn.innerHTML = "⏳ সেভ হচ্ছে..."; btn.disabled = true;
     try {
