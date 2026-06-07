@@ -110,30 +110,9 @@
   ],
   "products": [
     {
-      "id": 1780851080153,
-      "name": "xg",
-      "category": "kids_zone",
-      "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1780851057231_105.jpg",
-      "description": "",
-      "tags": [
-        "fg"
-      ],
-      "in_stock": true,
-      "variants": [
-        {
-          "unit": "2",
-          "price": 200,
-          "offer_price": 190
-        }
-      ],
-      "price": 200,
-      "offer_price": 190
-    },
-    {
       "id": 1780653789609,
       "name": "ilu",
-      "category": "চাল, ডাল ও আটা",
+      "category": "kids_zone",
       "subcategory": "",
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1780653772570_80.jpg",
       "description": "",
