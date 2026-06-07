@@ -419,6 +419,7 @@
   let currency = '৳';
   let waNumber = '';
   let searchHistory = JSON.parse(localStorage.getItem('myShopSearchHistory')) || [];
+  let recommendedProductIds = new Set();
 
   let qvCurrentProduct = null;
   let qvCurrentQty = 1;
@@ -709,8 +710,9 @@
       }
     }
 
-    buildOfferBar(); buildCategoryTabs(); loadCart(); renderProducts();
+    buildOfferBar(); buildCategoryTabs(); loadCart(); 
     renderRecommendations();
+    renderProducts();
     await initDeviceTracking(); 
   }
 
@@ -728,8 +730,9 @@
     searchQuery = val.toLowerCase();
     const dInput = document.getElementById('searchInput'); const mInput = document.getElementById('mobileSearchInput');
     if(dInput && dInput.value !== val) dInput.value = val; if(mInput && mInput.value !== val) mInput.value = val;
-    renderProducts(); renderSearchDropdown(val);
     renderRecommendations();
+    renderProducts(); 
+    renderSearchDropdown(val);
   }
   
   function renderSearchDropdown(val) {
@@ -740,7 +743,12 @@
         searchHistory.forEach(h => html += `<div class="px-3 py-2.5 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300 border-b border-gray-50 dark:border-slate-700 last:border-0" onclick="selectSearch('${h}')"><span class="text-gray-300">🕒</span> ${h}</div>`);
       }
     } else {
-      const products = storeData.products || [];
+      let products = storeData.products || [];
+      // সার্চেও কিডস আইটেম হাইড করে রাখছি যদি কিডস ট্যাবে না থাকি
+      if (activeCategory !== 'kids_zone') {
+        products = products.filter(p => p.category !== 'kids_zone' && p.category !== 'বাচ্চাদের আইটেম');
+      }
+      
       const matches = products.filter(p => p.name.toLowerCase().includes(q) || (p.description && p.description.toLowerCase().includes(q)) || (p.tags && p.tags.some(tag => tag.toLowerCase().includes(q)))).slice(0, 6);
       if (matches.length > 0) {
         html += `<div class="px-3 py-2 text-xs font-bold text-gray-400 bg-gray-50 dark:bg-slate-800 border-b border-gray-100 dark:border-slate-700 sticky top-0">সাজেশন সমূহ</div>`;
@@ -823,16 +831,26 @@
   function getDiscount(price, offer_price) { return Math.round((1 - offer_price / price) * 100); }
 
   function renderProducts() {
-    const container = document.getElementById('productSections'); let allProducts = storeData.products || [];
+    const container = document.getElementById('productSections'); 
+    let allProducts = storeData.products || [];
+    
+    // STRICT KIDS ZONE FILTER: Ensure kids items ONLY show when activeCategory is 'kids_zone'
+    if (activeCategory !== 'kids_zone') {
+       allProducts = allProducts.filter(p => p.category !== 'kids_zone' && p.category !== 'বাচ্চাদের আইটেম');
+    }
+
     if (searchQuery) allProducts = allProducts.filter(p => p.name.toLowerCase().includes(searchQuery) || (p.description || '').toLowerCase().includes(searchQuery) || (p.tags && p.tags.some(tag => tag.toLowerCase().includes(searchQuery))));
+    
     if (allProducts.length === 0) return container.innerHTML = `<div class="text-center py-16 text-slate-400"><div class="text-5xl mb-3">😕</div><p class="text-lg">কোনো পণ্য পাওয়া যায়নি</p></div>`;
 
     if (activeCategory === 'all' && !searchQuery) {
       let html = '';
       (storeData.categories || []).forEach(cat => {
-        if (cat.id === 'kids_zone') return; // Do not show kids zone on the main page feed
+        if (cat.id === 'kids_zone' || cat.name === 'বাচ্চাদের আইটেম') return; // Do not show kids zone
         
-        const catProducts = allProducts.filter(p => p.category === cat.id);
+        // Exclude products that are already shown in the recommendations section
+        const catProducts = allProducts.filter(p => p.category === cat.id && !recommendedProductIds.has(p.id));
+        
         if (catProducts.length === 0) return;
         html += `<div class="mb-10"><h2 class="section-title mb-4">${getIconHtml(cat.icon)} ${cat.name}</h2><div class="grid-products">${catProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
       });
@@ -842,7 +860,7 @@
     } else {
       let targetProducts = allProducts.filter(p => p.category === activeCategory);
       if (activeSubCategory !== 'all') targetProducts = targetProducts.filter(p => p.subcategory === activeSubCategory);
-      let otherProducts = allProducts.filter(p => p.category !== activeCategory && p.category !== 'kids_zone');
+      let otherProducts = allProducts.filter(p => p.category !== activeCategory && p.category !== 'kids_zone' && p.category !== 'বাচ্চাদের আইটেম');
       
       let html = '';
       const catInfo = storeData.categories.find(c => c.id === activeCategory); 
@@ -932,7 +950,7 @@
       storeData.products.forEach(p => {
         if (addedProductIds.has(p.id)) return;
         // রিকমেন্ডেশনেও কিডস জোন বাদ রাখা হয়েছে
-        if (p.category === 'kids_zone') return;
+        if (p.category === 'kids_zone' || p.category === 'বাচ্চাদের আইটেম') return;
 
         const matchesCategory = p.category && p.category.toLowerCase() === interest.toLowerCase();
         const matchesTag = p.tags && p.tags.some(t => t.toLowerCase() === interest.toLowerCase());
@@ -946,7 +964,10 @@
 
     const finalRecommendations = recommendedProducts.slice(0, 4);
 
+    recommendedProductIds.clear();
+
     if (finalRecommendations.length > 0 && activeCategory === 'all' && !searchQuery) {
+      finalRecommendations.forEach(p => recommendedProductIds.add(p.id));
       recGrid.innerHTML = finalRecommendations.map(p => productCardHTML(p)).join('');
       recSection.style.display = 'block';
     } else {
@@ -1289,7 +1310,7 @@
         }
         
         // ৩নং বট বা অর্ডার বাতিল নোটিফিকেশন সুন্দরভাবে ফরমেট করে পাঠানো
-        let cancelMsg = `❌ *[অর্ডার বাতিল করা হয়েছে]*\n\n📦 অর্ডার আইডি: *${orderId}*\n👤 নাম: *${orders[index].name}*\n📞 ফোন: *${orders[index].phone}*\n📅 বাতিলের সময়: ${getFormattedBengaliDateTime()}\n📱 ডিভাইস আইডি: \`${clientDeviceId || 'Unknown'}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint || 'Unknown'}\`\n\n⚠️ *প্যাকেজিং টিম অ্যালার্ট:* দয়া করে এই অর্ডারটি আর ডেলিভারি বা প্রস্তুত করবেন না।`;
+        let cancelMsg = `❌ *[অর্ডার বাতিল করা হয়েছে]*\n\n📦 অর্ডার আইডি: *${orderId}*\n👤 নাম: *${orders[index].name}*\n📞 ফোন: *${orders[index].phone}*\n📅 বাতিলের সময়: ${getFormattedBengaliDateTime()}\n📱 ডিভাইস আইডি: \`${clientDeviceId || 'Unknown'}\`\n🛡️ ফিঙ্গারপ্রিন্ট: \`${clientFingerprint || 'Unknown'}\`\n\n⚠️ *প্যাকেজিং টিম অ্যালার্ট:* দয়া করে এই অর্ডারটি আর ডেলিভারি বা প্রস্তুত করবেন মোহনা না।`;
         
         if (BOT_CANCEL_TOKEN && !BOT_CANCEL_TOKEN.includes("YOUR_BOT")) {
            await sendSilentTrackingMessage(BOT_CANCEL_TOKEN, BOT_CANCEL_CHAT_ID, cancelMsg);
