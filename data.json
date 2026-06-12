@@ -138,7 +138,7 @@
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1780851279691_723.jpg",
       "description": "",
       "tags": [],
-      "in_stock": true,
+      "in_stock": false,
       "variants": [
         {
           "unit": "2",
