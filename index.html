@@ -695,7 +695,7 @@
     // পারসোনালাইজড ওয়েলকাম মেসেজ সেটআপ
     const savedName = localStorage.getItem('customer_saved_name');
     if (savedName) {
-      document.getElementById('welcomeText').innerHTML = `স্বাগতম, <span class="text-indigo-600 dark:text-indigo-400 font-bold">${savedName}</span>!`;
+      document.getElementById('welcomeText').innerHTML = `স্বাগতম, <span class="text-indigo-600 dark:text-indigo-400 font-bold">${escapeHTML(savedName)}</span>!`;
     } else {
       document.getElementById('welcomeText').textContent = 'স্বাগতম!';
     }
@@ -750,7 +750,7 @@
     if (q === '') {
       if (searchHistory.length > 0) {
         html += `<div class="px-3 py-2 text-xs font-bold text-gray-400 flex justify-between bg-gray-50 dark:bg-slate-800 border-b border-gray-100 dark:border-slate-700 sticky top-0"><span>সাম্প্রতিক অনুসন্ধান</span><button onclick="clearHistory(event)" class="text-red-400">মুছুন</button></div>`;
-        searchHistory.forEach(h => html += `<div class="px-3 py-2.5 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300 border-b border-gray-50 dark:border-slate-700 last:border-0" onclick="selectSearch('${h}')"><span class="text-gray-300">🕒</span> ${h}</div>`);
+        searchHistory.forEach(h => html += `<div class="px-3 py-2.5 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300 border-b border-gray-50 dark:border-slate-700 last:border-0" onclick="selectSearch('${escapeHTML(h)}')"><span class="text-gray-300">🕒</span> ${escapeHTML(h)}</div>`);
       }
     } else {
       let products = storeData.products || [];
@@ -1198,7 +1198,12 @@
     const name = document.getElementById('customerName').value.trim(); 
     const phone = document.getElementById('customerPhone').value.trim();
     const address = document.getElementById('customerAddress').value.trim(); 
-    if (!name || !phone || !address) return alert('অনুগ্রহ করে আপনার নাম, ফোন নম্বর এবং ঠিকানা দিন।');
+    const lastOrder = localStorage.getItem('last_order_time');
+if (lastOrder && (Date.now() - parseInt(lastOrder)) < 60000) {
+    alert("আপনি এইমাত্র একটি অর্ডার করেছেন। দয়া করে ১ মিনিট অপেক্ষা করুন।");
+    return;
+}
+localStorage.setItem('last_order_time', Date.now());
     
     // ব্লকলিস্ট ভ্যালিডেশন চেক
     const blockCheck = checkBlockStatus(phone);
@@ -1216,8 +1221,14 @@
     const orderIdStr = `ORD-${orderIdNum}`;
     const date = new Date();
     
-    let subtotal = 0;
-    cart.forEach(item => { subtotal += (item.offer_price || item.price) * item.qty; });
+let subtotal = 0;
+cart.forEach(item => { 
+    const realProduct = storeData.products.find(p => p.id === item.id);
+    if(realProduct) {
+        let realPrice = realProduct.offer_price || realProduct.price;
+        subtotal += realPrice * item.qty; 
+    }
+});
     let finalDelCharge = deliveryCharge; 
     if (freeDeliveryThreshold > 0 && subtotal >= freeDeliveryThreshold) finalDelCharge = 0;
     let finalTotal = subtotal + finalDelCharge;
