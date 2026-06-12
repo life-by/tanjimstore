@@ -12,9 +12,20 @@
     .modal.active { display: flex; }
     .variant-row { border-left: 3px solid #6366f1; padding-left: 10px; margin-bottom: 10px; }
     .sortable-ghost { opacity: 0.4; background-color: #e0e7ff; }
+    
+    /* Toast Notification CSS */
+    #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+    .toast { padding: 12px 20px; border-radius: 8px; color: white; font-weight: bold; font-size: 14px; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.15); pointer-events: all; display: flex; align-items: center; gap: 8px; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.success { background-color: #10b981; } /* Green */
+    .toast.error { background-color: #ef4444; } /* Red */
+    .toast.info { background-color: #3b82f6; } /* Blue */
   </style>
 </head>
 <body class="h-screen flex flex-col">
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
 
   <header class="bg-indigo-600 text-white p-4 shadow-md flex flex-col md:flex-row justify-between items-center shrink-0 gap-3">
     <div class="text-center md:text-left">
@@ -56,8 +67,12 @@
       <!-- Products Tab -->
       <div id="view-products" class="block">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 md:mb-6">
-          <h2 class="text-xl md:text-2xl font-bold text-gray-800">প্রোডাক্ট লিস্ট</h2>
-          <button onclick="openProductModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow font-semibold text-sm md:text-base">+ নতুন প্রোডাক্ট</button>
+          <h2 class="text-xl md:text-2xl font-bold text-gray-800 shrink-0">প্রোডাক্ট লিস্ট</h2>
+          <!-- Product Search Bar -->
+          <div class="w-full sm:flex-1 max-w-md mx-auto sm:mx-4">
+            <input type="text" id="adminProductSearch" onkeyup="searchAdminProducts()" placeholder="🔍 প্রোডাক্টের নাম বা ট্যাগ লিখে খুঁজুন..." class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-indigo-500 shadow-sm">
+          </div>
+          <button onclick="openProductModal()" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow font-semibold text-sm md:text-base">+ নতুন প্রোডাক্ট</button>
         </div>
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-x-auto">
           <table class="w-full text-left border-collapse min-w-[600px]">
@@ -345,15 +360,52 @@
   let db = null;
   let productSortableInstance = null; 
 
+  // --- Toast Notification System ---
+  function showToast(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    let icon = '';
+    if(type === 'success') icon = '✅';
+    else if(type === 'error') icon = '❌';
+    else icon = 'ℹ️';
+
+    toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+    container.appendChild(toast);
+    
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
+  // --- Product Search Function ---
+  function searchAdminProducts() {
+    const input = document.getElementById('adminProductSearch').value.toLowerCase();
+    const rows = document.getElementById('productTableBody').getElementsByTagName('tr');
+    
+    for (let i = 0; i < rows.length; i++) {
+      // Index 2 is the "নাম ও স্ট্যাটাস" (Name and Status) column
+      const productText = rows[i].getElementsByTagName('td')[2].innerText.toLowerCase();
+      if (productText.includes(input)) {
+        rows[i].style.display = "";
+      } else {
+        rows[i].style.display = "none";
+      }
+    }
+  }
+
   async function fetchData() {
     try {
       const response = await fetch(DATA_URL + '?t=' + new Date().getTime());
       if(!response.ok) throw new Error("Network Error");
       db = await response.json();
-      alert("ডেটা সফলভাবে লোড হয়েছে!");
+      showToast("ডেটা সফলভাবে লোড হয়েছে!", "success");
       initUI();
     } catch (error) {
-      alert("ডেটা লোড করতে সমস্যা হচ্ছে। লিঙ্কে ফাইলটি আছে কিনা চেক করুন।");
+      showToast("ডেটা লোড করতে সমস্যা হচ্ছে। লিঙ্কে ফাইলটি আছে কিনা চেক করুন।", "error");
     }
   }
 
@@ -447,7 +499,7 @@
       if(t) db.offers.push({ id: idx + 1, text: t, color: c });
     });
     updateDashboardStats();
-    if(!silent) alert("স্টোর সেটিংস সেভ হয়েছে!");
+    if(!silent) showToast("স্টোর সেটিংস সেভ হয়েছে!", "success");
   }
 
   // ব্লকলিস্ট রেন্ডার করার ফাংশন
@@ -484,7 +536,7 @@
     const reason = document.getElementById('b_reason').value.trim() || 'অতিরিক্ত অর্ডার বাতিল করা';
 
     if (!phone && !deviceId && !fingerprint) {
-      alert("দয়া করে যেকোনো একটি তথ্য দিন (ফোন নম্বর, ডিভাইস আইডি অথবা ব্রাউজার ফিঙ্গারপ্রিন্ট)।");
+      showToast("দয়া করে যেকোনো একটি তথ্য দিন (ফোন নম্বর, ডিভাইস আইডি অথবা ব্রাউজার ফিঙ্গারপ্রিন্ট)।", "error");
       return;
     }
 
@@ -511,13 +563,14 @@
     document.getElementById('b_reason').value = '';
 
     renderBlacklist();
-    alert("🚫 স্প্যামার ব্লকলিস্টে যুক্ত হয়েছে! পরিবর্তনটি স্থায়ী করতে গিটহাবে সেভ করুন।");
+    showToast("স্প্যামার ব্লকলিস্টে যুক্ত হয়েছে! পরিবর্তনটি স্থায়ী করতে গিটহাবে সেভ করুন।", "success");
   }
 
   function removeBlockEntry(index) {
     if (confirm("আপনি কি নিশ্চিত এই কাস্টমারকে আনব্লক করতে চান?")) {
       db.blacklist.splice(index, 1);
       renderBlacklist();
+      showToast("ইউজার আনব্লক করা হয়েছে", "success");
     }
   }
 
@@ -538,11 +591,11 @@
       tbody.appendChild(tr);
     });
   }
-  function deleteCategory(id) { if(confirm("নিশ্চিত?")) { db.categories = db.categories.filter(c => c.id !== id); renderCategoriesList(); updateDashboardStats(); } }
+  function deleteCategory(id) { if(confirm("নিশ্চিত?")) { db.categories = db.categories.filter(c => c.id !== id); renderCategoriesList(); updateDashboardStats(); showToast("ক্যাটাগরি ডিলিট করা হয়েছে", "success"); } }
 
   function createKidsZone() {
     if (db.categories && db.categories.find(c => c.id === 'kids_zone')) {
-      alert("কিডস জোন ক্যাটাগরি আগে থেকেই তৈরি করা আছে! লিস্ট থেকে খুঁজুন এবং Edit করুন।");
+      showToast("কিডস জোন ক্যাটাগরি আগে থেকেই তৈরি করা আছে! লিস্ট থেকে খুঁজুন এবং Edit করুন।", "error");
       return;
     }
     openCategoryModal('new_kids_zone');
@@ -596,7 +649,7 @@
   function saveCategory() {
     const origId = document.getElementById('c_original_id').value; const id = document.getElementById('c_id').value.trim();
     const name = document.getElementById('c_name').value.trim(); const icon = document.getElementById('c_icon').value.trim();
-    if(!id || !name) return alert("ID এবং নাম দিন!");
+    if(!id || !name) return showToast("ID এবং নাম দিন!", "error");
     let subcategories = [];
     document.querySelectorAll('.subcat-row').forEach(row => {
       const sId = row.querySelector('.sc_id').value.trim(); const sName = row.querySelector('.sc_name').value.trim();
@@ -608,6 +661,7 @@
       if(origId !== id) { db.products.forEach(p => { if(p.category === origId) p.category = id; }); renderProductsList(); }
     } else db.categories.push(newCat);
     renderCategoriesList(); updateDashboardStats(); closeCategoryModal();
+    showToast("ক্যাটাগরি সেভ করা হয়েছে", "success");
   }
 
   function renderProductsList() {
@@ -630,10 +684,13 @@
     });
     if (productSortableInstance) productSortableInstance.destroy(); 
     productSortableInstance = Sortable.create(tbody, { handle: '.drag-handle', animation: 150, ghostClass: 'sortable-ghost', onEnd: function (evt) { if (evt.oldIndex !== evt.newIndex) { const movedItem = db.products.splice(evt.oldIndex, 1)[0]; db.products.splice(evt.newIndex, 0, movedItem); } } });
+    
+    // Call search filter if input exists to maintain search state after editing
+    if(document.getElementById('adminProductSearch').value) searchAdminProducts();
   }
 
   function getCategoryName(catId) { if(!db.categories) return catId; const cat = db.categories.find(c => c.id === catId); return cat ? cat.name : catId; }
-  function deleteProduct(id) { if(confirm("নিশ্চিত?")) { db.products = db.products.filter(p => p.id !== id); renderProductsList(); updateDashboardStats(); } }
+  function deleteProduct(id) { if(confirm("নিশ্চিত?")) { db.products = db.products.filter(p => p.id !== id); renderProductsList(); updateDashboardStats(); showToast("প্রোডাক্ট ডিলিট করা হয়েছে", "success"); } }
 
   function openProductModal(id = null) {
     populateCategoryDropdown(); const modal = document.getElementById('productModal'); const container = document.getElementById('variantsContainer'); container.innerHTML = '';
@@ -666,30 +723,31 @@
   }
 
   function saveProduct() {
-    if(!db) return alert("ডেটা লোড হয়নি!");
+    if(!db) return showToast("ডেটা লোড হয়নি!", "error");
     const idVal = document.getElementById('p_id').value; const name = document.getElementById('p_name').value.trim();
     const category = document.getElementById('p_category').value; const subcategory = document.getElementById('p_subcategory').value;
     const image = document.getElementById('p_image').value.trim(); const desc = document.getElementById('p_desc').value.trim();
     const in_stock = document.getElementById('p_instock').value === "true";
     let tags = []; if(document.getElementById('p_tags').value.trim()) tags = document.getElementById('p_tags').value.trim().split(',').map(t => t.trim()).filter(t => t !== '');
     
-    const variantRows = document.querySelectorAll('.variant-row'); if(variantRows.length === 0) return alert("অগত্যা একটি দাম/ভ্যারিয়েন্ট যোগ করতে হবে!");
+    const variantRows = document.querySelectorAll('.variant-row'); if(variantRows.length === 0) return showToast("অগত্যা একটি দাম/ভ্যারিয়েন্ট যোগ করতে হবে!", "error");
     let variants = [];
     variantRows.forEach(row => {
       const u = row.querySelector('.v_unit').value.trim(); const p = parseFloat(row.querySelector('.v_price').value); const op = parseFloat(row.querySelector('.v_offer').value);
       if(u && !isNaN(p)) { let vObj = { unit: u, price: p }; if(!isNaN(op) && op < p) vObj.offer_price = op; variants.push(vObj); }
     });
     
-    if(!name || !category || !image || variants.length === 0) return alert("সব তথ্য ঠিকমত দিন!");
+    if(!name || !category || !image || variants.length === 0) return showToast("সব তথ্য ঠিকমত দিন!", "error");
     
     const newProduct = { id: idVal ? parseInt(idVal) : Date.now(), name: name, category: category, subcategory: subcategory, image: image, description: desc, tags: tags, in_stock: in_stock, variants: variants, price: variants[0].price, offer_price: variants[0].offer_price };
     if (idVal) { const index = db.products.findIndex(p => p.id == idVal); if(index !== -1) db.products[index] = newProduct; } else db.products.unshift(newProduct);
     renderProductsList(); updateDashboardStats(); closeProductModal();
+    showToast("প্রোডাক্ট সেভ করা হয়েছে", "success");
   }
 
   function openJsonModal() { if(!db) return; saveStoreSettings(true); document.getElementById('jsonOutputArea').value = JSON.stringify(db, null, 2); document.getElementById('jsonModal').classList.add('active'); }
   function closeJsonModal() { document.getElementById('jsonModal').classList.remove('active'); }
-  function copyJSONCode() { const textArea = document.getElementById('jsonOutputArea'); textArea.select(); navigator.clipboard.writeText(textArea.value); alert("✅ JSON কপি হয়েছে!"); }
+  function copyJSONCode() { const textArea = document.getElementById('jsonOutputArea'); textArea.select(); navigator.clipboard.writeText(textArea.value); showToast("✅ JSON কপি হয়েছে!", "success"); }
 
   // --------------------------------------------------------
   // 🌟 GitHub API Auto Image Uploader Setup 
@@ -697,22 +755,21 @@
   async function uploadImageToGitHub(file, targetInputId) {
     const token = document.getElementById('githubToken').value.trim() || localStorage.getItem('tanjimstore_gh_token');
     if (!token) {
-      alert("প্রথমে 'স্টোর সেটিংস' থেকে আপনার GitHub Token সেভ করুন!");
+      showToast("প্রথমে 'স্টোর সেটিংস' থেকে আপনার GitHub Token সেভ করুন!", "error");
       return;
     }
 
     if (file.size > 2 * 1024 * 1024) {
-      alert("ছবির সাইজ ২ মেগাবাইটের (2MB) চেয়ে ছোট হতে হবে!");
+      showToast("ছবির সাইজ ২ মেগাবাইটের (2MB) চেয়ে ছোট হতে হবে!", "error");
       return;
     }
 
     const reader = new FileReader();
     reader.onload = async function(e) {
-      // Data URL থেকে Base64 কনটেন্ট আলাদা করা
       const base64Content = e.target.result.split(',')[1];
       const fileExt = file.name.split('.').pop();
       const fileName = `img_${Date.now()}_${Math.floor(Math.random()*1000)}.${fileExt}`;
-      const filePath = `images/${fileName}`; // গিটহাবে 'images' নামে একটি ফোল্ডারে সেভ হবে
+      const filePath = `images/${fileName}`; 
 
       const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${filePath}`;
 
@@ -737,17 +794,16 @@
 
         const data = await response.json();
         if (response.ok) {
-          // আপলোড সফল হলে র-ইউআরএল জেনারেট করা
           const rawUrl = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/main/${filePath}`;
           targetInput.value = rawUrl;
-          alert("✅ ছবি সফলভাবে আপলোড হয়েছে!");
+          showToast("✅ ছবি সফলভাবে আপলোড হয়েছে!", "success");
         } else {
           targetInput.value = originalValue;
-          alert("❌ আপলোড ফেইল্ড: " + data.message);
+          showToast("❌ আপলোড ফেইল্ড: " + data.message, "error");
         }
       } catch (err) {
         targetInput.value = originalValue;
-        alert("❌ নেটওয়ার্ক এরর! আবার চেষ্টা করুন।");
+        showToast("❌ নেটওয়ার্ক এরর! আবার চেষ্টা করুন।", "error");
       } finally {
         targetInput.disabled = false;
       }
@@ -759,7 +815,7 @@
     const file = event.target.files[0];
     if (!file) return;
     uploadImageToGitHub(file, targetInputId);
-    event.target.value = ''; // ইনপুট ক্লিয়ার করে দেওয়া যাতে একই ছবি আবার সিলেক্ট করা যায়
+    event.target.value = ''; 
   }
 
   // --------------------------------------------------------
@@ -768,7 +824,7 @@
   async function saveToGitHub() {
     if(!db) return; saveStoreSettings(true);
     const token = document.getElementById('githubToken').value.trim() || localStorage.getItem('tanjimstore_gh_token');
-    if (!token) { alert("GitHub Token দিন!"); return; }
+    if (!token) { showToast("GitHub Token দিন!", "error"); return; }
     const btn = document.getElementById('btn-github-save'); const originalText = btn.innerHTML; btn.innerHTML = "⏳ সেভ হচ্ছে..."; btn.disabled = true;
     try {
       const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
@@ -776,8 +832,8 @@
       const fileData = await getRes.json(); const sha = fileData.sha;
       const encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(db, null, 2))));
       const putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ message: 'Update data.json via Direct Admin Panel', content: encodedContent, sha: sha, branch: 'main' }) });
-      if (putRes.ok) alert("✅ সেভ হয়েছে!"); else alert("❌ এরর!");
-    } catch (error) { alert("এরর: " + error.message); } finally { btn.innerHTML = originalText; btn.disabled = false; }
+      if (putRes.ok) showToast("✅ সেভ হয়েছে!", "success"); else showToast("❌ এরর!", "error");
+    } catch (error) { showToast("এরর: " + error.message, "error"); } finally { btn.innerHTML = originalText; btn.disabled = false; }
   }
 
   window.onload = fetchData;
