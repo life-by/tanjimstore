@@ -411,6 +411,19 @@
 <div class="toast" id="toast"></div>
 
 <script>
+
+
+  // Right-Click (মাউসের ডান বাটন) বন্ধ করা
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// কীবোর্ডের F12, Ctrl+U, Ctrl+Shift+I ইত্যাদি বন্ধ করা
+document.onkeydown = function(e) {
+    if(e.keyCode == 123) { return false; } // F12 Disable
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // Ctrl+Shift+I Disable
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // Ctrl+Shift+J Disable
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // Ctrl+U Disable (View Source)
+}
+  
   let storeData = {};
   let cart = [];
   let activeCategory = 'all';
