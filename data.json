@@ -112,6 +112,48 @@
   ],
   "products": [
     {
+      "id": 1782822607640,
+      "name": "কিন্ডারজয় মিনি",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782822574708_42.webp",
+      "description": "",
+      "tags": [
+        "চকলেট",
+        "কিন্ডাজয়"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 12,
+          "offer_price": 10
+        }
+      ],
+      "price": 12,
+      "offer_price": 10
+    },
+    {
+      "id": 1782822135506,
+      "name": "কিন্ডারজয়",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782822108457_722.jpg",
+      "description": "",
+      "tags": [
+        "চকলেট",
+        "কিন্ডারজয়"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 30
+        }
+      ],
+      "price": 30
+    },
+    {
       "id": 1782807677325,
       "name": "স্পিড (২৫০ml)",
       "category": "cat_1501",
