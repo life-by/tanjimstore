@@ -112,6 +112,67 @@
   ],
   "products": [
     {
+      "id": 1782805246722,
+      "name": "মামা",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782805219720_695.jpg",
+      "description": "",
+      "tags": [
+        "মামা",
+        "ওয়েফার",
+        "বিস্কুট"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
+      "id": 1782805102042,
+      "name": "আইসললি",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782805079931_633.webp",
+      "description": "",
+      "tags": [
+        "আইসললি",
+        "চকলেট"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
+      "id": 1782805021542,
+      "name": "ললিপপ",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782805000852_779.png",
+      "description": "",
+      "tags": [
+        "চকলেট",
+        "ললিপপ"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
       "id": 1782804930722,
       "name": "ডেরিমিল্ক",
       "category": "cat_7999",
