@@ -112,6 +112,73 @@
   ],
   "products": [
     {
+      "id": 1782804025666,
+      "name": "শরিষার তেল",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782803968409_702.webp",
+      "description": "",
+      "tags": [
+        "শরিষার তেল",
+        "তেল"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1KG",
+          "price": 290,
+          "offer_price": 285
+        }
+      ],
+      "price": 290,
+      "offer_price": 285
+    },
+    {
+      "id": 1782803894065,
+      "name": "পামওয়েল (খোলা)",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782803835903_897.jpg",
+      "description": "",
+      "tags": [
+        "তেল",
+        "পামওয়েল"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1KG",
+          "price": 200,
+          "offer_price": 195
+        }
+      ],
+      "price": 200,
+      "offer_price": 195
+    },
+    {
+      "id": 1782803694003,
+      "name": "সোয়াবিন তেল (খোলা)",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782803613988_749.webp",
+      "description": "",
+      "tags": [
+        "তেল",
+        "সোয়াবিন তেল",
+        "পাম ওয়েল"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1KG",
+          "price": 210,
+          "offer_price": 205
+        }
+      ],
+      "price": 210,
+      "offer_price": 205
+    },
+    {
       "id": 1782803375060,
       "name": "ম্যাংগো জুস",
       "category": "cat_1501",
