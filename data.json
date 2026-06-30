@@ -112,6 +112,25 @@
   ],
   "products": [
     {
+      "id": 1782827857263,
+      "name": "Pluto",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782827813420_878.jpg",
+      "description": "",
+      "tags": [
+        "চকলেট"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
       "id": 1782827737250,
       "name": "ড্রাই কেক",
       "category": "বেকারি",
