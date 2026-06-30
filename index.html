@@ -892,7 +892,7 @@
   function filterSubCategory(subId, btn) { activeSubCategory = subId; document.querySelectorAll('#subCategoryTabs .cat-btn').forEach(b => b.classList.remove('active')); if (btn) btn.classList.add('active'); renderProducts(); }
   function getDiscount(price, offer_price) { return Math.round((1 - offer_price / price) * 100); }
 
-  function renderProducts() {
+function renderProducts() {
     const container = document.getElementById('productSections'); 
     let allProducts = storeData.products || [];
     
@@ -914,7 +914,24 @@
         const catProducts = allProducts.filter(p => p.category === cat.id && !recommendedProductIds.has(p.id));
         
         if (catProducts.length === 0) return;
-        html += `<div class="mb-10"><h2 class="section-title mb-4">${getIconHtml(cat.icon)} ${cat.name}</h2><div class="grid-products">${catProducts.map(p => productCardHTML(p)).join('')}</div></div>`;
+
+        // নতুন লজিক: হোম পেজে শুধুমাত্র প্রথম ৬টি প্রোডাক্ট দেখাবে
+        const displayProducts = catProducts.slice(0, 6);
+        
+        html += `<div class="mb-10">
+                   <h2 class="section-title mb-4">${getIconHtml(cat.icon)} ${cat.name}</h2>
+                   <div class="grid-products">${displayProducts.map(p => productCardHTML(p)).join('')}</div>`;
+                   
+        // যদি ৬টির বেশি প্রোডাক্ট থাকে, তবে "সবগুলো দেখুন" বাটন দেখাবে
+        if (catProducts.length > 6) {
+          html += `<div class="text-center mt-6">
+                     <button onclick="filterCategory('${cat.id}'); window.scrollTo({top:0, behavior:'smooth'})" class="bg-indigo-50 hover:bg-indigo-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 font-bold py-2.5 px-6 rounded-full text-sm transition cursor-pointer shadow-sm border border-indigo-100 dark:border-slate-700">
+                       ${cat.name} এর সবগুলো দেখুন (${catProducts.length}) ➔
+                     </button>
+                   </div>`;
+        }
+
+        html += `</div>`;
       });
       container.innerHTML = html;
     } else if (searchQuery) {
