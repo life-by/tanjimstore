@@ -112,6 +112,33 @@
   ],
   "products": [
     {
+      "id": 1782798148433,
+      "name": "মিনিকেট চাল",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782798076772_872.png",
+      "description": "",
+      "tags": [
+        "মিনিকেট চাল",
+        "চাল"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1KG",
+          "price": 72,
+          "offer_price": 70
+        },
+        {
+          "unit": "5KG",
+          "price": 360,
+          "offer_price": 350
+        }
+      ],
+      "price": 72,
+      "offer_price": 70
+    },
+    {
       "id": 1782797851339,
       "name": "Biryani Chanachur",
       "category": "স্ন্যাকস",
