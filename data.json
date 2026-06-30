@@ -112,6 +112,44 @@
   ],
   "products": [
     {
+      "id": 1782827464695,
+      "name": "Jam Cookies(বিস্কুট)",
+      "category": "বেকারি",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782827437024_482.png",
+      "description": "",
+      "tags": [
+        "বিস্কুট"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
+      "id": 1782827344925,
+      "name": "টেস্টি প্লেইন কেক",
+      "category": "বেকারি",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782827314755_422.png",
+      "description": "",
+      "tags": [
+        "কেক"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
+    },
+    {
       "id": 1782823558269,
       "name": "লেক্সাস বিস্কুট",
       "category": "বেকারি",
