@@ -112,6 +112,50 @@
   ],
   "products": [
     {
+      "id": 1782803375060,
+      "name": "ম্যাংগো জুস",
+      "category": "cat_1501",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782803339934_615.jpg",
+      "description": "",
+      "tags": [
+        "ম্যাংগো জুস",
+        "জুস"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 22,
+          "offer_price": 20
+        }
+      ],
+      "price": 22,
+      "offer_price": 20
+    },
+    {
+      "id": 1782803309192,
+      "name": "জুনিয়ার জুস",
+      "category": "cat_1501",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782803217266_616.jpg",
+      "description": "",
+      "tags": [
+        "জুস",
+        "পেকেজ জুস"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 15,
+          "offer_price": 12
+        }
+      ],
+      "price": 15,
+      "offer_price": 12
+    },
+    {
       "id": 1782802691738,
       "name": "লাল ডিম",
       "category": "তেল ও মশলা",
