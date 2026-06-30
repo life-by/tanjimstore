@@ -112,163 +112,258 @@
   ],
   "products": [
     {
-      "id": 1780851373800,
-      "name": "dsfgsdg",
-      "category": "kids_zone",
+      "id": 1782797851339,
+      "name": "Biryani Chanachur",
+      "category": "স্ন্যাকস",
       "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1780851315689_853.jpg",
-      "description": "",
-      "tags": [],
-      "in_stock": true,
-      "variants": [
-        {
-          "unit": "2",
-          "price": 220,
-          "offer_price": 199
-        }
-      ],
-      "price": 220,
-      "offer_price": 199
-    },
-    {
-      "id": 1780851303704,
-      "name": "wd",
-      "category": "kids_zone",
-      "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1780851279691_723.jpg",
-      "description": "",
-      "tags": [],
-      "in_stock": false,
-      "variants": [
-        {
-          "unit": "2",
-          "price": 599,
-          "offer_price": 499
-        }
-      ],
-      "price": 599,
-      "offer_price": 499
-    },
-    {
-      "id": 1780653789609,
-      "name": "ilu",
-      "category": "kids_zone",
-      "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1780653772570_80.jpg",
-      "description": "",
-      "tags": [],
-      "in_stock": true,
-      "variants": [
-        {
-          "unit": "111111",
-          "price": 111111,
-          "offer_price": 1111
-        }
-      ],
-      "price": 111111,
-      "offer_price": 1111
-    },
-    {
-      "id": 1778429541577,
-      "name": "তেল",
-      "category": "তেল ও মশলা",
-      "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-2.png",
-      "description": "সোয়াবিন তেল",
-      "tags": [
-        "তেল",
-        "তৈল",
-        "সোয়াবিন তেল"
-      ],
-      "in_stock": false,
-      "variants": [
-        {
-          "unit": "1 কেজি",
-          "price": 200,
-          "offer_price": 195
-        },
-        {
-          "unit": "3কেজি",
-          "price": 600,
-          "offer_price": 175
-        },
-        {
-          "unit": "5কেজি",
-          "price": 1000,
-          "offer_price": 960
-        }
-      ],
-      "price": 200,
-      "offer_price": 195
-    },
-    {
-      "id": 1777824776617,
-      "name": "মিনিকেট চাল",
-      "category": "চাল, ডাল ও আটা",
-      "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-13.jpeg",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782797824525_900.png",
       "description": "",
       "tags": [
-        "চাল",
-        "চাউল"
+        "Biryani Chanachur",
+        "চানাচুর",
+        "বিরিয়ানি চানাচুর"
       ],
       "in_stock": true,
       "variants": [
         {
-          "unit": "1-কেজি",
-          "price": 75,
-          "offer_price": 70
-        },
-        {
-          "unit": "2-কেজি",
-          "price": 150,
-          "offer_price": 140
-        },
-        {
-          "unit": "5-কেজি",
-          "price": 450,
-          "offer_price": 430
-        },
-        {
-          "unit": "25-কেজি",
-          "price": 2000,
-          "offer_price": 1900
+          "unit": "1",
+          "price": 5
         }
       ],
-      "price": 75,
-      "offer_price": 70
+      "price": 5
     },
     {
-      "id": 1777826410930,
-      "name": "ডাল",
-      "category": "চাল, ডাল ও আটা",
+      "id": 1782797813915,
+      "name": "Biryani Chanachur",
+      "category": "স্ন্যাকস",
       "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/photo/refs/heads/main/camara/image-12.jpeg",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782797778027_92.png",
       "description": "",
       "tags": [
-        "ডাল",
-        "ডাইল"
+        "Biryani Chanachur",
+        "চানাচুর",
+        "বিরিয়ানি চানাচুর"
       ],
       "in_stock": true,
       "variants": [
         {
-          "unit": "250-গ্রাম",
-          "price": 30,
-          "offer_price": 28
-        },
-        {
-          "unit": "500-গ্রাম",
-          "price": 60,
-          "offer_price": 54
-        },
-        {
-          "unit": "1-কেজি",
-          "price": 120,
-          "offer_price": 112
+          "unit": "1",
+          "price": 10
         }
       ],
-      "price": 30,
-      "offer_price": 28
+      "price": 10
+    },
+    {
+      "id": 1782797682227,
+      "name": "Lays chips",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782797656988_787.png",
+      "description": "",
+      "tags": [
+        "Lays chips",
+        "চিপস",
+        "পটেটো"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
+    },
+    {
+      "id": 1782797569276,
+      "name": "Alooz chips",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782797533389_338.png",
+      "description": "",
+      "tags": [
+        "Alooz chips",
+        "চিপস",
+        "পটেটো"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
+    },
+    {
+      "id": 1782797443132,
+      "name": "Dong Dong",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782797454488_159.png",
+      "description": "",
+      "tags": [
+        "Dong Dong",
+        "চিপস",
+        "পটেটো"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
+      "id": 1782797345997,
+      "name": "Chicken Sticks",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782797328004_479.png",
+      "description": "",
+      "tags": [
+        "Chicken Sticks",
+        "চিপস",
+        "পটেটো"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
+    },
+    {
+      "id": 1782797211829,
+      "name": "Bombat Sweets",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782797192089_469.png",
+      "description": "",
+      "tags": [
+        "Bombat Sweets",
+        "চিপস",
+        "পটেটো"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 10
+        }
+      ],
+      "price": 10
+    },
+    {
+      "id": 1782797105094,
+      "name": "Ring Chips",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782797083649_330.png",
+      "description": "",
+      "tags": [
+        "Ring Chips",
+        "চিপস",
+        "পটেটো"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 10
+        }
+      ],
+      "price": 10
+    },
+    {
+      "id": 1782796997366,
+      "name": "টমেটো সস",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782796949708_924.png",
+      "description": "",
+      "tags": [
+        "টমেটো সস",
+        "সস"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 3
+        },
+        {
+          "unit": "5",
+          "price": 15
+        }
+      ],
+      "price": 3
+    },
+    {
+      "id": 1782796900159,
+      "name": "Mr. Twist",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782796869969_821.png",
+      "description": "",
+      "tags": [
+        "Mr. Twist",
+        "চিপস",
+        "পটেটো"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
+    },
+    {
+      "id": 1782796781663,
+      "name": "Kurkure চিপস",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782796744221_130.png",
+      "description": "",
+      "tags": [
+        "চিপস",
+        "Kurkure",
+        "পটেটো"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 10
+        }
+      ],
+      "price": 10
+    },
+    {
+      "id": 1782796680751,
+      "name": "Kurkure চিপস",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782796632066_921.png",
+      "description": "",
+      "tags": [
+        "চিপস",
+        "পটেটো"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
     }
   ],
   "blacklist": []
