@@ -112,6 +112,63 @@
   ],
   "products": [
     {
+      "id": 1782804930722,
+      "name": "ডেরিমিল্ক",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782804892645_598.jpg",
+      "description": "",
+      "tags": [
+        "চকলেট",
+        "ডেরিমিল্ক"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 10
+        }
+      ],
+      "price": 10
+    },
+    {
+      "id": 1782804842989,
+      "name": "ডেরিমিল্ক চকলেট",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782804817732_123.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
+      "id": 1782804670953,
+      "name": "ডানো দুধ",
+      "category": "cat_5987",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782804648590_344.webp",
+      "description": "",
+      "tags": [
+        "দুধ",
+        "ডানো দুধ"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 10
+        }
+      ],
+      "price": 10
+    },
+    {
       "id": 1782804025666,
       "name": "শরিষার তেল",
       "category": "তেল ও মশলা",
