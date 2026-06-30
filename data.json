@@ -112,11 +112,30 @@
   ],
   "products": [
     {
-      "id": 1782827464695,
-      "name": "Jam Cookies(বিস্কুট)",
+      "id": 1782827737250,
+      "name": "ড্রাই কেক",
       "category": "বেকারি",
       "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782827437024_482.png",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782827714494_917.jpg",
+      "description": "",
+      "tags": [
+        "কেক"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "10",
+          "price": 10
+        }
+      ],
+      "price": 10
+    },
+    {
+      "id": 1782827645032,
+      "name": "Cocola",
+      "category": "cat_1501",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782827604338_380.png",
       "description": "",
       "tags": [
         "বিস্কুট"
@@ -125,29 +144,10 @@
       "variants": [
         {
           "unit": "1",
-          "price": 5
+          "price": 10
         }
       ],
-      "price": 5
-    },
-    {
-      "id": 1782827344925,
-      "name": "টেস্টি প্লেইন কেক",
-      "category": "বেকারি",
-      "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782827314755_422.png",
-      "description": "",
-      "tags": [
-        "কেক"
-      ],
-      "in_stock": true,
-      "variants": [
-        {
-          "unit": "1",
-          "price": 20
-        }
-      ],
-      "price": 20
+      "price": 10
     },
     {
       "id": 1782823558269,
