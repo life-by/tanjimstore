@@ -112,6 +112,23 @@
   ],
   "products": [
     {
+      "id": 1782996519288,
+      "name": "ট্রিট চকলেট(১পিস)",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782996512350_333.webp",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
       "id": 1782996400894,
       "name": "Bubblb Gum",
       "category": "cat_7999",
