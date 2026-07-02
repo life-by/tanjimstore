@@ -108,6 +108,12 @@
       "name": "বাচ্চাদের আইটেম",
       "icon": "👶",
       "subcategories": []
+    },
+    {
+      "id": "cat_362",
+      "name": "তেল",
+      "icon": "",
+      "subcategories": []
     }
   ],
   "products": [
@@ -133,7 +139,7 @@
     {
       "id": 1783005566451,
       "name": "ফ্রেশ সোয়াবিন তেল (২লিটার)",
-      "category": "চাল, ডাল ও আটা",
+      "category": "cat_362",
       "subcategory": "",
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783005536287_731.jpg",
       "description": "",
@@ -169,7 +175,7 @@
     {
       "id": 1783005516941,
       "name": "ফ্রেশ সোয়াবিন তেল (১লিটার)",
-      "category": "চাল, ডাল ও আটা",
+      "category": "cat_362",
       "subcategory": "",
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783005503087_961.jpg",
       "description": "",
@@ -186,7 +192,7 @@
     {
       "id": 1783005470348,
       "name": "ফ্রেশ সোয়াবিন তেল ৫০০মিলি",
-      "category": "তেল ও মশলা",
+      "category": "cat_362",
       "subcategory": "",
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783005149325_331.jpg",
       "description": "",
@@ -235,6 +241,23 @@
       "price": 5
     },
     {
+      "id": 1782996519288,
+      "name": "ট্রিট চকলেট(১পিস)",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782996512350_333.webp",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
       "id": 1782996693824,
       "name": "Hurray ওয়েফার",
       "category": "cat_7999",
@@ -267,23 +290,6 @@
         }
       ],
       "price": 10
-    },
-    {
-      "id": 1782996519288,
-      "name": "ট্রিট চকলেট(১পিস)",
-      "category": "cat_7999",
-      "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782996512350_333.webp",
-      "description": "",
-      "tags": [],
-      "in_stock": true,
-      "variants": [
-        {
-          "unit": "1",
-          "price": 5
-        }
-      ],
-      "price": 5
     },
     {
       "id": 1782996400894,
@@ -1315,7 +1321,7 @@
     {
       "id": 1782804025666,
       "name": "শরিষার তেল",
-      "category": "তেল ও মশলা",
+      "category": "cat_362",
       "subcategory": "",
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782803968409_702.webp",
       "description": "",
@@ -1337,7 +1343,7 @@
     {
       "id": 1782803894065,
       "name": "পামওয়েল (খোলা)",
-      "category": "তেল ও মশলা",
+      "category": "cat_362",
       "subcategory": "",
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782803835903_897.jpg",
       "description": "",
@@ -1359,7 +1365,7 @@
     {
       "id": 1782803694003,
       "name": "সোয়াবিন তেল (খোলা)",
-      "category": "তেল ও মশলা",
+      "category": "cat_362",
       "subcategory": "",
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782803613988_749.webp",
       "description": "",
