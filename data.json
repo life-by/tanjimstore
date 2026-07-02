@@ -112,6 +112,40 @@
   ],
   "products": [
     {
+      "id": 1782994136596,
+      "name": "মিক্সড ফ্রুটস কেক",
+      "category": "বেকারি",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782994125619_511.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 30
+        }
+      ],
+      "price": 30
+    },
+    {
+      "id": 1782994095477,
+      "name": "টেস্টি প্লেইন কেক",
+      "category": "বেকারি",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782994087434_877.png",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
+    },
+    {
       "id": 1782993940716,
       "name": "Bakeman's Horlicks",
       "category": "বেকারি",
