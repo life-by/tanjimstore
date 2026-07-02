@@ -120,7 +120,7 @@
     {
       "id": 1783007329367,
       "name": "মরিচের গুরা(খোলা)",
-      "category": "তেল ও মশলা",
+      "category": "cat_5118",
       "subcategory": "",
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783007300464_222.jpg",
       "description": "",
@@ -156,7 +156,7 @@
     {
       "id": 1783007277487,
       "name": "হলুদের গুরা(খোলা)",
-      "category": "তেল ও মশলা",
+      "category": "cat_362",
       "subcategory": "",
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783007245463_696.jpg",
       "description": "",
@@ -964,7 +964,7 @@
     {
       "id": 1782827645032,
       "name": "Cocola",
-      "category": "cat_1501",
+      "category": "cat_7999",
       "subcategory": "",
       "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782827604338_380.png",
       "description": "",
