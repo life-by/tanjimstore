@@ -112,6 +112,57 @@
   ],
   "products": [
     {
+      "id": 1783005566451,
+      "name": "ফ্রেশ সোয়াবিন তেল (২লিটার)",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783005536287_731.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 398
+        }
+      ],
+      "price": 398
+    },
+    {
+      "id": 1783005516941,
+      "name": "ফ্রেশ সোয়াবিন তেল (১লিটার)",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783005503087_961.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 200
+        }
+      ],
+      "price": 200
+    },
+    {
+      "id": 1783005470348,
+      "name": "ফ্রেশ সোয়াবিন তেল ৫০০মিলি",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783005149325_331.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 102
+        }
+      ],
+      "price": 102
+    },
+    {
       "id": 1782997042229,
       "name": "চকলেট",
       "category": "cat_7999",
