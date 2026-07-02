@@ -112,6 +112,88 @@
   ],
   "products": [
     {
+      "id": 1782989180098,
+      "name": "ফ্রেশ হালিম মিক্স(২০০গ্রাম)",
+      "category": "cat_5118",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782989153959_910.jpg",
+      "description": "",
+      "tags": [
+        "হালিম মিক্স",
+        "হালিম"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 65
+        }
+      ],
+      "price": 65
+    },
+    {
+      "id": 1782989122609,
+      "name": "ফ্রেশ রোস্ট মসল্লা(৩৫গ্রাম)",
+      "category": "cat_5118",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782989037890_175.jpg",
+      "description": "",
+      "tags": [
+        "মসল্লা",
+        "রোস্ট মসল্লা"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 65
+        }
+      ],
+      "price": 65
+    },
+    {
+      "id": 1782988945085,
+      "name": "ফ্রেশ বিরিয়ানি মসল্লা(৪০গ্রাম)",
+      "category": "cat_5118",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782988919224_558.jpg",
+      "description": "",
+      "tags": [
+        "মসল্লা",
+        "ফ্রেশ",
+        "বিরিয়ানি মসল্লা"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 60
+        }
+      ],
+      "price": 60
+    },
+    {
+      "id": 1782988875218,
+      "name": "রাধুনি বিরিয়ানি মসল্লা(৪০গ্রাম)",
+      "category": "cat_5118",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782988806934_348.jpg",
+      "description": "",
+      "tags": [
+        "মসল্লা",
+        "বিরিয়ানির মসল্লা",
+        "মসলা"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 60
+        }
+      ],
+      "price": 60
+    },
+    {
       "id": 1782827857263,
       "name": "Pluto",
       "category": "cat_7999",
