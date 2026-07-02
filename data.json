@@ -112,6 +112,25 @@
   ],
   "products": [
     {
+      "id": 1783007329367,
+      "name": "মরিচের গুরা(খোলা)",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783007300464_222.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "১০০গ্রাম",
+          "price": 55,
+          "offer_price": 50
+        }
+      ],
+      "price": 55,
+      "offer_price": 50
+    },
+    {
       "id": 1783005566451,
       "name": "ফ্রেশ সোয়াবিন তেল (২লিটার)",
       "category": "চাল, ডাল ও আটা",
@@ -127,6 +146,25 @@
         }
       ],
       "price": 398
+    },
+    {
+      "id": 1783007277487,
+      "name": "হলুদের গুরা(খোলা)",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783007245463_696.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "১০০গ্রাম",
+          "price": 35,
+          "offer_price": 30
+        }
+      ],
+      "price": 35,
+      "offer_price": 30
     },
     {
       "id": 1783005516941,
