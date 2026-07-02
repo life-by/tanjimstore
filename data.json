@@ -112,6 +112,23 @@
   ],
   "products": [
     {
+      "id": 1782991582279,
+      "name": "আটা(পেকেট ১কেজি)",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782991562817_682.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 65
+        }
+      ],
+      "price": 65
+    },
+    {
       "id": 1782991113156,
       "name": "টুথব্রাশ",
       "category": "cat_3004",
