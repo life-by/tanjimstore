@@ -112,6 +112,23 @@
   ],
   "products": [
     {
+      "id": 1782996400894,
+      "name": "Bubblb Gum",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782996392820_558.png",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
+    },
+    {
       "id": 1782996259550,
       "name": "কফি",
       "category": "তেল ও মশলা",
