@@ -112,6 +112,23 @@
   ],
   "products": [
     {
+      "id": 1782992732747,
+      "name": "চা-পাতা(১৫ গ্রাম)",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782992715836_457.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 10
+        }
+      ],
+      "price": 10
+    },
+    {
       "id": 1782992586537,
       "name": "চা-পাতা(২৫০ গ্রাম)",
       "category": "তেল ও মশলা",
