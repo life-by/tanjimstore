@@ -112,6 +112,68 @@
   ],
   "products": [
     {
+      "id": 1782989632964,
+      "name": "সিমাই",
+      "category": "বেকারি",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782989612303_210.jpg",
+      "description": "",
+      "tags": [
+        "সিমাই"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 50,
+          "offer_price": 48
+        }
+      ],
+      "price": 50,
+      "offer_price": 48
+    },
+    {
+      "id": 1782989597290,
+      "name": "প্রান লাচ্ছা সিমাই",
+      "category": "বেকারি",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782989537852_865.jpg",
+      "description": "",
+      "tags": [
+        "সিমাই",
+        "লাচ্ছা সিমাই"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 55,
+          "offer_price": 50
+        }
+      ],
+      "price": 55,
+      "offer_price": 50
+    },
+    {
+      "id": 1782989506599,
+      "name": "প্রান নুডুলস",
+      "category": "বেকারি",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782989488945_735.png",
+      "description": "",
+      "tags": [
+        "নুডুলস"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
+    },
+    {
       "id": 1782989180098,
       "name": "ফ্রেশ হালিম মিক্স(২০০গ্রাম)",
       "category": "cat_5118",
