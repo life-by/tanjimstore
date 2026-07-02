@@ -112,6 +112,40 @@
   ],
   "products": [
     {
+      "id": 1782993940716,
+      "name": "Bakeman's Horlicks",
+      "category": "বেকারি",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782993910929_825.webp",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 60
+        }
+      ],
+      "price": 60
+    },
+    {
+      "id": 1782993833153,
+      "name": "Bakeman's Saltice",
+      "category": "বেকারি",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782993818597_770.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 50
+        }
+      ],
+      "price": 50
+    },
+    {
       "id": 1782993373891,
       "name": "Vim লিকুইড + ফ্রী",
       "category": "cat_8784",
