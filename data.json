@@ -112,6 +112,23 @@
   ],
   "products": [
     {
+      "id": 1782993010110,
+      "name": "প্রান গরুর মসল্লা(২৫গ্রাম)",
+      "category": "cat_5118",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782993004072_88.png",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
+    },
+    {
       "id": 1782992732747,
       "name": "চা-পাতা(১৫ গ্রাম)",
       "category": "তেল ও মশলা",
