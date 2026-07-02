@@ -112,6 +112,23 @@
   ],
   "products": [
     {
+      "id": 1782997042229,
+      "name": "চকলেট",
+      "category": "cat_7999",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782997029721_501.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20
+        }
+      ],
+      "price": 20
+    },
+    {
       "id": 1782996870583,
       "name": "Bro Crispy",
       "category": "cat_7999",
