@@ -112,6 +112,57 @@
   ],
   "products": [
     {
+      "id": 1782996259550,
+      "name": "কফি",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782996250151_11.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
+      "id": 1782996229642,
+      "name": "কফি মিক্স",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782996211114_793.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 10
+        }
+      ],
+      "price": 10
+    },
+    {
+      "id": 1782996189096,
+      "name": "Maggi মসল্লা",
+      "category": "cat_5118",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782996148660_228.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 5
+        }
+      ],
+      "price": 5
+    },
+    {
       "id": 1782994298487,
       "name": "নুডলস",
       "category": "স্ন্যাকস",
