@@ -112,21 +112,42 @@
   ],
   "products": [
     {
-      "id": 1782992209233,
-      "name": "সুজি(৫০০গ্রাম)",
-      "category": "চাল, ডাল ও আটা",
+      "id": 1782992586537,
+      "name": "চা-পাতা(২৫০ গ্রাম)",
+      "category": "তেল ও মশলা",
       "subcategory": "",
-      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782992189958_927.jpg",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782992540854_782.webp",
       "description": "",
       "tags": [],
       "in_stock": true,
       "variants": [
         {
           "unit": "1",
-          "price": 48
+          "price": 135,
+          "offer_price": 130
         }
       ],
-      "price": 48
+      "price": 135,
+      "offer_price": 130
+    },
+    {
+      "id": 1782992516243,
+      "name": "চা-পাতা(১২৫ গ্রাম)",
+      "category": "তেল ও মশলা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782992490854_545.webp",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 70,
+          "offer_price": 65
+        }
+      ],
+      "price": 70,
+      "offer_price": 65
     },
     {
       "id": 1782992143756,
@@ -144,6 +165,23 @@
         }
       ],
       "price": 25
+    },
+    {
+      "id": 1782992209233,
+      "name": "সুজি(৫০০গ্রাম)",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782992189958_927.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 48
+        }
+      ],
+      "price": 48
     },
     {
       "id": 1782991582279,
