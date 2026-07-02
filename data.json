@@ -112,6 +112,40 @@
   ],
   "products": [
     {
+      "id": 1782992209233,
+      "name": "সুজি(৫০০গ্রাম)",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782992189958_927.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 48
+        }
+      ],
+      "price": 48
+    },
+    {
+      "id": 1782992143756,
+      "name": "সুজি(২৫০গ্রাম)",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782992116506_118.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 25
+        }
+      ],
+      "price": 25
+    },
+    {
       "id": 1782991582279,
       "name": "আটা(পেকেট ১কেজি)",
       "category": "চাল, ডাল ও আটা",
