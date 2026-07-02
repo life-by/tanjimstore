@@ -112,6 +112,63 @@
   ],
   "products": [
     {
+      "id": 1782991113156,
+      "name": "টুথব্রাশ",
+      "category": "cat_3004",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782991104855_785.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 20,
+          "offer_price": 15
+        }
+      ],
+      "price": 20,
+      "offer_price": 15
+    },
+    {
+      "id": 1782991094154,
+      "name": "Gillette(ব্লেড)",
+      "category": "cat_3004",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782991087403_291.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 30,
+          "offer_price": 28
+        }
+      ],
+      "price": 30,
+      "offer_price": 28
+    },
+    {
+      "id": 1782991070276,
+      "name": "Gillette",
+      "category": "cat_3004",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782991054671_23.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 60,
+          "offer_price": 55
+        }
+      ],
+      "price": 60,
+      "offer_price": 55
+    },
+    {
       "id": 1782990609164,
       "name": "Pepsodent(40g)",
       "category": "cat_3004",
