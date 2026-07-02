@@ -112,6 +112,23 @@
   ],
   "products": [
     {
+      "id": 1782994298487,
+      "name": "নুডলস",
+      "category": "স্ন্যাকস",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782994245901_534.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 10
+        }
+      ],
+      "price": 10
+    },
+    {
       "id": 1782994136596,
       "name": "মিক্সড ফ্রুটস কেক",
       "category": "বেকারি",
