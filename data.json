@@ -112,6 +112,76 @@
   ],
   "products": [
     {
+      "id": 1782990330899,
+      "name": "Tylox(৫০০মি.লি)",
+      "category": "cat_8784",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782990275024_672.webp",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 120
+        }
+      ],
+      "price": 120
+    },
+    {
+      "id": 1782990247602,
+      "name": "হারপিক(৫০০মি.লি)",
+      "category": "cat_8784",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782990172347_778.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 135
+        }
+      ],
+      "price": 135
+    },
+    {
+      "id": 1782990147288,
+      "name": "হারপিক(৭৫০ মি.লি)",
+      "category": "cat_8784",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782990124517_828.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 180
+        }
+      ],
+      "price": 180
+    },
+    {
+      "id": 1782989940851,
+      "name": "নুডুলস ফ্যামিলি প্যাক(৮পিস+ফ্রী আইটেম)",
+      "category": "বেকারি",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782989795326_599.png",
+      "description": "",
+      "tags": [
+        "নুডুলস"
+      ],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 165
+        }
+      ],
+      "price": 165
+    },
+    {
       "id": 1782989632964,
       "name": "সিমাই",
       "category": "বেকারি",
