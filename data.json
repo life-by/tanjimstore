@@ -112,6 +112,57 @@
   ],
   "products": [
     {
+      "id": 1782990609164,
+      "name": "Pepsodent(40g)",
+      "category": "cat_3004",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782990595895_823.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 50
+        }
+      ],
+      "price": 50
+    },
+    {
+      "id": 1782990578417,
+      "name": "Pepsodent(85g)",
+      "category": "cat_3004",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782990574758_403.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 95
+        }
+      ],
+      "price": 95
+    },
+    {
+      "id": 1782990529130,
+      "name": "Pepsodent(190g)",
+      "category": "cat_3004",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1782990496415_198.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 170
+        }
+      ],
+      "price": 170
+    },
+    {
       "id": 1782990330899,
       "name": "Tylox(৫০০মি.লি)",
       "category": "cat_8784",
