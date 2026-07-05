@@ -118,6 +118,74 @@
   ],
   "products": [
     {
+      "id": 1783271363990,
+      "name": "মুসুরির ডাম (দেশি)",
+      "category": "cat_543",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783271350392_543.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1KG",
+          "price": 140
+        }
+      ],
+      "price": 140
+    },
+    {
+      "id": 1783271318684,
+      "name": "মুসুরির ডাল (মোটা)",
+      "category": "cat_543",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783271303942_681.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1KG",
+          "price": 100
+        }
+      ],
+      "price": 100
+    },
+    {
+      "id": 1783271273357,
+      "name": "বুটের ডাল",
+      "category": "cat_543",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783271258317_436.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 100
+        }
+      ],
+      "price": 100
+    },
+    {
+      "id": 1783271242049,
+      "name": "ছোলার ডাল",
+      "category": "cat_543",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783271223826_62.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 90
+        }
+      ],
+      "price": 90
+    },
+    {
       "id": 1783270793220,
       "name": "মিনিকেট চাল",
       "category": "চাল, ডাল ও আটা",
