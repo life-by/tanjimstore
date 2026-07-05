@@ -118,6 +118,63 @@
   ],
   "products": [
     {
+      "id": 1783270793220,
+      "name": "মিনিকেট চাল",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783270779868_70.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1",
+          "price": 68,
+          "offer_price": 65
+        }
+      ],
+      "price": 68,
+      "offer_price": 65
+    },
+    {
+      "id": 1783270700352,
+      "name": "আতপ চাল",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783270667185_581.webp",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1KG",
+          "price": 62,
+          "offer_price": 60
+        }
+      ],
+      "price": 62,
+      "offer_price": 60
+    },
+    {
+      "id": 1783270650243,
+      "name": "গুটি স্বর্ণা চাল",
+      "category": "চাল, ডাল ও আটা",
+      "subcategory": "",
+      "image": "https://raw.githubusercontent.com/life-by/tanjimstore/main/images/img_1783270624762_273.jpg",
+      "description": "",
+      "tags": [],
+      "in_stock": true,
+      "variants": [
+        {
+          "unit": "1KG",
+          "price": 55,
+          "offer_price": 52
+        }
+      ],
+      "price": 55,
+      "offer_price": 52
+    },
+    {
       "id": 1783007329367,
       "name": "মরিচের গুরা(খোলা)",
       "category": "cat_5118",
